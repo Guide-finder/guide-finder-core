@@ -23,8 +23,6 @@ public abstract class AbstractUser {
 
     private Set<Role> roles;
 
-    private Set<Language> languages;
-
     public AbstractUser(String firstName, String lastName, String password, String phone,
         String email) {
         this.firstName = firstName;
@@ -96,14 +94,6 @@ public abstract class AbstractUser {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public Set<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Set<Language> languages) {
-        this.languages = languages;
     }
 
     public Set<Role> getRoles() {

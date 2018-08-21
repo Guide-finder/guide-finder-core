@@ -2,19 +2,19 @@ package com.guide_finder.model.user;
 
 public class Stuff extends AbstractUser {
 
-    private Role role;
+    private double salary;
 
-    public Stuff(int id, String firstName, String lastName, String password, String phone,
-        String email, String sex, int age, Language language) {
-        super(id, firstName, lastName, password, phone, email, sex, age, language);
+    public Stuff(String firstName, String lastName, String password, String phone, String email,
+        double salary) {
+        super(firstName, lastName, password, phone, email);
+        this.salary = salary;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public double getSalary() {
+        return salary;
     }
 
-    public Role getRole() {
-        return role;
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
-
 }
