@@ -1,4 +1,4 @@
-package model.contact;
+package com.guide_finder.model.contact;
 
 public enum SocialContactType {
 

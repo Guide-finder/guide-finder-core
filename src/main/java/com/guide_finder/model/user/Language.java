@@ -1,4 +1,4 @@
-package model.user;
+package com.guide_finder.model.user;
 
 public enum Language {
 
