@@ -1,75 +1,31 @@
 package com.guide_finder.model.user;
 
-import com.guide_finder.model.*;
-import com.guide_finder.model.enumiration.Sex;
-import com.guide_finder.model.user.User;
-
-import java.util.List;
 import java.util.Set;
 
+import com.guide_finder.model.category.Category;
+import com.guide_finder.model.contact.SocialContact;
+import com.guide_finder.model.location.City;
 
-public class Guide extends User {
+public class Guide extends AbstractUser {
 
-    private long id;
-
-    private boolean isActive;
-
-    private String description;
-
-    private int likeCount;
-
-    private SocialSummary socialSummary;
+    private City city;
 
     private Set<Language> languages;
 
-    private List<Comment> comments;
-
     private Set<Category> categories;
 
-    public Guide(String login, String firstName, String lastName, String password, int age, Sex sex, String phone, String email) {
-        super(login, firstName, lastName, password, age, sex, phone, email);
+    private Set<SocialContact> socialContacts;
+
+    public Guide(String firstName, String lastName, String password, String phone, String email) {
+        super(firstName, lastName, password, phone, email);
     }
 
-    @Override
-    public long getId() {
-        return id;
+    public City getCity() {
+        return city;
     }
 
-    @Override
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public SocialSummary getSocialSummary() {
-        return socialSummary;
-    }
-
-    public void setSocialSummary(SocialSummary socialSummary) {
-        this.socialSummary = socialSummary;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Set<Language> getLanguages() {
@@ -80,19 +36,19 @@ public class Guide extends User {
         this.languages = languages;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
     public Set<Category> getCategories() {
         return categories;
     }
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<SocialContact> getSocialContacts() {
+        return socialContacts;
+    }
+
+    public void setSocialContacts(Set<SocialContact> socialContacts) {
+        this.socialContacts = socialContacts;
     }
 }

@@ -1,24 +1,18 @@
-package com.guide_finder.model;
-
-import com.guide_finder.model.user.Guide;
+package com.guide_finder.model.category;
 
 import java.util.Set;
 
+import com.guide_finder.model.user.Guide;
 
 public class Category {
+     private long id;
+     private String name;
+     private String description;
+     private Set<Guide> guides;
 
-    private long id;
-
-    private String name;
-
-    private String description;
-
-    private Set<Guide> guides;
-
-    public Category(String name, String description, Set<Guide> guides) {
+    public Category(String name, String description) {
         this.name = name;
         this.description = description;
-        this.guides = guides;
     }
 
     public long getId() {

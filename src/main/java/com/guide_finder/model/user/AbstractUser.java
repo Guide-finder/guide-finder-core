@@ -1,13 +1,11 @@
 package com.guide_finder.model.user;
 
-import com.guide_finder.model.enumiration.Sex;
 
+import java.util.Set;
 
-public class User {
+public abstract class AbstractUser {
 
     private long id;
-
-    private String login;
 
     private String firstName;
 
@@ -15,21 +13,21 @@ public class User {
 
     private String password;
 
-    private int age;
-
-    private Sex sex;
-
     private String phone;
 
     private String email;
 
-    public User(String login, String firstName, String lastName, String password, int age, Sex sex, String phone, String email) {
-        this.login = login;
+    private Sex sex;
+
+    private int age;
+
+    private Set<Role> roles;
+
+    public AbstractUser(String firstName, String lastName, String password, String phone,
+        String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.age = age;
-        this.sex = sex;
         this.phone = phone;
         this.email = email;
     }
@@ -40,14 +38,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getFirstName() {
@@ -74,22 +64,6 @@ public class User {
         this.password = password;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -104,5 +78,29 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
