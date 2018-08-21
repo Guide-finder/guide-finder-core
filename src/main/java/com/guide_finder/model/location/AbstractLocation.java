@@ -6,7 +6,6 @@ public abstract class AbstractLocation {
 
     private String name;
 
-
     protected AbstractLocation(String name) {
         this.name = name;
     }

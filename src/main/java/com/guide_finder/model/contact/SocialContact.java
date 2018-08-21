@@ -1,29 +1,70 @@
 package com.guide_finder.model.contact;
 
+import java.util.Objects;
+
 public class SocialContact {
 
-    private String link;
+    private String vk;
 
-    private SocialContact type;
+    private String ok;
 
-    public SocialContact(String link, SocialContact type) {
-        this.link = link;
-        this.type = type;
+    private String fb;
+
+    private String tg;
+
+    public SocialContact(String vk, String ok, String fb, String tg) {
+        this.vk = vk;
+        this.ok = ok;
+        this.fb = fb;
+        this.tg = tg;
     }
 
-    public String getLink() {
-        return link;
+    public String getVk() {
+        return vk;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setVk(String vk) {
+        this.vk = vk;
     }
 
-    public SocialContact getType() {
-        return type;
+    public String getOk() {
+        return ok;
     }
 
-    public void setType(SocialContact type) {
-        this.type = type;
+    public void setOk(String ok) {
+        this.ok = ok;
+    }
+
+    public String getFb() {
+        return fb;
+    }
+
+    public void setFb(String fb) {
+        this.fb = fb;
+    }
+
+    public String getTg() {
+        return tg;
+    }
+
+    public void setTg(String tg) {
+        this.tg = tg;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SocialContact that = (SocialContact) o;
+        return Objects.equals(vk, that.vk) &&
+                Objects.equals(ok, that.ok) &&
+                Objects.equals(fb, that.fb) &&
+                Objects.equals(tg, that.tg);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(vk, ok, fb, tg);
     }
 }

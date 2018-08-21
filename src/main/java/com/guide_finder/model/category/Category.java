@@ -1,5 +1,6 @@
 package com.guide_finder.model.category;
 
+import java.util.Objects;
 import java.util.Set;
 
 import com.guide_finder.model.user.Guide;
@@ -45,5 +46,21 @@ public class Category {
 
     public void setGuides(Set<Guide> guides) {
         this.guides = guides;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return id == category.id &&
+                Objects.equals(name, category.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }

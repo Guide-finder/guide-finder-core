@@ -1,5 +1,7 @@
 package com.guide_finder.model.user;
 
+import java.util.Objects;
+
 public class Stuff extends AbstractUser {
 
     private double salary;
@@ -16,5 +18,21 @@ public class Stuff extends AbstractUser {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Stuff stuff = (Stuff) o;
+        return Double.compare(stuff.salary, salary) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), salary);
     }
 }

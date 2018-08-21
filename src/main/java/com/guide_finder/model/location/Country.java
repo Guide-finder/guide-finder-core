@@ -2,21 +2,38 @@ package com.guide_finder.model.location;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Country extends AbstractLocation {
 
-    private List<Region> regions;
+    private Region region;
 
-    public Country(String name, List<Region> regions) {
+    public Country(String name, Region region) {
         super(name);
-        this.regions = regions;
+        this.region = region;
     }
 
-    public List<Region> getRegions() {
-        return regions;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setRegions(List<Region> regions) {
-        this.regions = regions;
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country = (Country) o;
+        return Objects.equals(region, country.region);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(region);
     }
 }
