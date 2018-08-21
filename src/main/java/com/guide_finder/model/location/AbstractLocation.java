@@ -2,12 +2,24 @@ package com.guide_finder.model.location;
 
 public abstract class AbstractLocation {
 
-    private final long id;
+    private long id;
 
-    private final String name;
+    private String name;
 
-    protected AbstractLocation() {
-        id = 0;
-        name = null;
+
+    protected AbstractLocation(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 }
