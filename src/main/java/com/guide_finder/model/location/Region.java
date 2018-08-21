@@ -9,6 +9,7 @@ public class Region extends AbstractLocation {
     private final List<City> cities;
 
     public Region() {
+        super("null");
         country = null;
         cities = null;
     }
