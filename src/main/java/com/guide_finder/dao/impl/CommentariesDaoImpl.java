@@ -10,7 +10,7 @@ import java.util.List;
 public class CommentariesDaoImpl extends AbstractDao {
     private Connection connection;
 
-    public CommentariesDaoImpl(DBHelper dbHelper) throws ClassNotFoundException,
+    public CommentariesDaoImpl() throws ClassNotFoundException,
             SQLException, InstantiationException, IllegalAccessException {
         this.connection = DBHelper.getConnection();
     }
@@ -19,6 +19,7 @@ public class CommentariesDaoImpl extends AbstractDao {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM commentary WHERE id='" + id + "'");
         ResultSet result = stmt.getResultSet();
+        result.next();
             return new Commentary(
                     result.getLong(2),
                     result.getLong(3),
@@ -31,6 +32,7 @@ public class CommentariesDaoImpl extends AbstractDao {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM commentary WHERE author_id='" + authorId + "'");
         ResultSet result = stmt.getResultSet();
+        result.next();
         return new Commentary(
                 result.getLong(2),
                 result.getLong(3),
@@ -43,6 +45,7 @@ public class CommentariesDaoImpl extends AbstractDao {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM commentary WHERE recipient_id='" + recipientId + "'");
         ResultSet result = stmt.getResultSet();
+        result.next();
         return new Commentary(
                 result.getLong(2),
                 result.getLong(3),
@@ -53,19 +56,31 @@ public class CommentariesDaoImpl extends AbstractDao {
 
 
     public void saveCommentary(Commentary commentary) throws SQLException {
+        byte i;
+        if(commentary.isRate()){
+            i=1;
+        }else{
+            i=0;
+        }
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO commentary (author_id, recipient_id, rate, message) VALUES ('"
                 + commentary.getAuthorId() + "', '"
                 + commentary.getRecipientId() + "', '"
-                + commentary.isRate() + "', '"
+                + i + "', '"
                 + commentary.getMessage() + "')");
     }
 
 
     public void editCommentary(long id) throws SQLException {
+        int i;
+        if(getCommentaryById(id).isRate()){
+            i = 1;
+        } else {
+            i = 0;
+        }
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(
-                "UPDATE commentary SET rate='" + getCommentaryById(id).isRate()
+                "UPDATE commentary SET rate='" + i
                         + "', message='" + getCommentaryById(id).getMessage()
                         + "' WHERE id='" + id + "'");
     }
@@ -73,13 +88,14 @@ public class CommentariesDaoImpl extends AbstractDao {
 
     public void delete(long id) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM comments WHERE id='" + id + "'");
+        stmt.executeUpdate("DELETE FROM commentary WHERE id='" + id + "'");
     }
 
     public List<Commentary> getAllCommentaries() throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("SELECT * FROM users;");
+        stmt.execute("SELECT * FROM commentary;");
         ResultSet result = stmt.getResultSet();
+        result.next();
         List<Commentary> comList = new ArrayList<>();
         comList.add(new Commentary(result.getLong(2),
                                     result.getLong(3),
