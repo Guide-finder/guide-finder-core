@@ -9,6 +9,14 @@ public class Country extends AbstractLocation {
 
     public Country(String name, List<Region> regions) {
         super(name);
-        this.regions = new LinkedList<>(regions);
+        this.regions = regions;
+    }
+
+    public List<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<Region> regions) {
+        this.regions = regions;
     }
 }
