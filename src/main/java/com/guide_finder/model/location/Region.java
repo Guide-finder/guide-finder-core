@@ -6,11 +6,12 @@ public class Region extends AbstractLocation {
 
     private final Country country;
 
-    private final List<City> cities;
+    private List<City> cities;
 
-    public Region() {
-        country = null;
-        cities = null;
+    public Region(String name ,Country country, List<City> cities) {
+        super(name);
+        this.country = country;
+        this.cities = cities;
     }
 
     public Country getCountry() {
