@@ -4,16 +4,16 @@ import java.util.Objects;
 
 public class Language {
 
-    private int id;
+    private long id;
 
     private String name;
 
-    public Language(int id, String name) {
+    public Language(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
