@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>guideFinder</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            padding: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- Наша шапка -->
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Guide finder</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Обычная кнопка -->
+<input type="submit" class="btn btn-primary" value="КНОПКА">
+<input type="submit" class="btn btn-primary" value="КНОПКА">
+<input type="submit" class="btn btn-primary" value="КНОПКА">
+
+<br><br><br>
+
+<!-- Группа кнопок -->
+<div class="btn-group">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+</div>
+
+<br><br><br>
+
+<!-- Группа кнопок вертикально -->
+<div class="btn-group-vertical">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+</div>
+
+<br><br><br>
+
+<!-- Таблица -->
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thread>
+            <tr class="active">
+                <th>id</th>
+                <th>First name</th>
+                <th>Second name</th>
+                <th>Password</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr>
+            <td>string 1</td>
+            <td>string 2</td>
+            <td>string 3</td>
+            <td>string 4</td>
+            <td>string 5</td>
+            <td>string 6</td>
+        </tr>
+        <tr>
+            <td>string 1</td>
+            <td>string 2</td>
+            <td>string 3</td>
+            <td>string 4</td>
+            <td>string 5</td>
+            <td>string 6</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<br><br><br>
+<!-- Форма с кнопкой и чекбоксом -->
+<div class="container">
+    <form role="form" class="form-inline">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Input email">
+            <!--<p class="help-block">Help info</p>-->
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Input password">
+        </div>
+        <div class="checkbox">
+            <label for="password">
+                <input type="checkbox">CHECKBOX
+            </label>
+        </div>
+        <button type="button" class="btn btn-success">Registrate</button>
+    </form>
+</div>
+
+
+<!-- Разбиение колонок -->
+<div class="container">
+    <h1>Tables</h1>
+    <div class="row">
+        <div class="col-md-4" style="background-color: #ff9999">Left</div>
+        <div class="col-md-4" style="background-color: #99CCFF">Middle</div>
+        <div class="col-md-4" style="background-color: #00CC99">Right</div>
+    </div>
+</div>
+
+</body>
+</html>

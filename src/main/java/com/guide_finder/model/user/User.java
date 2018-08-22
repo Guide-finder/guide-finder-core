@@ -20,7 +20,7 @@ public class User {
 
     private String email;
 
-    private Sex sex;
+    private int sex;
 
     private int age;
 
@@ -88,11 +88,11 @@ public class User {
         this.email = email;
     }
 
-    public Sex getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(Sex sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
