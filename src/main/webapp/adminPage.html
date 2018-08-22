@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>guideFinder</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <style>
+        body {
+            padding: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Наша шапка -->
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Guide finder</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container"><h1>Admin page</h1>
+    <br><br><br><br>
+</div>
+
+
+<div class="container" align="center">
+    <div class="container">
+        <form role="form" class="form-inline">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Input email">
+                <!--<p class="help-block">Help info</p>-->
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Input password">
+            </div>
+            <button type="button" class="btn btn-success">Save user</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-md-2">
+            <br><br>
+            <input type="submit" class="btn btn-primary btn-block" value="Guides">
+            <br>
+            <input type="submit" class="btn btn-primary btn-block" value="Stuff">
+        </div>
+
+
+        <div class="col-md-10">
+            <br><br>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thread>
+                        <tr class="active">
+                            <th>id</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Password</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Options</th>
+                        </tr>
+                    </thread>
+                    <tbody>
+                    <c:forEach items="${guides}" var="guide">
+                        <tr>
+                            <td>${guide.id}</td>
+                            <td>${guide.firstname}</td>
+                            <td>${guide.lastname}</td>
+                            <td>${guide.password}</td>
+                            <td>${guide.phone}</td>
+                            <td>${guide.email}</td>
+                            <td align="center">
+                                <div class="btn-group">
+                                    <input type="submit" class="btn btn-primary" value="Edit">
+                                    <input type="submit" class="btn btn-primary" value="Add">
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
