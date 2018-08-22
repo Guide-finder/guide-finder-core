@@ -17,7 +17,7 @@ public interface UserDao {
 
     long getIdByEmail(String email);
 
-    void editUser(User user);
+    void editUser(long id, String password, String email, String firstname, String lastname, String phone, int age, String sex);
 
     void deleteUser(long id);
 

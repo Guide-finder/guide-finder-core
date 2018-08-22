@@ -146,15 +146,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(User user) {
-        try(Statement stmt = connection.createStatement()){
-            String sql = String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s', phone='%s', age='%s', sex='%s' WHERE id='%s",
-                    user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId());
-            stmt.execute(sql);
-        }catch (SQLException e){
-            System.out.println(e);
+    public void editUser(long id, String password, String email, String firstname, String lastname, String phone, int age, String sex) {
+        try (Statement statement = connection.createStatement()) {
+            String query = String.format("update user set password='%s', email='%s', firstname='%s', lastname='%s', phone='%s', age='%s', sex='%s' where id='%s'", password, email, firstname, lastname, phone, age, sex, id);
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
     }
 
     @Override
