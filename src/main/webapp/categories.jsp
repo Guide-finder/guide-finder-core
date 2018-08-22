@@ -71,7 +71,14 @@
 <script>
     $(document).ready(function () {
         $("#myBtn").click(function () {
-            $("#myModal").modal();
+            $.get("/rest", function(data){   //аякс отправит гет запрос на адрес /someservlet
+                for(var key in data){               //цикл, который проходится по массиву data
+                                                    //добавиьть отображение size
+
+                    $('#data_list').append('<li>id: ' + data[key]['id'] + '; name: ' + data[key]['name'] + '</li>');   //добавляем в список новые элементы
+
+                }
+            });
         });
     });
 </script>
