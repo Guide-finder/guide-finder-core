@@ -24,7 +24,7 @@ public class CategoryDaoImpl implements CategoryDao {
         try (Statement stmt = connection.createStatement()) {
 
             List<Category> categories = new ArrayList<>();
-            String sql = "select category, description from guide_finder.category";
+            String sql = "select name, description from guide_finder.category";
             stmt.execute(sql);
 
             try (ResultSet result = stmt.getResultSet()) {

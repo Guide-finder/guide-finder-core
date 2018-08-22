@@ -2,7 +2,7 @@ create table category
 (
 	id bigint auto_increment
 		primary key,
-	category varchar(255) not null,
+	name varchar(255) not null,
 	description varchar(255) null
 )
 ;
