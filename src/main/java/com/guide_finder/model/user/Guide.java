@@ -7,7 +7,7 @@ import com.guide_finder.model.category.Category;
 import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.location.City;
 
-public class Guide extends AbstractUser {
+public class Guide{
 
     private String description;
 
@@ -19,9 +19,9 @@ public class Guide extends AbstractUser {
 
     private Set<SocialContact> socialContacts;
 
-    public Guide(String firstName, String lastName, String password, String phone, String email) {
-        super(firstName, lastName, password, phone, email);
-    }
+//    public Guide(String firstName, String lastName, String password, String phone, String email) {
+//        super(firstName, lastName, password, phone, email);
+//    }
 
     public City getCity() {
         return city;

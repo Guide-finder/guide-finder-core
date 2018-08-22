@@ -41,7 +41,8 @@ public class Role {
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, name);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }
