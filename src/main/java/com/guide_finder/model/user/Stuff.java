@@ -2,15 +2,15 @@ package com.guide_finder.model.user;
 
 import java.util.Objects;
 
-public class Stuff extends AbstractUser {
+public class Stuff {
 
     private double salary;
 
-    public Stuff(String firstName, String lastName, String password, String phone, String email,
-        double salary) {
-        super(firstName, lastName, password, phone, email);
-        this.salary = salary;
-    }
+//    public Stuff(String firstName, String lastName, String password, String phone, String email,
+//        double salary) {
+//        super(firstName, lastName, password, phone, email);
+//        this.salary = salary;
+//    }
 
     public double getSalary() {
         return salary;
