@@ -12,10 +12,12 @@ public class Commentary {
 
     private String message;
 
-    public Commentary(long authorId, long recipientId, String message) {
+    public Commentary(long authorId, long recipientId, String message, boolean rate) {
         this.authorId = authorId;
         this.recipientId = recipientId;
+        this.rate = rate;
         this.message = message;
+
     }
 
     public long getAuthorId() {
@@ -30,9 +32,7 @@ public class Commentary {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public boolean isRate() { return rate; }
 
     @Override
     public boolean equals(Object o) {
