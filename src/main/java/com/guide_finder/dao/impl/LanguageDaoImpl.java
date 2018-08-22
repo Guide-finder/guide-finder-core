@@ -20,22 +20,28 @@ public class LanguageDaoImpl implements LanguageDao {
     @Override
     public Language getLanguageById(long id) {
         return executor.execQuery("SELECT * FROM language WHERE id='" + id + "'", result -> {
-            result.next();
-            return  new Language(
-                    result.getLong(1),
-                    result.getString(2)
-            );
+            if (result.next()) {
+                return  new Language(
+                        result.getLong(1),
+                        result.getString(2)
+                );
+            } else {
+                return null;
+            }
         });
     }
 
     @Override
     public Language getLanguageByName(String name) {
         return executor.execQuery("SELECT * FROM language WHERE name='" + name + "'", result -> {
-            result.next();
-            return  new Language(
-                    result.getLong(1),
-                    result.getString(2)
-            );
+            if (result.next()) {
+                return  new Language(
+                        result.getLong(1),
+                        result.getString(2)
+                );
+            } else {
+                return null;
+            }
         });
     }
 
