@@ -17,22 +17,26 @@ public class CommentariesDaoImpl extends AbstractDao {
 
     public Commentary getCommentaryById(long id) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("SELECT * FROM commentary WHERE id='" + id + "'");
-        ResultSet result = stmt.getResultSet();
-        result.next();
+            stmt.execute("SELECT * FROM commentary WHERE id='" + id + "'");
+            ResultSet result = stmt.getResultSet();
+            result.next();
+            stmt.close();
+            result.close();
             return new Commentary(
                     result.getLong(2),
                     result.getLong(3),
                     result.getString(4),
                     result.getBoolean(5)
                     );
-        }
+    }
 
     public Commentary getCommentaryByAuthorId(long authorId) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute("SELECT * FROM commentary WHERE author_id='" + authorId + "'");
         ResultSet result = stmt.getResultSet();
         result.next();
+        stmt.close();
+        result.close();
         return new Commentary(
                 result.getLong(2),
                 result.getLong(3),
@@ -46,6 +50,8 @@ public class CommentariesDaoImpl extends AbstractDao {
         stmt.execute("SELECT * FROM commentary WHERE recipient_id='" + recipientId + "'");
         ResultSet result = stmt.getResultSet();
         result.next();
+        stmt.close();
+        result.close();
         return new Commentary(
                 result.getLong(2),
                 result.getLong(3),
@@ -68,6 +74,7 @@ public class CommentariesDaoImpl extends AbstractDao {
                 + commentary.getRecipientId() + "', '"
                 + i + "', '"
                 + commentary.getMessage() + "')");
+        stmt.close();
     }
 
 
@@ -83,6 +90,7 @@ public class CommentariesDaoImpl extends AbstractDao {
                 "UPDATE commentary SET rate='" + i
                         + "', message='" + getCommentaryById(id).getMessage()
                         + "' WHERE id='" + id + "'");
+        stmt.close();
     }
 
 
@@ -101,6 +109,8 @@ public class CommentariesDaoImpl extends AbstractDao {
                                     result.getLong(3),
                                     result.getString(4),
                                     result.getBoolean(5)));
+        stmt.close();
+        result.close();
         return comList;
     }
 }
