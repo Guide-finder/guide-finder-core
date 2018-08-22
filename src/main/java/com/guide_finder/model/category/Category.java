@@ -4,12 +4,14 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.guide_finder.model.user.Guide;
+import com.guide_finder.util.TableAnnotation;
 
+@TableAnnotation(name = "category")
 public class Category {
-     private long id;
-     private String name;
-     private String description;
-     private Set<Guide> guides;
+    private long id;
+    private String name;
+    private String description;
+    private Set<Guide> guides;
 
     public Category(String name, String description) {
         this.name = name;
