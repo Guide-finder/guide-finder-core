@@ -1,10 +1,12 @@
 package com.guide_finder.model.user;
 
 
+import com.guide_finder.dao.abstraction.UserDao;
+
 import java.util.Objects;
 import java.util.Set;
 
-public abstract class AbstractUser {
+public class User {
 
     private long id;
 
@@ -24,14 +26,19 @@ public abstract class AbstractUser {
 
     private Set<Role> roles;
 
-    public AbstractUser(String firstName, String lastName, String password, String phone,
-        String email) {
+    public User(long id, String firstName, String lastName, String email, String password, String phone,
+                int age, Sex sex, Set<Role> roles){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.sex = sex;
+        this.age = age;
+        this.roles = roles;
     }
+
 
     public long getId() {
         return id;
@@ -109,7 +116,7 @@ public abstract class AbstractUser {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractUser that = (AbstractUser) o;
+        User that = (User) o;
         return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
@@ -120,7 +127,6 @@ public abstract class AbstractUser {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, firstName, lastName, password, phone, email);
     }
 }
