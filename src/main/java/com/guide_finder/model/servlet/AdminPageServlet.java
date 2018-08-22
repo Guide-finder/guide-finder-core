@@ -1,4 +1,4 @@
-package com.guide_finder.model.servlets;
+package com.guide_finder.model.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
