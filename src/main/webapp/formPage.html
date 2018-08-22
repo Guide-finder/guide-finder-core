@@ -39,26 +39,88 @@
 
 <!-- Обычная кнопка -->
 <input type="submit" class="btn btn-primary" value="КНОПКА">
+<input type="submit" class="btn btn-primary" value="КНОПКА">
+<input type="submit" class="btn btn-primary" value="КНОПКА">
 
+<br><br><br>
 
 <!-- Группа кнопок -->
-<div class="btn-group btn-group">
-    <label class="btn btn-primary">
-        <input type="radio">f1
-    </label>
-    <label class="btn btn-primary">
-        <input type="radio">f1
-    </label>
-    <label class="btn btn-primary">
-        <input type="radio">f1
-    </label>
+<div class="btn-group">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+</div>
+
+<br><br><br>
+
+<!-- Группа кнопок вертикально -->
+<div class="btn-group-vertical">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+    <input type="submit" class="btn btn-primary" value="КНОПКА">
+</div>
+
+<br><br><br>
+
+<!-- Таблица -->
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thread>
+            <tr class="active">
+                <th>id</th>
+                <th>First name</th>
+                <th>Second name</th>
+                <th>Password</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr>
+            <td>string 1</td>
+            <td>string 2</td>
+            <td>string 3</td>
+            <td>string 4</td>
+            <td>string 5</td>
+            <td>string 6</td>
+        </tr>
+        <tr>
+            <td>string 1</td>
+            <td>string 2</td>
+            <td>string 3</td>
+            <td>string 4</td>
+            <td>string 5</td>
+            <td>string 6</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 
+<br><br><br>
+<!-- Форма с кнопкой и чекбоксом -->
+<div class="container">
+    <form role="form" class="form-inline">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Input email">
+            <!--<p class="help-block">Help info</p>-->
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Input password">
+        </div>
+        <div class="checkbox">
+            <label for="password">
+                <input type="checkbox">CHECKBOX
+            </label>
+        </div>
+        <button type="button" class="btn btn-success">Registrate</button>
+    </form>
+</div>
 
 
-
-
+<!-- Разбиение колонок -->
 <div class="container">
     <h1>Tables</h1>
     <div class="row">
