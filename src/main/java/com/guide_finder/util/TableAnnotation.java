@@ -8,7 +8,7 @@ import static java.lang.annotation.ElementType.TYPE;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
+@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE})
 public @interface TableAnnotation {
 
     String name();
