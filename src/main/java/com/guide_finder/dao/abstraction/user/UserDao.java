@@ -2,6 +2,7 @@ package com.guide_finder.dao.abstraction.user;
 
 import com.guide_finder.model.user.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public interface UserDao {
@@ -16,7 +17,7 @@ public interface UserDao {
 
     long getIdByEmail(String email);
 
-    void editUser(long id, String password, String email, String firstname, String lastname, String phone, int age, String sex);
+    void editUser(User user);
 
     void deleteUser(long id);
 
