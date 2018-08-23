@@ -2,6 +2,7 @@ package com.guide_finder.dao.impl.user;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.executor.Executor;
+import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
 
@@ -43,7 +44,20 @@ public class UserDaoImpl implements UserDao {
                     result.getString(6),                //phone
                     result.getInt(7),                   //age
                     Sex.valueOf(result.getString(8)),   //sex
-                    null                                      //role
+                    new HashSet<>(
+                            executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", userId),
+                                    result_role ->{
+                                        Set<Role> roles = new HashSet<>();
+                                        while(result_role.next()){
+                                            roles.add(
+                                                    new Role(
+                                                            result_role.getLong(1),
+                                                            result_role.getString(2)
+                                                    )
+                                            );
+                                        }
+                                        return roles;
+                                    }))                             // role
             );
 
         });
@@ -62,7 +76,20 @@ public class UserDaoImpl implements UserDao {
                     result.getString(6),                //phone
                     result.getInt(7),                   //age
                     Sex.valueOf(result.getString(8)),   //sex
-                    null                                      //role
+                    new HashSet<>(
+                            executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE email = '%s'))", email),
+                                    result_role ->{
+                                        Set<Role> roles = new HashSet<>();
+                                        while(result_role.next()){
+                                            roles.add(
+                                                    new Role(
+                                                            result_role.getLong(1),
+                                                            result_role.getString(2)
+                                                    )
+                                            );
+                                        }
+                                return roles;
+                            }))                                     // role
             );
         });
     }
@@ -94,14 +121,27 @@ public class UserDaoImpl implements UserDao {
                 urList.add(
                         new User(
                                 result.getLong(1),                                //id
-                                result.getString(2),                              //name
-                                result.getString(3),                              //lastname
+                                result.getString(2),                              //firstName
+                                result.getString(3),                              //lastName
                                 result.getString(4),                              //email
                                 result.getString(5),                              //password
                                 result.getString(6),                              //phone
                                 result.getInt(7),                                 //age
                                 Sex.valueOf(result.getString(8).toUpperCase()),   //sex
-                                null
+                                new HashSet<>(
+                                        executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
+                                                result_role ->{
+                                                    Set<Role> roles = new HashSet<>();
+                                                    while(result_role.next()){
+                                                        roles.add(
+                                                                new Role(
+                                                                        result_role.getLong(1),
+                                                                        result_role.getString(2)
+                                                                )
+                                                        );
+                                                    }
+                                                    return roles;
+                                                }))                                            // role
                         ));
             }
             return urList;
