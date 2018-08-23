@@ -1,11 +1,13 @@
-package com.guide_finder.dao.abstraction.user;
+package com.guide_finder.service.abstraction.user;
 
-import com.guide_finder.model.user.*;
+import com.guide_finder.model.user.Role;
+import com.guide_finder.model.user.Sex;
+import com.guide_finder.model.user.User;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
+import java.util.Set;
 
-public interface UserDao {
+public interface UserService {
 
     void saveUser(User user);
 
