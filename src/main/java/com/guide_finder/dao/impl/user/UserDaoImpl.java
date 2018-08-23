@@ -23,7 +23,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        executor.execUpdate(String.format("insert into user (password, email, firstname, lastname, phone, age, sex) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhone(), user.getAge(), user.getSex()));
+        executor.execUpdate(String.format(
+                "insert into user (password, email, firstname, lastname, phone, age, sex) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getPhone(), user.getAge(), user.getSex())
+        );
     }
 
     @Override
@@ -44,6 +47,9 @@ public class UserDaoImpl implements UserDao {
                     result.getString(6),                //phone
                     result.getInt(7),                   //age
                     Sex.valueOf(result.getString(8)),   //sex
+
+                    //todo refactor into role dao
+
                     new HashSet<>(
                             executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", userId),
                                     result_role ->{
@@ -105,7 +111,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void editUser(User user) {
         executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s', phone='%s', age='%s', sex='%s' WHERE id='%s'",
-                    user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId()));
+                    user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getPhone(), user.getAge(), user.getSex(), user.getId()));
     }
 
     @Override
