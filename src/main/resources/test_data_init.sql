@@ -30,11 +30,11 @@ INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (2,6,'ver
 /*
 language
  */
-INSERT INTO language (language) VALUES ('eng');
-INSERT INTO language (language) VALUES ('rus');
-INSERT INTO language (language) VALUES ('fr');
-INSERT INTO language (language) VALUES ('esp');
-INSERT INTO language (language) VALUES ('ukr');
+INSERT INTO language (name) VALUES ('eng');
+INSERT INTO language (name) VALUES ('rus');
+INSERT INTO language (name) VALUES ('fr');
+INSERT INTO language (name) VALUES ('esp');
+INSERT INTO language (name) VALUES ('ukr');
 
 /*
 socials
