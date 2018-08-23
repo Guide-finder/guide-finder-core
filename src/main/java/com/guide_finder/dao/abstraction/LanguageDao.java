@@ -1,7 +1,6 @@
 package com.guide_finder.dao.abstraction;
 
 import com.guide_finder.model.user.Language;
-import javafx.util.Pair;
 
 import java.util.List;
 
