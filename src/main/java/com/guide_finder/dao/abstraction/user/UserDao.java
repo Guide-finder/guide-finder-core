@@ -1,13 +1,12 @@
-package com.guide_finder.dao.abstraction;
+package com.guide_finder.dao.abstraction.user;
 
 import com.guide_finder.model.user.*;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserDao {
 
-    public void saveUser(String password, String email, String firstname, String lastname, String phone, int age, String sex);
+    void saveUser(User user);
 
     void saveDefaultRole(long id);
 

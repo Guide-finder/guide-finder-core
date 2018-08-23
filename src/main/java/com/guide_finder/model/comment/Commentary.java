@@ -1,7 +1,10 @@
 package com.guide_finder.model.comment;
 
+import com.guide_finder.util.TableAnnotation;
+
 import java.util.Objects;
 
+@TableAnnotation(name = "commentary")
 public class Commentary {
 
     private final long authorId;
@@ -32,7 +35,9 @@ public class Commentary {
         return message;
     }
 
-    public boolean isRate() { return rate; }
+    public boolean isRate() {
+        return rate;
+    }
 
     @Override
     public boolean equals(Object o) {

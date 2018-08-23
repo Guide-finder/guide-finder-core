@@ -1,6 +1,5 @@
 package com.guide_finder.service.impl;
 
-import com.guide_finder.dao.impl.UserDaoImpl;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;

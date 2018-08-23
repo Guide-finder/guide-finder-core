@@ -1,7 +1,10 @@
 package com.guide_finder.model.contact;
 
+import com.guide_finder.util.TableAnnotation;
+
 import java.util.Objects;
 
+@TableAnnotation(name="socialcontact")
 public class SocialContact {
 
     private String vk;
