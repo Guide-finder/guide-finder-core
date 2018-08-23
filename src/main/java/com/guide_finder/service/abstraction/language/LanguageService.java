@@ -1,10 +1,11 @@
-package com.guide_finder.service.abstraction;
+package com.guide_finder.service.abstraction.language;
 
 import com.guide_finder.model.user.Language;
 
 import java.util.List;
 
 public interface LanguageService {
+
     Language getLanguageById(long id);
 
     Language getLanguageByName(String name);

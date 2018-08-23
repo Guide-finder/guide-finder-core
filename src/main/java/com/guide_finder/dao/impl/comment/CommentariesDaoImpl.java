@@ -1,5 +1,6 @@
-package com.guide_finder.dao.impl;
+package com.guide_finder.dao.impl.comment;
 
+import com.guide_finder.dao.impl.AbstractDao;
 import com.guide_finder.model.comment.Commentary;
 import com.guide_finder.util.DBHelper;
 
@@ -8,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentariesDaoImpl extends AbstractDao {
-    private Connection connection;
+    private final Connection connection;
 
-    public CommentariesDaoImpl() throws ClassNotFoundException,
-            SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+    public CommentariesDaoImpl(Connection connection) {
+        this.connection = connection;
     }
 
     public Commentary getCommentaryById(long id) throws SQLException {

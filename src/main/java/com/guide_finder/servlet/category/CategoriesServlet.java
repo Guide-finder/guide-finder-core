@@ -26,15 +26,10 @@ public class CategoriesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
 
-        try {
-            List<Category> categories = categoryService.getAllCategories();
+        List<Category> categories = categoryService.getAllCategories();
 
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(new Gson().toJson(categories));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(new Gson().toJson(categories));
     }
 }

@@ -1,8 +1,6 @@
 package com.guide_finder.model.user;
 
 
-import com.guide_finder.dao.abstraction.UserDao;
-
 import java.util.Objects;
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package com.guide_finder.dao.abstraction;
+package com.guide_finder.dao.abstraction.language;
 
 import com.guide_finder.model.user.Language;
 import javafx.util.Pair;

@@ -1,4 +1,4 @@
-package com.guide_finder.service.abstraction;
+package com.guide_finder.service.abstraction.user;
 
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;

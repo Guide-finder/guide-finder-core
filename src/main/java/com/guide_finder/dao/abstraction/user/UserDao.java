@@ -1,4 +1,4 @@
-package com.guide_finder.dao.abstraction;
+package com.guide_finder.dao.abstraction.user;
 
 import com.guide_finder.model.user.*;
 

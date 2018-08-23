@@ -15,8 +15,8 @@ public class RoleDaoImpl implements RoleDao {
 
     private final Connection connection;
 
-    public RoleDaoImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+    public RoleDaoImpl(Connection connection) {
+        this.connection = connection;
     }
 
     public void saveRole(String name) {

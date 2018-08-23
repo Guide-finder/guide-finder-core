@@ -1,10 +1,9 @@
-package com.guide_finder.dao.impl;
+package com.guide_finder.dao.impl.user;
 
-import com.guide_finder.dao.abstraction.UserDao;
+import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
-import com.guide_finder.util.DBHelper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,16 +11,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-/**
-* Author - Vitaliy Polyvyanov
-* */
+
 
 public class UserDaoImpl implements UserDao {
 
     private final Connection connection;
 
-    public UserDaoImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+    public UserDaoImpl(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
