@@ -1,7 +1,10 @@
 package com.guide_finder.model.user;
 
+import com.guide_finder.util.TableAnnotation;
+
 import java.util.Objects;
 
+@TableAnnotation(name = "role")
 public class Role {
 
     private long id;

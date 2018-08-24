@@ -1,20 +1,20 @@
-package com.guide_finder.service.abstraction;
+package com.guide_finder.dao.abstraction.language;
 
 import com.guide_finder.model.user.Language;
 
 import java.util.List;
 
-public interface LanguageService {
+
+public interface LanguageDao {
     Language getLanguageById(long id);
 
     Language getLanguageByName(String name);
 
-    void saveLanguage(Language language);
-
     void editLanguage(Language language);
+
+    void saveLanguage(Language language);
 
     void remove(long id);
 
-    List<Language> getAllUsers();
-
+    List<Language> getAllLanguages();
 }

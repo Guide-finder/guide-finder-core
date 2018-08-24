@@ -1,4 +1,4 @@
-package com.guide_finder.servlet;
+package com.guide_finder.servlet.admin;
 
 import com.guide_finder.dao.abstraction.UserDao;
 import com.guide_finder.dao.impl.UserDaoImpl;

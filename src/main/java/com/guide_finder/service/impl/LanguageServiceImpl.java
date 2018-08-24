@@ -1,9 +1,9 @@
 package com.guide_finder.service.impl;
 
-import com.guide_finder.dao.abstraction.LanguageDao;
-import com.guide_finder.dao.impl.LanguageDaoImpl;
+import com.guide_finder.dao.abstraction.language.LanguageDao;
+import com.guide_finder.dao.impl.language.LanguageDaoImpl;
 import com.guide_finder.model.user.Language;
-import com.guide_finder.service.abstraction.LanguageService;
+import com.guide_finder.service.abstraction.language.LanguageService;
 import com.guide_finder.util.DBHelper;
 
 import java.sql.SQLException;

@@ -1,11 +1,11 @@
-package com.guide_finder.dao.abstraction.role;
+package com.guide_finder.service.abstraction.role;
 
 import com.guide_finder.model.user.Role;
 
 import java.util.List;
 import java.util.Set;
 
-public interface RoleDao {
+public interface RoleService {
 
     void saveRole(String name);
 
@@ -20,4 +20,5 @@ public interface RoleDao {
     List<Role> getAllRoles();
 
     Set<Role> getAllRolesByUserId(long userId);
+
 }
