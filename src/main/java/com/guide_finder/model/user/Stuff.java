@@ -1,8 +1,11 @@
 package com.guide_finder.model.user;
 
+import com.guide_finder.util.TableAnnotation;
+
 import java.util.Objects;
 import java.util.Set;
 
+@TableAnnotation(name = "staff")
 public class Stuff extends User {
 
     private double salary;

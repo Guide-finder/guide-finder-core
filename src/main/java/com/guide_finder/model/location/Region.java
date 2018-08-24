@@ -1,9 +1,12 @@
 package com.guide_finder.model.location;
 
+import com.guide_finder.util.TableAnnotation;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+@TableAnnotation(name = "region")
 public class Region extends AbstractLocation {
 
     private final Country country;

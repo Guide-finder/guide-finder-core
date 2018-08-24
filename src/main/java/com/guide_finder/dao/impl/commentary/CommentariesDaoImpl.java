@@ -1,5 +1,6 @@
-package com.guide_finder.dao.impl;
+package com.guide_finder.dao.impl.commentary;
 
+import com.guide_finder.dao.impl.AbstractDao;
 import com.guide_finder.model.comment.Commentary;
 import com.guide_finder.model.user.User;
 import com.guide_finder.util.DBHelper;

@@ -1,11 +1,12 @@
 package com.guide_finder.model.user;
 
 
-import com.guide_finder.dao.abstraction.UserDao;
+import com.guide_finder.util.TableAnnotation;
 
 import java.util.Objects;
 import java.util.Set;
 
+@TableAnnotation(name = "user")
 public class User {
 
     private long id;
@@ -33,7 +34,7 @@ public class User {
     }
 
     public User(long id, String firstName, String lastName, String email, String password, String phone,
-                int age, Sex sex, Set<Role> roles){
+                int age, Sex sex, Set<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,6 +45,17 @@ public class User {
         this.sex = sex;
 
         this.roles = roles;
+    }
+
+    public User(long id, String firstName, String lastName, String email, String password, String phone, int age, Sex sex) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.age = age;
+        this.sex = sex;
     }
 
 

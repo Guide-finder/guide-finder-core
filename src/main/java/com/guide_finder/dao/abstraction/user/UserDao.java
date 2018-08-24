@@ -1,15 +1,13 @@
-package com.guide_finder.dao.abstraction;
+package com.guide_finder.dao.abstraction.user;
 
 import com.guide_finder.model.user.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
-import java.util.Set;
 
 public interface UserDao {
 
-    public void saveUser(String password, String email, String firstname, String lastname, String phone, int age, String sex);
-
-    void saveDefaultRole(long id);
+    void saveUser(User user);
 
     User getUserById(long id);
 
@@ -22,5 +20,7 @@ public interface UserDao {
     void deleteUser(long id);
 
     List<User> getAllUsers();
+
+    List<User> getAllUsers(String city);
 
 }
