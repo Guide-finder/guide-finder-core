@@ -7,35 +7,29 @@ import java.util.Objects;
 import java.util.Set;
 
 @TableAnnotation(name = "country")
-public class Country extends AbstractLocation {
+public class Country {
 
-    private Region region;
+    private long id;
+    private String name;
 
-    public Country(String name, Region region) {
-        super(name);
-        this.region = region;
+    public Country(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Region getRegion() {
-        return region;
+    public long getId() {
+        return id;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public String getName() {
+        return name;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return Objects.equals(region, country.region);
+    public void setId(long id) {
+        this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(region);
+    public void setName(String name) {
+        this.name = name;
     }
 }
