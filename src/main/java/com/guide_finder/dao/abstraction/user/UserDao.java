@@ -13,6 +13,8 @@ public interface UserDao {
 
     User getUserById(long id);
 
+    User getUserByEmail(String email);
+
     long getIdByEmail(String email);
 
     void editUser(User user);

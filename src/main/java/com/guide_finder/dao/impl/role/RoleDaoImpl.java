@@ -117,12 +117,12 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public Set<Role> getAllRolesByUserId(long userId) {
-
        return executor.execQuery(String.format(
                         "SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))",
                         userId),
                         result_role -> {
                             Set<Role> roles = new HashSet<>();
+                            System.out.println("Size = " + roles.size());
                             while(result_role.next()){
                                 roles.add(
                                         new Role(
@@ -133,7 +133,6 @@ public class RoleDaoImpl implements RoleDao {
                             }
                             return roles;
                         });
-
     }
 
 }
