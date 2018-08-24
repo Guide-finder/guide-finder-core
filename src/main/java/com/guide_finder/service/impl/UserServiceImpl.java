@@ -14,19 +14,15 @@ import java.util.List;
 import java.util.Set;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
-
-    public UserServiceImpl() {
-        Connection connection = null;
-
+    private final UserDao userDao = null;
 
     public UserServiceImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+        Connection connection = DBHelper.getConnection();
     }
 
     @Override
     public void saveUser(User user) {
-userDao.saveUser(user);
+    userDao.saveUser(user);
     }
 
     @Override

@@ -8,7 +8,8 @@ import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.location.City;
 import com.guide_finder.util.TableAnnotation;
 
-@TableAnnotation(name = "guide")public class Guideextends User{
+@TableAnnotation(name = "guide")
+public class Guide extends User{
 
     private String description;
 

@@ -1,6 +1,7 @@
 package com.guide_finder.dao.impl.role;
 
 import com.guide_finder.dao.impl.UserDaoImpl;
+
 import com.guide_finder.model.user.Guide;
 import com.guide_finder.model.user.User;
 import com.guide_finder.util.DBHelper;

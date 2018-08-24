@@ -1,6 +1,6 @@
 package com.guide_finder.dao.impl;
 
-import com.guide_finder.dao.abstraction.UserDao;
+//import com.guide_finder.dao.abstraction.UserDao;
 import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
