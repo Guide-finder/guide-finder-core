@@ -23,8 +23,7 @@ public class DeleteRoleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
         Integer idRoleToDel = Integer.parseInt(req.getParameter("id"));
-        System.out.println(idRoleToDel);
-        resp.getWriter().write("Delete Role Operation id = " + idRoleToDel);
+      //resp.getWriter().write("Delete Role Operation id = " + idRoleToDel);
         RoleServiceImpl roleService = new RoleServiceImpl();
         roleService.deleteRole(idRoleToDel);
         resp.sendRedirect("/admin/roles");
