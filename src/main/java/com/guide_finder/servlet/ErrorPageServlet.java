@@ -12,6 +12,8 @@ package com.guide_finder.servlet;
 @WebServlet("/error")
 public class ErrorPageServlet extends HttpServlet {
 
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         HttpSession session = request.getSession();
@@ -21,7 +23,7 @@ public class ErrorPageServlet extends HttpServlet {
             statusCode = HttpServletResponse.SC_NOT_FOUND;
         }
 
-        session.setAttribute("statusCode", statusCode);
+        request.setAttribute("statusCode", statusCode);
         response.setStatus(statusCode);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
