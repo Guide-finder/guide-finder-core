@@ -35,11 +35,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveDefaultRole(long id) {
-        userDao.saveDefaultRole(id);
-    }
-
-    @Override
     public User getUserById(long id) {
         return userDao.getUserById(id);
     }
@@ -67,5 +62,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    @Override
+    public List<User> getAllUsers(String city) {
+        return userDao.getAllUsers(city);
     }
 }
