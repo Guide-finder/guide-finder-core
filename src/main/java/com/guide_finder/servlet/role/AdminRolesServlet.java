@@ -1,13 +1,7 @@
 package com.guide_finder.servlet.role;
-
-import com.google.gson.Gson;
-import com.guide_finder.model.category.Category;
 import com.guide_finder.model.user.Role;
-import com.guide_finder.service.abstraction.category.CategoryService;
 import com.guide_finder.service.abstraction.role.RoleService;
 import com.guide_finder.service.impl.RoleServiceImpl;
-import com.guide_finder.service.impl.category.CategoryServiceImpl;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,13 +23,13 @@ public class AdminRolesServlet extends HttpServlet {
 
         try {
             List<Role> roles = roleService.getAllRoles();
-          //  resp.setContentType("application/json");
+
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write("Roles:" + System.lineSeparator());
             for (Role role : roles) {
                 resp.getWriter().write(role.getId() + "  " + role.getName() + System.lineSeparator());
             }
-           // resp.getWriter().write(new Gson().toJson(roles));
+
 
             req.setAttribute("roles",roles);
             req.getRequestDispatcher("/adminRoles.jsp").forward(req, resp);

@@ -1,16 +1,13 @@
 package com.guide_finder.servlet.role;
-
-import com.guide_finder.model.user.Role;
 import com.guide_finder.service.abstraction.role.RoleService;
 import com.guide_finder.service.impl.RoleServiceImpl;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+
 
 //
 //
