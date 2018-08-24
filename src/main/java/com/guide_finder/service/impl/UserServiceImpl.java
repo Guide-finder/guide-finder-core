@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Set;
 
 public class UserServiceImpl implements UserService {
-
     private final Connection connection;
+  
 
-    public UserServiceImpl(Connection connection) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public UserServiceImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         this.connection = DBHelper.getConnection();
     }
-
+  
     @Override
     public void saveUser(String firstName, String lastName, String password, String phone, String email, Sex sex, int age, Set<Role> roles) {
-
+       
     }
 
     @Override

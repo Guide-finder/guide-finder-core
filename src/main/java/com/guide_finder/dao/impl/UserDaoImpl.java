@@ -1,6 +1,7 @@
 package com.guide_finder.dao.impl;
 
 import com.guide_finder.dao.abstraction.UserDao;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -25,9 +26,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(String password, String email, String firstname, String lastname, String phone, int age, String sex) {
+    public void saveUser(String password, String email, String firstName, String lastName, String phone, int age, String sex) {
         try (Statement statement = connection.createStatement()) {
-            String sql_user = String.format("insert into user (password, email, firstname, lastname, phone, age, sex) values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", password, email, firstname, lastname, phone, age, sex);
+            String sql_user = String.format("insert into user (password, email, firstname, lastname, phone, age, sex) " +
+                    "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", password, email, firstName, lastName, phone, age, sex);
             statement.execute(sql_user);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +73,6 @@ public class UserDaoImpl implements UserDao {
             } catch (SQLException e) {
                 System.out.println("Error: " + e);
             }
-
             stmt.execute(sql_roles);
             getRole(user, stmt);
         } catch (SQLException e) {
@@ -170,7 +171,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         User user;
-        List list = new ArrayList();
+        List<User> list = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             String ifaAllIsNull = "select * from user";
             statement.execute(ifaAllIsNull);
@@ -196,4 +197,26 @@ public class UserDaoImpl implements UserDao {
         return list;
     }
 
+    public SocialContact getSocialContactsById(long id){
+
+//        List<String> listOfContacts = new ArrayList<>();
+
+        SocialContact contact = null;
+
+        try(Statement statement = connection.createStatement()){
+            String sql = String.format("select * from socialcontact where user_id='%s'", id);
+            statement.executeQuery(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+                resultSet.next();
+                String vk_profile = resultSet.getString(2);
+                String ok_profile = resultSet.getString(3);
+                String fb_profie = resultSet.getString(4);
+                String tg_profile = resultSet.getString(5);
+            contact = new SocialContact(vk_profile, ok_profile, fb_profie, tg_profile);
+        }catch (SQLException e) {
+            System.out.println(e);
+        }
+        return contact;
+    }
 }

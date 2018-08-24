@@ -144,7 +144,7 @@ create index user_id
 
 create table socialcontact
 (
-	user_id bigint not null,
+	user_id bigint not null ,
 	vk varchar(255) null,
 	ok varchar(225) null,
 	fb varchar(255) null,
@@ -224,4 +224,5 @@ create table user_role
 			on delete cascade
 )
 ;
+
 

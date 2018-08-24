@@ -1,6 +1,7 @@
 package com.guide_finder.dao.impl;
 
 import com.guide_finder.model.comment.Commentary;
+import com.guide_finder.model.user.User;
 import com.guide_finder.util.DBHelper;
 
 import java.sql.*;
@@ -113,4 +114,39 @@ public class CommentariesDaoImpl extends AbstractDao {
         result.close();
         return comList;
     }
+
+    public List<Commentary> getAllCommentariesByRecipientId(long id) throws SQLException {
+        Statement stmt = connection.createStatement();
+        String sql = String.format("select * from commentary where recipient_id='%s'", id);
+        stmt.execute(sql);
+
+        ResultSet result = stmt.getResultSet();
+        List<Commentary> comList = new ArrayList<>();
+
+        while (result.next()){
+            comList.add(new Commentary(result.getLong(2),
+                    result.getLong(3),
+                    result.getString(4),
+                    result.getBoolean(5)));
+        }
+        stmt.close();
+        result.close();
+        return comList;
+    }
+
+    public List<String> getNamesOfAllCommentAuthorsByRecipientId (long id) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        List<String> namesOfAuthors = new ArrayList<>();
+        Connection connection = DBHelper.getConnection();
+        Statement stm = connection.createStatement();
+        String sql = String.format("select u.firstname from user u where id IN (select author_id from commentary where recipient_id='%s'",id);
+        stm.executeQuery(sql);
+
+        ResultSet resultSet = stm.getResultSet();
+
+        while (resultSet.next()){
+            namesOfAuthors.add(resultSet.getString(1));
+        }
+        return namesOfAuthors;
+    }
+
 }

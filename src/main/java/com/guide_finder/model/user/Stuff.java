@@ -1,16 +1,23 @@
 package com.guide_finder.model.user;
 
 import java.util.Objects;
+import java.util.Set;
 
-public class Stuff {
+public class Stuff extends User {
 
     private double salary;
 
-//    public Stuff(String firstName, String lastName, String password, String phone, String email,
-//        double salary) {
-//        super(firstName, lastName, password, phone, email);
-//        this.salary = salary;
-//    }
+    public Stuff(long id, String firstName, String lastName, String email, String password,
+                 String phone, int age, Sex sex, Set<Role> roles) {
+        super(id, firstName, lastName, email, password, phone, age, sex, roles);
+    }
+
+    public Stuff(long id, String firstName, String lastName, String email, String password,
+                 String phone, int age, Sex sex, Set<Role> roles, double salary) {
+        super(id, firstName, lastName, email, password, phone, age, sex, roles);
+        this.salary = salary;
+    }
+
 
     public double getSalary() {
         return salary;

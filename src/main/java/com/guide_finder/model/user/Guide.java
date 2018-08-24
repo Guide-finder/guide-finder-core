@@ -7,7 +7,7 @@ import com.guide_finder.model.category.Category;
 import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.location.City;
 
-public class Guide{
+public class Guide extends User{
 
     private String description;
 
@@ -19,9 +19,20 @@ public class Guide{
 
     private Set<SocialContact> socialContacts;
 
-//    public Guide(String firstName, String lastName, String password, String phone, String email) {
-//        super(firstName, lastName, password, phone, email);
-//    }
+    public Guide(){};
+
+    public Guide(long id, String firstName, String lastName, String email, String password,
+                 String phone, int age, Sex sex, Set<Role> roles) {
+        super(id, firstName, lastName, email, password, phone, age, sex, roles);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public City getCity() {
         return city;

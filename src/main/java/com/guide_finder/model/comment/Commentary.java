@@ -17,7 +17,6 @@ public class Commentary {
         this.recipientId = recipientId;
         this.rate = rate;
         this.message = message;
-
     }
 
     public long getAuthorId() {
@@ -31,6 +30,7 @@ public class Commentary {
     public String getMessage() {
         return message;
     }
+
 
     public boolean isRate() { return rate; }
 

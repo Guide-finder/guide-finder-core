@@ -21,7 +21,7 @@ public class RoleDaoImpl implements RoleDao {
 
     public void saveRole(String name) {
         try (Statement statement = connection.createStatement()) {
-            String query = String.format("insert into role (name) values ('%s')", name);
+            String query = String.format("insert into role values ('%s')", name);
             statement.execute(query);
         } catch (SQLException e) {
             e.printStackTrace();
