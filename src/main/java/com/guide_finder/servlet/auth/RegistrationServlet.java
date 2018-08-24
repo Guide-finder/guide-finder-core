@@ -59,7 +59,8 @@ public class RegistrationServlet extends HttpServlet {
         userService.saveUser(user);
 
         req.setAttribute("firstName", user.getFirstName());
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/user.jsp");
+        req.setAttribute("isRegister", true);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
         dispatcher.forward(req, resp);
 
     }

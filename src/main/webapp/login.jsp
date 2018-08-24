@@ -1,6 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: maximus
+  Date: 20.08.2018
+  Time: 16:52
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +48,7 @@
                     <h2>Please Sign In</h2>
                     <hr class="colorgraph">
                     <div class="form-group">
-                        <input type="login" name="login" id="login" class="form-control input-lg" placeholder="Login">
+                        <input type="login" name="login" value="${firstName}" id="login" class="form-control input-lg" placeholder="Login">
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
@@ -51,7 +57,25 @@
 					<button type="button" class="btn" data-color="info">Remember Me</button>
                     <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
 					<a href="" class="btn btn-link pull-right">Forgot Password?</a>
-				</span>
+				    </span>
+
+                    <c:if test="${isRegister}">
+                        <div>
+                            <p class="btn btn-link pull-center">Registration succesfull, please login.</p>
+                        </div>
+                    </c:if>
+                    <c:if test="${isInvalid}">
+                        <div>
+                            <p class="btn btn-link pull-center">Login failed. Try again.</p>
+                        </div>
+                    </c:if>
+                    <c:if test="${isInvalidRole}">
+                        <div>
+                            <p class="btn btn-link pull-center">Role is invalid.</p>
+                        </div>
+                    </c:if>
+
+
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">

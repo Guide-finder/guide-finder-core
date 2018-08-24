@@ -24,6 +24,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("isInvalid", false);
+        req.setAttribute("isRegister", false);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
         dispatcher.forward(req, resp);
     }
@@ -36,10 +38,19 @@ public class LoginServlet extends HttpServlet {
                        HttpServletResponse res) throws ServletException, IOException{
         try {
             Role roleAdmin = roleService.getRoleById(1);
+            Role roleUser = roleService.getRoleById(2);
 
             if (roleAdmin == null) {
                 try {
                     throw (new Exception("Role 'Admin' is not found"));
+                } catch (Exception e) {
+                    //todo logging
+                    e.printStackTrace();
+                }
+            }
+            if (roleUser == null) {
+                try {
+                    throw (new Exception("Role 'User' is not found"));
                 } catch (Exception e) {
                     //todo logging
                     e.printStackTrace();
@@ -53,10 +64,14 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("firstName", user.getFirstName());
                 if (user.getRoles().contains(roleAdmin)) {
                     req.getRequestDispatcher("adminPage.html").forward(req, res);
-                } else {
+                } else if (user.getRoles().contains(roleUser)) {
                     req.getRequestDispatcher("user.jsp").forward(req, res);
+                } else {
+                    req.setAttribute("isInvalidRole", true);
+                    req.getRequestDispatcher("login.jsp").forward(req, res);
                 }
             } else {
+                req.setAttribute("isInvalid", true);
                 req.getRequestDispatcher("login.jsp").forward(req, res);
             }
 
