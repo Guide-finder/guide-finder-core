@@ -38,11 +38,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveDefaultRole(long userId) {
-        executor.execUpdate(String.format("insert into user_role (user_id, role_id) VALUES ('%s','1')", userId));
-    }
-
-    @Override
     public User getUserById(long userId) {
         User user =  executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
             result.next();
@@ -116,34 +111,53 @@ public class UserDaoImpl implements UserDao {
     public List<User> getAllUsers() {
         return executor.execQuery("select * from user", result -> {
             List<User> urList = new ArrayList<>();
-            while (result.next()) {
-                urList.add(
-                        new User(
-                                result.getLong(1),                                //id
-                                result.getString(2),                              //firstName
-                                result.getString(3),                              //lastName
-                                result.getString(4),                              //email
-                                result.getString(5),                              //password
-                                result.getString(6),                              //phone
-                                result.getInt(7),                                 //age
-                                Sex.valueOf(result.getString(8).toUpperCase()),   //sex
-                                new HashSet<>(
-                                        executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
-                                                result_role ->{
-                                                    Set<Role> roles = new HashSet<>();
-                                                    while(result_role.next()){
-                                                        roles.add(
-                                                                new Role(
-                                                                        result_role.getLong(1),
-                                                                        result_role.getString(2)
-                                                                )
-                                                        );
-                                                    }
-                                                    return roles;
-                                                }))                                            // role
-                        ));
-            }
+            getUser(result, urList);
             return urList;
         });
+    }
+
+    @Override
+    public List<User> getAllUsers(String city) {
+        if (city.equals("")){
+            return getAllUsers();
+        }else {
+            return executor.execQuery(String.format("select * from user where id IN " +
+                    " (select user_id from guide where city_id IN " +
+                    " (select id from city where name = '%s'))", city), result -> {
+                List<User> urList = new ArrayList<>();
+                getUser(result, urList);
+                return urList;
+            });
+        }
+    }
+
+    private void getUser(ResultSet result, List<User> urList) throws SQLException {
+        while (result.next()) {
+            urList.add(
+                    new User(
+                            result.getLong(1),                                //id
+                            result.getString(2),                              //firstName
+                            result.getString(3),                              //lastName
+                            result.getString(4),                              //phone
+                            result.getString(5),                              //password
+                            result.getString(6),                              //phone
+                            result.getInt(7),                                 //age
+                            Sex.valueOf(result.getString(8).toUpperCase()),   //sex
+                            new HashSet<>(
+                                    executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
+                                            result_role ->{
+                                                Set<Role> roles = new HashSet<>();
+                                                while(result_role.next()){
+                                                    roles.add(
+                                                            new Role(
+                                                                    result_role.getLong(1),
+                                                                    result_role.getString(2)
+                                                            )
+                                                    );
+                                                }
+                                                return roles;
+                                            }))                                            // role
+                    ));
+        }
     }
 }

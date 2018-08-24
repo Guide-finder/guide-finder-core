@@ -11,8 +11,6 @@ public interface UserService {
 
     void saveUser(User user);
 
-    void saveDefaultRole(long id);
-
     User getUserById(long id);
 
     User getUserByEmail(String email);
@@ -24,5 +22,7 @@ public interface UserService {
     void deleteUser(long id);
 
     List<User> getAllUsers();
+
+    public List<User> getAllUsers(String city);
 
 }
