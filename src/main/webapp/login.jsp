@@ -37,7 +37,7 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form class="auth-form" action="/AuthFilter" method="POST">
+            <form class="auth-form" action="/login" method="POST">
                 <fieldset>
                     <h2>Please Sign In</h2>
                     <hr class="colorgraph">

@@ -1,4 +1,4 @@
-package com.guide_finder.servlet.user;
+package com.guide_finder.servlet.auth;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
