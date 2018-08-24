@@ -23,4 +23,6 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
+    List<User> getUsersByRole(int role_id, UserDao userDao);
+
 }

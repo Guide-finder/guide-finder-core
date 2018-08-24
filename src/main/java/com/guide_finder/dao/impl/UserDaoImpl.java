@@ -128,6 +128,42 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    public List<User> getUsersByRole(int role_id, UserDao userDao) { //передаем юзерДао, чтобы не создавать еще один объект юзерДао и не плодить коннекшены. Этого можно было избежать, если бы наши ДАО были статическими, но увы...
+        User user;
+        List list = new ArrayList();
+        try (Statement statement = connection.createStatement()) {
+            String getUserIdFromRoles = "SELECT * FROM user_role WHERE role_id=" + role_id;
+            statement.execute(getUserIdFromRoles);
+            try (ResultSet result = statement.getResultSet()) {
+                while (result.next()){
+                    user = userDao.getUserById(result.getLong(1));
+                    list.add(user);
+                }
+            }
+//            String ifaAllIsNull = "select * from user";
+//            statement.execute(ifaAllIsNull);
+//            try (ResultSet result = statement.getResultSet()) {
+//                while (result.next()) {
+//                    user = new User(
+//                            result.getLong(1),                                //id
+//                            result.getString(2),                              //name
+//                            result.getString(3),                              //lastname
+//                            result.getString(4),                              //email
+//                            result.getString(5),                              //password
+//                            result.getString(6),                              //phone
+//                            result.getInt(7),                                 //age
+//                            Sex.valueOf(result.getString(8).toUpperCase()),   //sex
+//                            null
+//                    );
+//                    list.add(user);
+//                }
+//            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     @Override
     public long getIdByEmail(String email) {
         try (Statement stmt = connection.createStatement()) {
@@ -161,7 +197,7 @@ public class UserDaoImpl implements UserDao {
     public void deleteUser(long userId) {
         try(Statement stmt = connection.createStatement()){
             String sql = String.format("delete from user where id = '%s'", userId);
-            stmt.execute(sql);
+            stmt.executeUpdate(sql);
         }catch (SQLException e){
             System.out.println(e);
         }

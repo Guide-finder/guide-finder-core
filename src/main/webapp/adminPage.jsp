@@ -1,10 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-
-<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>guideFinder</title>
@@ -23,6 +17,9 @@ pageEncoding="UTF-8"%>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
     <style>
@@ -46,22 +43,31 @@ pageEncoding="UTF-8"%>
 
 <div class="container"><h1>Admin page</h1>
     <br><br><br><br>
+
+    <form align="center" role="form" class="form-inline" action="/admin" method="POST">
+
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Input email">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
+        <label for="firstname">First name</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">
+        <br><br>
+        <label for="lastname">Last name</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone">
+        <input type="submit" value="Save user" class="btn btn-success"></input>
+        <%--Login: <input type="text" name="login"/>--%>
+        <%--Password: <input type="password" name="pass"/>--%>
+        <%--<input type="submit" value="Sign in">--%>
+    </form>
 </div>
 
 
 <div class="container" align="center">
     <div class="container">
-        <form role="form" class="form-inline">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Input email">
-                <!--<p class="help-block">Help info</p>-->
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Input password">
-            </div>
-            <button type="button" class="btn btn-success">Save user</button>
+
         </form>
     </div>
 </div>
@@ -73,9 +79,13 @@ pageEncoding="UTF-8"%>
 
         <div class="col-md-2">
             <br><br>
-            <input type="submit" class="btn btn-primary btn-block" value="Guides">
+            <%--<input type="submit" class="btn btn-primary btn-block" value="Guides">--%>
+            <a href="/admin?role=user"><button type="button" class="btn btn-primary btn-block">Guides</button></a>
             <br>
-            <input type="submit" class="btn btn-primary btn-block" value="Stuff">
+            <%--<input type="submit" class="btn btn-primary btn-block" value="Stuff">--%>
+            <a href="/admin?role=admin"><button type="button" class="btn btn-primary btn-block">Stuff</button></a>
+            <br>
+            <a href="/editRole"><button type="button" class="btn btn-primary btn-block">Edit ROLE</button></a>
         </div>
 
 
@@ -95,18 +105,18 @@ pageEncoding="UTF-8"%>
                         </tr>
                     </thread>
                     <tbody>
-                    <c:forEach items="${guides}" var="guide">
+                    <c:forEach items="${users}" var="user">
                         <tr>
-                            <td>${guide.id}</td>
-                            <td>${guide.firstname}</td>
-                            <td>${guide.lastname}</td>
-                            <td>${guide.password}</td>
-                            <td>${guide.phone}</td>
-                            <td>${guide.email}</td>
+                            <td>${user.id}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.lastName}</td>
+                            <td>${user.password}</td>
+                            <td>${user.phone}</td>
+                            <td>${user.email}</td>
                             <td align="center">
                                 <div class="btn-group">
-                                    <input type="submit" class="btn btn-primary" value="Edit">
-                                    <input type="submit" class="btn btn-primary" value="Add">
+                                    <a href="/admin/edit?id=${user.id}"><button type="button" class="btn btn-primary">Edit</button></a>
+                                    <a href="/admin/delete?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>
                                 </div>
                             </td>
                         </tr>
