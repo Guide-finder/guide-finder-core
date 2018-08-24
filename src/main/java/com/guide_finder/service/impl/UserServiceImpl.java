@@ -1,10 +1,11 @@
 package com.guide_finder.service.impl;
 
-import com.guide_finder.dao.impl.UserDaoImpl;
+import com.guide_finder.dao.abstraction.user.UserDao;
+import com.guide_finder.dao.impl.user.UserDaoImpl;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
-import com.guide_finder.service.abstraction.UserService;
+import com.guide_finder.service.abstraction.user.UserService;
 import com.guide_finder.util.DBHelper;
 
 import java.sql.Connection;
@@ -14,39 +15,52 @@ import java.util.Set;
 
 public class UserServiceImpl implements UserService {
 
-    private final Connection connection;
+    private final UserDao userDao;
 
-    public UserServiceImpl(Connection connection) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+    public UserServiceImpl() {
+        Connection connection = null;
+
+        try {
+            connection = DBHelper.getConnection();
+        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
+
+        this.userDao = new UserDaoImpl(connection);
     }
 
     @Override
-    public void saveUser(String firstName, String lastName, String password, String phone, String email, Sex sex, int age, Set<Role> roles) {
+    public void saveUser(User user) {
+         userDao.saveUser(user);
+    }
 
+    @Override
+    public void saveDefaultRole(long id) {
+        userDao.saveDefaultRole(id);
     }
 
     @Override
     public User getUserById(long id) {
-        return null;
+        return userDao.getUserById(id);
     }
 
     @Override
-    public User getUserByName(String name) {
-        return null;
+    public long getIdByEmail(String email) {
+        return userDao.getIdByEmail(email);
     }
 
     @Override
-    public void editUser(long id) {
-
+    public void editUser(User user) {
+        userDao.editUser(user);
     }
 
     @Override
     public void deleteUser(long id) {
-
+        userDao.deleteUser(id);
     }
 
     @Override
-    public List<?> getAllUsers() {
-        return null;
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
     }
 }

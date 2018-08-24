@@ -1,9 +1,8 @@
-package com.guide_finder.dao.impl;
+package com.guide_finder.dao.impl.language;
 
-import com.guide_finder.dao.abstraction.LanguageDao;
+import com.guide_finder.dao.abstraction.language.LanguageDao;
 import com.guide_finder.dao.executor.Executor;
 import com.guide_finder.model.user.Language;
-import javafx.util.Pair;
 
 import java.sql.Connection;
 import java.util.ArrayList;

@@ -6,8 +6,10 @@ import java.util.Set;
 import com.guide_finder.model.category.Category;
 import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.location.City;
+import com.guide_finder.util.TableAnnotation;
 
-public class Guide{
+@TableAnnotation(name = "guide")
+public class Guide {
 
     private String description;
 
