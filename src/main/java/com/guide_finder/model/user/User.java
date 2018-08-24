@@ -40,16 +40,15 @@ public class User {
         this.roles = roles;
     }
 
-    public User(long id, String firstName, String lastName, String email, String password, String phone,
-                int age, Sex sex) {
+    public User(long id, String firstName, String lastName, String email, String password, String phone, int age, Sex sex) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.password = password;
         this.phone = phone;
-        this.email = email;
-        this.sex = sex;
         this.age = age;
+        this.sex = sex;
     }
 
 

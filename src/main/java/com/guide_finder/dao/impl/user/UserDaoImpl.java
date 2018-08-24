@@ -63,6 +63,32 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        User user =  executor.execQuery(String.format("SELECT * FROM user where email='%s'", email), result -> {
+            result.next();
+
+            return new User(
+                    result.getLong(1),                  //id
+                    result.getString(2),                //firstName
+                    result.getString(3),                //lastName
+                    result.getString(4),                //email
+                    result.getString(5),                //password
+                    result.getString(6),                //phone
+                    result.getInt(7),                   //age
+                    Sex.valueOf(result.getString(8))
+            );  //sex)
+
+        });
+
+        if (user != null) {
+            Set<Role> roles = roleService.getAllRolesByUserId(user.getId());
+            user.setRoles(roles);
+        }
+
+        return user;
+    }
+
+    @Override
     public long getIdByEmail(String email) {
         return executor.execQuery(String.format("select id from user where email = '%s'", email), result -> {
             result.next();
