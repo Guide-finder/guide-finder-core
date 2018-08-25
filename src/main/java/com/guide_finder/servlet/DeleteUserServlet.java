@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Author Didenko B.
+ */
 
 @WebServlet("/admin/delete")
 public class DeleteUserServlet extends HttpServlet {

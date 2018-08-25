@@ -29,4 +29,6 @@ public interface UserDao {
 
     List<User> getAllUsers(String city);
 
+    Boolean setRoleToUser(long user_id, long role_id);
+
 }

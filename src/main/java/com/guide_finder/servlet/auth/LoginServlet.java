@@ -63,23 +63,28 @@ public class LoginServlet extends HttpServlet {
                 req.getSession().setAttribute("user", user);
                 req.setAttribute("firstName", user.getFirstName());
                 if (user.getRoles().contains(roleAdmin)) {
-                    req.getRequestDispatcher("adminPage.html").forward(req, res);
+                    res.sendRedirect("/admin");
+//                    req.getRequestDispatcher("/adminPage.jsp").forward(req, res);
                 } else if (user.getRoles().contains(roleUser)) {
-                    req.getRequestDispatcher("user.jsp").forward(req, res);
+                    res.sendRedirect("/userFilter");
+//                    req.getRequestDispatcher("/userList.jsp").forward(req, res);
                 } else {
                     req.setAttribute("isInvalidRole", true);
-                    req.getRequestDispatcher("login.jsp").forward(req, res);
+//                    req.getRequestDispatcher("/login.jsp").forward(req, res);
+                    res.sendRedirect("/userFilter");
                 }
             } else {
                 req.setAttribute("isInvalid", true);
-                req.getRequestDispatcher("login.jsp").forward(req, res);
+//                req.getRequestDispatcher("/login.jsp").forward(req, res);
+                res.sendRedirect("/userFilter");
             }
 
         } catch  (IOException e) {
             e.printStackTrace();
-        } catch (ServletException e) {
-            e.printStackTrace();
         }
+// catch (ServletException e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

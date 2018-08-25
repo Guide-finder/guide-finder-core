@@ -26,4 +26,6 @@ public interface UserService {
     public List<User> getAllUsers(String city);
 
     List<User> getUsersByRole(int role_id);
+
+    Boolean setRoleToUser(long user_id, long role_id);
 }
