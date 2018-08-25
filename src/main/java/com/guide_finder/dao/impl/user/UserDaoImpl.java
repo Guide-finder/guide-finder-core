@@ -11,6 +11,7 @@ import com.guide_finder.service.impl.RoleServiceImpl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -27,7 +28,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(User user) {
+    public long saveUser(User user) {
 
         //todo не сохраняются роли в базу
 
@@ -35,6 +36,7 @@ public class UserDaoImpl implements UserDao {
         if (user_id > 0) {
             executor.execUpdate(String.format("insert into user_role (user_id, role_id) values ('%s', '%s')", user_id, 2));
         }
+        return user_id;
     }
 
     @Override
@@ -130,8 +132,8 @@ public class UserDaoImpl implements UserDao {
             });
         }
     }
-
-    private void getUser(ResultSet result, List<User> urList) throws SQLException {
+@Override
+public void getUser(ResultSet result, List<User> urList) throws SQLException {
         while (result.next()) {
             urList.add(
                     new User(
@@ -159,5 +161,20 @@ public class UserDaoImpl implements UserDao {
                                             }))                                            // role
                     ));
         }
+    }
+@Override
+    public List<User> getUsersByRole(int role_id) {
+
+            String getUserIdFromRoles = "SELECT * FROM user_role WHERE role_id=" + role_id;
+            return executor.execQuery(getUserIdFromRoles, res -> {
+                List<User> list = new ArrayList<>();
+               while (res.next()) {
+                   User user;
+
+                   user = getUserById(res.getLong(1));
+                   list.add(user);
+               }
+               return list;
+            });
     }
 }

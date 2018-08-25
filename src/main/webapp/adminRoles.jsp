@@ -39,8 +39,8 @@
 
         <form role="form" class="form-inline" action="/admin/roles" method="POST">
 
-                <label for="newRole">New role</label>
-                <input type="text" class="form-control" id="newRole" placeholder="Input new role" name = "newRole">
+            <label for="newRole">New role</label>
+            <input type="text" class="form-control" id="newRole" placeholder="Input new role" name = "newRole">
 
             <input type="submit" value = "Save role" class="btn btn-success"></input>
         </form>

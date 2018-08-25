@@ -5,35 +5,45 @@ import com.guide_finder.util.TableAnnotation;
 import java.util.Objects;
 
 @TableAnnotation(name = "city")
-public class City extends AbstractLocation {
+public class City {
 
-    private Region region;
+    private long id;
+    private String name;
+    private String country;
 
-    public City(String name, Region region) {
-        super(name);
-        this.region = region;
+    public City(long id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
     }
 
-    public AbstractLocation getRegion() {
-        return region;
+    public City(long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public City(String name) {
+        this.name = name;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        City city = (City) o;
-        return Objects.equals(region, city.region);
+    public City(String name, String country) {
+        this.name = name;
+        this.country = country;
     }
 
-    @Override
-    public int hashCode() {
+    public long getId() {
+        return id;
+    }
 
-        return Objects.hash(region);
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
