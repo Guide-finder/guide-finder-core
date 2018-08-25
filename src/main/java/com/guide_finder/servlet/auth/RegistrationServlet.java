@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,14 @@ public class RegistrationServlet extends HttpServlet {
     private final UserService userService = new UserServiceImpl();
 
     private final RoleService roleService = new RoleServiceImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/registration.jsp");
+        dispatcher.forward(req, resp);
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest req,
