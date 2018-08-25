@@ -85,7 +85,7 @@
             <%--<input type="submit" class="btn btn-primary btn-block" value="Stuff">--%>
             <a href="/admin?role=admin"><button type="button" class="btn btn-primary btn-block">Stuff</button></a>
             <br>
-            <a href="/editRole"><button type="button" class="btn btn-primary btn-block">Edit ROLE</button></a>
+            <a href="/admin/roles"><button type="button" class="btn btn-primary btn-block">Edit ROLE</button></a>
         </div>
 
 
