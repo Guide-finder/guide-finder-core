@@ -1,8 +1,9 @@
 package com.guide_finder.servlet;
 
-import com.guide_finder.dao.abstraction.UserDao;
-import com.guide_finder.dao.impl.UserDaoImpl;
-import com.guide_finder.util.DBHelper;
+
+import com.guide_finder.dao.abstraction.user.UserDao;
+import com.guide_finder.service.abstraction.user.UserService;
+import com.guide_finder.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,20 +18,11 @@ import java.sql.SQLException;
 public class DeleteUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao service;
-        try {
-            service = new UserDaoImpl();
+        UserService service = new UserServiceImpl();
+
             long id = Long.parseLong(req.getParameter("id"));
             service.deleteUser(id);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+
         resp.sendRedirect("/admin");
 
     }

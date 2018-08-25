@@ -9,7 +9,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    void saveUser(User user);
+    long saveUser(User user);
 
     User getUserById(long id);
 
@@ -25,4 +25,5 @@ public interface UserService {
 
     public List<User> getAllUsers(String city);
 
+    List<User> getUsersByRole(int role_id);
 }

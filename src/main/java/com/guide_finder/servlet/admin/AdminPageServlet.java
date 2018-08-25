@@ -1,9 +1,9 @@
 package com.guide_finder.servlet.admin;
 
-import com.guide_finder.dao.abstraction.UserDao;
-import com.guide_finder.dao.impl.UserDaoImpl;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
+import com.guide_finder.service.abstraction.user.UserService;
+import com.guide_finder.service.impl.UserServiceImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,54 +17,23 @@ import java.util.List;
 
 @WebServlet("/admin")
 public class AdminPageServlet extends HttpServlet {
+    private final UserService service = new UserServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<User> users = null;
-        UserDao service;
 
         if ("admin".equals(req.getParameter("role"))) {
-            try {
-                service = new UserDaoImpl();
-                users = service.getUsersByRole(2, service);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+
+                users = service.getUsersByRole(2);
         }
         else if ("user".equals(req.getParameter("role"))) {
-            try {
-                service = new UserDaoImpl();
-                users= service.getUsersByRole(1,service);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+
+                users= service.getUsersByRole(1);
+
         }
         else {
-                try {
-                    service = new UserDaoImpl();
                     users= service.getAllUsers();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
             }
             req.setAttribute("users", users);
 
@@ -75,23 +44,13 @@ public class AdminPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao service;
-        try {
-            service = new UserDaoImpl();
-            service.saveUser(req.getParameter("password"),
-                            req.getParameter("email"),
-                            req.getParameter("firstname"),
-                            req.getParameter("lastname"),
-                            req.getParameter("phone"),-1, "MALE");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+
+            long newUser = service.saveUser(new User(req.getParameter("firstname"),
+                                                    req.getParameter("lastname"),
+                                                    req.getParameter("email"),
+                                                    req.getParameter("password"),
+                                                    req.getParameter("phone"),-1, Sex.MAN));
+
         //resp.getWriter().println("User " + req.getParameter("firstname") + " " + req.getParameter("lastname") + " is added!");
         resp.sendRedirect("/admin");
     }
