@@ -9,9 +9,9 @@ public interface UserDao {
 
     void saveUser(User user);
 
-    void saveDefaultRole(long id);
-
     User getUserById(long id);
+
+    User getUserByEmail(String email);
 
     long getIdByEmail(String email);
 
@@ -20,5 +20,7 @@ public interface UserDao {
     void deleteUser(long id);
 
     List<User> getAllUsers();
+
+    List<User> getAllUsers(String city);
 
 }

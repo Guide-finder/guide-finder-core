@@ -1,10 +1,7 @@
 package com.guide_finder.dao.executor;
 
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Executor {
 	private final Connection connection;
@@ -35,6 +32,40 @@ public class Executor {
 			}
 		}
 	}
+
+	public long execUpdateWithKeys(String update) {
+		long id = 0;
+		try {
+
+			try (PreparedStatement ps = connection.prepareStatement(update, Statement.RETURN_GENERATED_KEYS)) {
+				ps.executeUpdate();
+				try (ResultSet rs = ps.getGeneratedKeys()) {
+					while(rs.next()) {
+						id=rs.getInt(1);
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			connection.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			try {
+				connection.rollback();
+			} catch (SQLException ignore) {
+			}
+		} finally {
+			try {
+				connection.setAutoCommit(true);
+			} catch (SQLException ignore) {
+			}
+		}
+		return id;
+	}
+
+
+
 
 	public <T> T execQuery(String query, ExecutorHelper<T> helper) {
 		T result = null;

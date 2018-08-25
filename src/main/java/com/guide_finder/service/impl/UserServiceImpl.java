@@ -35,13 +35,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveDefaultRole(long id) {
-        userDao.saveDefaultRole(id);
+    public User getUserById(long id) {
+        return userDao.getUserById(id);
     }
 
     @Override
-    public User getUserById(long id) {
-        return userDao.getUserById(id);
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
     }
 
     @Override
@@ -62,5 +62,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    @Override
+    public List<User> getAllUsers(String city) {
+        return userDao.getAllUsers(city);
     }
 }
