@@ -1,10 +1,12 @@
 package com.guide_finder.servlet;
-import com.guide_finder.dao.impl.CommentariesDaoImpl;
-import com.guide_finder.dao.impl.UserDaoImpl;
 import com.guide_finder.dao.impl.role.GuideDaoImpl;
 import com.guide_finder.model.comment.Commentary;
 import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.*;
+import com.guide_finder.service.impl.CommentaryServiceImpl;
+import com.guide_finder.service.impl.GuideServiceImpl;
+import com.guide_finder.service.impl.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,27 +18,20 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/user/profile")
 public class GuideProfileServlet extends HttpServlet {
+
+    private final UserServiceImpl userService = new UserServiceImpl();
+    private final GuideServiceImpl guideService = new GuideServiceImpl();
+    private final CommentaryServiceImpl commentaryService = new CommentaryServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         long id = Long.parseLong(req.getParameter("id"));
 
-        User user = null;
-        Guide guide = null;
-        List<Commentary> commentaryList = null;
-        List<String> commentaryAuthorNames = null;
-        SocialContact socialContacts = null;
-        String phone = null;
-        String mail = null;
-
-        try {
-            user = new UserDaoImpl().getUserById(id);
-            guide = new GuideDaoImpl().getGuideById(id);
-            commentaryList = new CommentariesDaoImpl().getAllCommentariesByRecipientId(id);
-            socialContacts = new UserDaoImpl().getSocialContactsById(id);
-        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
-        }
+        User user = userService.getUserById(id);
+        Guide guide = guideService.getGuideById(id);
+        List<Commentary> commentaryList = commentaryService.getAllCommentariesByRecipientId(id);
+        SocialContact socialContacts = userService.getSocialContactsById(id);
 
         req.setAttribute("userFirstName", user.getFirstName());
         req.setAttribute("userLastName", user.getLastName());

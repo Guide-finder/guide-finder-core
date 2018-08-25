@@ -9,18 +9,20 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <%--<script src="http://code.jquery.com/jquery-1.8.3.js"></script>--%>
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <%--<!-- Latest compiled and minified CSS -->--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
+          <%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+
+    <%--<!-- Optional theme -->--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"--%>
+          <%--integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">--%>
+    <%--<!-- jQuery -->--%>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>--%>
+    <%--<!-- Latest compiled and minified JavaScript -->--%>
+    <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"--%>
+            <%--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>--%>
 
     <style>
         body {
@@ -76,11 +78,20 @@
             ${description}
             <hr>
         </div>
+
         <div class="col-sm-8" align="left" style="background-color: #ffffff">
             <c:forEach items="${comments}" var="com">
-                <br>
-                <p> <span style="font-weight: bold"></span>${com.message}</p>
+                <p> <span style="font-weight: bold">${com.authorName}</span>${com.message}</p>
             </c:forEach>
+        </div>
+        <div>
+
+        </div>
+        <div class="col-sm-6" style="margin-top: 50px" align="right">
+
+            <input type="submit" class="btn btn-primary" value="Add">
+            <input type="submit" class="btn btn-primary" value="Previous">
+            <input type="submit" class="btn btn-primary" value="Next">
 
         </div>
     </div>
@@ -89,6 +100,3 @@
 </div>
 </body>
 </html>
-
-
-

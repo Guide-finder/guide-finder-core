@@ -2,6 +2,7 @@ package com.guide_finder.service.impl;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.impl.user.UserDaoImpl;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -14,10 +15,20 @@ import java.util.List;
 import java.util.Set;
 
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao = null;
+    private UserDaoImpl userDao;
 
-    public UserServiceImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        Connection connection = DBHelper.getConnection();
+    public UserServiceImpl(){
+        try {
+            userDao = new UserDaoImpl(DBHelper.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -58,5 +69,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers(String city) {
         return userDao.getAllUsers(city);
+    }
+
+    @Override
+    public SocialContact getSocialContactsById(long id) {
+        return userDao.getSocialContactsById(id);
     }
 }

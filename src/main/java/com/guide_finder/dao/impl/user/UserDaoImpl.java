@@ -2,6 +2,7 @@ package com.guide_finder.dao.impl.user;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.executor.Executor;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -11,6 +12,7 @@ import com.guide_finder.service.impl.RoleServiceImpl;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -160,4 +162,33 @@ public class UserDaoImpl implements UserDao {
                     ));
         }
     }
+
+    public SocialContact getSocialContactsById(long id){
+        SocialContact contact = null;
+
+        return executor.execQuery(String.format("select * from socialcontact where user_id='%s'", id), result ->{
+            result.next();
+            return new SocialContact(result.getString(2),result.getString(3),
+                                    result.getString(4),result.getString(5));
+                }
+        );
+
+//        try(Statement statement = connection.createStatement()){
+//            String sql = String.format("select * from socialcontact where user_id='%s'", id);
+//            statement.executeQuery(sql);
+//
+//            ResultSet resultSet = statement.getResultSet();
+//            resultSet.next();
+//            String vk_profile = resultSet.getString(2);
+//            String ok_profile = resultSet.getString(3);
+//            String fb_profie = resultSet.getString(4);
+//            String tg_profile = resultSet.getString(5);
+//            contact = new SocialContact(vk_profile, ok_profile, fb_profie, tg_profile);
+//        }catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return contact;
+//    }
+    }
+
 }

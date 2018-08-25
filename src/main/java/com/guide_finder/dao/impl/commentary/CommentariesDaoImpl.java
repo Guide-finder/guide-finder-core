@@ -1,5 +1,6 @@
 package com.guide_finder.dao.impl.commentary;
 
+import com.guide_finder.dao.executor.Executor;
 import com.guide_finder.dao.impl.AbstractDao;
 import com.guide_finder.model.comment.Commentary;
 import com.guide_finder.model.user.User;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class CommentariesDaoImpl extends AbstractDao {
     private Connection connection;
+    private final Executor executor;
 
-    public CommentariesDaoImpl() throws ClassNotFoundException,
-            SQLException, InstantiationException, IllegalAccessException {
-        this.connection = DBHelper.getConnection();
+    public CommentariesDaoImpl(Connection connection) {
+        this.executor = new Executor(connection);
     }
 
     public Commentary getCommentaryById(long id) throws SQLException {
@@ -116,26 +117,49 @@ public class CommentariesDaoImpl extends AbstractDao {
         return comList;
     }
 
-    public List<Commentary> getAllCommentariesByRecipientId(long id) throws SQLException {
-        Statement stmt = connection.createStatement();
-        String sql = String.format("select * from commentary where recipient_id='%s'", id);
-        stmt.execute(sql);
-
-        ResultSet result = stmt.getResultSet();
-        List<Commentary> comList = new ArrayList<>();
-
-        while (result.next()){
-            comList.add(new Commentary(result.getLong(2),
-                    result.getLong(3),
-                    result.getString(4),
-                    result.getBoolean(5)));
-        }
-        stmt.close();
-        result.close();
-        return comList;
+    public List<Commentary> getAllCommentariesByRecipientId(long id) {
+        List<Commentary> commentaryList = executor.execQuery(String.format("select * from commentary where recipient_id='%s'", id), result -> {
+            List<Commentary> comList = new ArrayList<>();
+            while (result.next()) {
+                Commentary commentary = new Commentary(result.getLong(2),
+                        result.getLong(3),
+                        result.getString(4),
+                        result.getBoolean(5));
+                String name = executor.execQuery(String.format("select * from user where id='%s'", result.getLong(2)), r -> {
+                    r.next();
+                    return r.getString(2);
+                });
+                commentary.setAuthorName(name);
+                comList.add(commentary);
+            }
+            return comList;
+        });
+        return commentaryList;
     }
 
+
+
+//        Statement stmt = connection.createStatement();
+//        String sql = String.format("select * from commentary where recipient_id='%s'", id);
+//        stmt.execute(sql);
+//
+//        ResultSet result = stmt.getResultSet();
+//        List<Commentary> comList = new ArrayList<>();
+//
+//        while (result.next()){
+//            comList.add(new Commentary(result.getLong(2),
+//                    result.getLong(3),
+//                    result.getString(4),
+//                    result.getBoolean(5)));
+//        }
+//        stmt.close();
+//        result.close();
+//        return comList;
+
+
     public List<String> getNamesOfAllCommentAuthorsByRecipientId (long id) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+
+
         List<String> namesOfAuthors = new ArrayList<>();
         Connection connection = DBHelper.getConnection();
         Statement stm = connection.createStatement();

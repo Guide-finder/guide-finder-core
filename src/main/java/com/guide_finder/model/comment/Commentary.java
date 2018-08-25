@@ -9,9 +9,12 @@ public class Commentary {
 
     private final long authorId;
 
+    private String authorName;
+
     private final long recipientId;
 
     private boolean rate;
+
 
     private String message;
 
@@ -20,6 +23,14 @@ public class Commentary {
         this.recipientId = recipientId;
         this.rate = rate;
         this.message = message;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public long getAuthorId() {

@@ -1,5 +1,6 @@
 package com.guide_finder.service.abstraction.user;
 
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -24,5 +25,7 @@ public interface UserService {
     List<User> getAllUsers();
 
     public List<User> getAllUsers(String city);
+
+    public SocialContact getSocialContactsById(long id);
 
 }
