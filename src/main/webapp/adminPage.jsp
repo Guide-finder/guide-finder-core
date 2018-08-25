@@ -44,26 +44,84 @@
 <div class="container"><h1>Admin page</h1>
     <br><br><br><br>
 
-    <form align="center" role="form" class="form-inline" action="/admin" method="POST">
+    <c:if test="${userRole == 'all'}">
+        <form align="center" role="form" class="form-inline" action="/admin" method="POST">
 
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Input email">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
-        <label for="firstname">First name</label>
-        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">
-        <br><br>
-        <label for="lastname">Last name</label>
-        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
-        <label for="phone">Phone</label>
-        <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
-        <input type="submit" value="Save user" class="btn btn-success"></input>
-        <%--Login: <input type="text" name="login"/>--%>
-        <%--Password: <input type="password" name="pass"/>--%>
-        <%--<input type="submit" value="Sign in">--%>
-    </form>
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Input email">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
+            <label for="firstname">First name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">
+            <br><br>
+            <label for="lastname">Last name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
+            <input type="submit" value="Save user" class="btn btn-success"></input>
+            <br><br>
+            <p align="center">All Users</p>
+        </form>
+    </c:if>
+
+
+    <c:if test="${userRole == 'user'}">
+        <form align="center" role="form" class="form-inline" action="/admin" method="POST">
+
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Input email">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
+            <label for="firstname">First name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">
+            <br><br>
+            <label for="lastname">Last name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
+            <input type="submit" value="Save user" class="btn btn-success"></input>
+            <br><br>
+            <p align="center">Guides</p>
+        </form>
+    </c:if>
+
+
+    <c:if test="${userRole == 'admin'}">
+        <form align="center" role="form" class="form-inline" action="/admin?role=admin" method="POST">
+
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Input email">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
+            <label for="firstname">First name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">
+            <br><br>
+            <label for="lastname">Last name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
+            <label for="phone">Phone</label>
+            <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
+            <input type="submit" value="Save user" class="btn btn-success"></input>
+            <br><br>
+            <p align="center">Admins</p>
+        </form>
+    </c:if>
+    <%--<form align="center" role="form" class="form-inline" action="/admin" method="POST">--%>
+
+        <%--<label for="email">Email</label>--%>
+        <%--<input type="email" class="form-control" id="email" name="email" placeholder="Input email">--%>
+        <%--<label for="password">Password</label>--%>
+        <%--<input type="password" class="form-control" id="password" name="password" placeholder="Input password">--%>
+        <%--<label for="firstname">First name</label>--%>
+        <%--<input type="text" class="form-control" id="firstname" name="firstname" placeholder="Input First name">--%>
+        <%--<br><br>--%>
+        <%--<label for="lastname">Last name</label>--%>
+        <%--<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">--%>
+        <%--<label for="phone">Phone</label>--%>
+        <%--<input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">--%>
+        <%--<input type="submit" value="Save user" class="btn btn-success"></input>--%>
+                <%----%>
+    <%--</form>--%>
 </div>
-
 
 <div class="container" align="center">
     <div class="container">
@@ -80,6 +138,8 @@
         <div class="col-md-2">
             <br><br>
             <%--<input type="submit" class="btn btn-primary btn-block" value="Guides">--%>
+            <a href="/admin"><button type="button" class="btn btn-primary btn-block">All Users</button></a>
+            <br>
             <a href="/admin?role=user"><button type="button" class="btn btn-primary btn-block">Guides</button></a>
             <br>
             <%--<input type="submit" class="btn btn-primary btn-block" value="Stuff">--%>

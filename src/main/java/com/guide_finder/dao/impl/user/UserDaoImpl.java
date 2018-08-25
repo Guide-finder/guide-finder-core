@@ -146,37 +146,40 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                             result.getString(5),                              //password
                             result.getString(6),                              //phone
                             result.getInt(7),                                 //age
-                            Sex.valueOf(result.getString(8).toUpperCase()),   //sex
-                            new HashSet<>(
-                                    executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
-                                            result_role ->{
-                                                Set<Role> roles = new HashSet<>();
-                                                while(result_role.next()){
-                                                    roles.add(
-                                                            new Role(
-                                                                    result_role.getLong(1),
-                                                                    result_role.getString(2)
-                                                            )
-                                                    );
-                                                }
-                                                return roles;
-                                            }))                                            // role
+                            Sex.valueOf(result.getString(8).toUpperCase())  //sex
                     ));
         }
     }
 @Override
     public List<User> getUsersByRole(int role_id) {
 
-            String getUserIdFromRoles = "SELECT * FROM user_role WHERE role_id=" + role_id;
+            String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
             return executor.execQuery(getUserIdFromRoles, res -> {
                 List<User> list = new ArrayList<>();
-               while (res.next()) {
-                   User user;
-
-                   user = getUserById(res.getLong(1));
-                   list.add(user);
-               }
+                getUser(res, list);
                return list;
             });
+    }
+
+    /**
+     * Author Dikobob
+     * add role to user, if user has that role already - throw FALSE
+     */
+    public Boolean setRoleToUser(long user_id, long role_id) {
+        return executor.execQuery("SELECT * FROM user_role WHERE user_id = " + user_id, res -> {
+            boolean flag = false;
+            while (res.next()) {
+                if (res.getLong(2) == role_id) {
+                    flag = true;
+                }
+            }
+            if (!flag){
+                executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s)", user_id, role_id));
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
     }
 }
