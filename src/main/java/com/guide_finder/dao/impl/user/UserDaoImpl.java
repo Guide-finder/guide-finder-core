@@ -2,6 +2,7 @@ package com.guide_finder.dao.impl.user;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.executor.Executor;
+import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -12,15 +13,15 @@ import java.sql.Connection;
 import java.util.*;
 
 /**
-* Author - Vitaliy Polyvyanov
-* */
+ * Author - Vitaliy Polyvyanov
+ */
 
 public class UserDaoImpl implements UserDao {
 
     private final Executor executor;
     private final RoleService roleService = new RoleServiceImpl();
 
-    public UserDaoImpl(Connection connection){
+    public UserDaoImpl(Connection connection) {
         this.executor = new Executor(connection);
     }
 
@@ -39,7 +40,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(long userId) {
-        User user =  executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
+        User user = executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
             result.next();
 
             return new User(
@@ -73,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void editUser(User user) {
         executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s', phone='%s', age='%s', sex='%s' WHERE id='%s'",
-                    user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId()));
+                user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId()));
     }
 
     @Override
@@ -98,9 +99,9 @@ public class UserDaoImpl implements UserDao {
                                 Sex.valueOf(result.getString(8).toUpperCase()),   //sex
                                 new HashSet<>(
                                         executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
-                                                result_role ->{
+                                                result_role -> {
                                                     Set<Role> roles = new HashSet<>();
-                                                    while(result_role.next()){
+                                                    while (result_role.next()) {
                                                         roles.add(
                                                                 new Role(
                                                                         result_role.getLong(1),
@@ -115,4 +116,43 @@ public class UserDaoImpl implements UserDao {
             return urList;
         });
     }
+
+    @Override
+    public void setCoord(long userId, double latitude, double longitude) {
+        executor.execUpdate(String.format("insert into coord (user_id, longCoord, latCoord) values ('%s', '%s', '%s')", userId, latitude, longitude));
+    }
+
+    public List<Double> getCoord(long id) {
+
+        return executor.execQuery(String.format("select * from coord where user_id = '%s'", id), result -> {
+            List<Double> list = new ArrayList<>();
+            result.next();
+            list.add(result.getDouble(2));
+            list.add(result.getDouble(3));
+            return list;
+        });
+    }
+
+    @Override
+    public List<UserCoordsDto> getGuidesAround(Double longitude, Double latitude) {
+        List<UserCoordsDto> list = new ArrayList<>();
+
+        return executor.execQuery("select * from coord where" +
+                " (longCoord <= " + longitude + " + 0.003 AND latCoord <= " + latitude + " + 0.003)" +
+                " and (longCoord >= " + longitude + " - 0.003 AND latCoord >= " + latitude + " - 0.003)" ,result -> {
+            while (result.next()) {
+                UserCoordsDto dto = new UserCoordsDto(
+                        result.getLong(1),
+                        result.getDouble(2),
+                        result.getDouble(3)
+                );
+                list.add(dto);
+            }
+            return list;
+        });
+    }
+
 }
+
+
+

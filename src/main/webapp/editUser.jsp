@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dmitry
-  Date: 22.08.2018
-  Time: 15:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>guideFinder</title>
@@ -24,6 +18,7 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -37,14 +32,11 @@
 
 </head>
 <body>
-
-<!-- Наша шапка -->
-<div class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Guide finder</a>
-        </div>
+<div class="container">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Guide finder</a>
     </div>
+</div>
 </div>
 
 
@@ -58,29 +50,37 @@
             <div class="container">
                 <form action="/editUser" method="post">
                     <input type="hidden" name="userId" value="${user.id}">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="${user.email}">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                               value="${user.email}">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="${user.password}">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                               value="${user.password}">
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name" value="${user.firstName}">
+                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name"
+                               value="${user.firstName}">
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="${user.lastName}">
+                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname"
+                               value="${user.lastName}">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" name="age" class="form-control" id="age" placeholder="Age" value="${user.age}">
+                        <input type="number" name="age" class="form-control" id="age" placeholder="Age"
+                               value="${user.age}">
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
+                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone"
+                               value="${user.phone}">
                     </div>
                     <div class="form-group">
                         <label for="age">Sex</label>
@@ -91,8 +91,11 @@
                             </c:forEach>
                         </select>
                     </div>
+
+                    <button type="button" class="form-control" onclick="getLocation()">Active</button>
+
                     <%--<div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" onchange="getLocation()">
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
                     </div>--%>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -105,5 +108,34 @@
     </div>
 </div>
 
+<%--<div id="coord">
+    <form action="/setCoord" method="post">
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+        <button type="submit" onclick="getLocation()">Активировать детонатор</button>
+    </form>
+</div>--%>
+
 </body>
+
+<script>
+
+    /*window.onload(getLocation());*/
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+
+    function showPosition(position) {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+    }
+</script>
+
+
 </html>

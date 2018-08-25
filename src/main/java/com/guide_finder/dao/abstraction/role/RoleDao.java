@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface RoleDao {
 
-    void saveRole(String name);
+    long saveRole(String name);
 
     Role getRoleById(long id);
 

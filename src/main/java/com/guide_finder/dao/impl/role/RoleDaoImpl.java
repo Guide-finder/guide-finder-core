@@ -5,10 +5,7 @@ import com.guide_finder.dao.executor.Executor;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.util.DBHelper;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,13 +21,22 @@ public class RoleDaoImpl implements RoleDao {
         this.connection = connection;
     }
 
-    public void saveRole(String name) {
-        try (Statement statement = connection.createStatement()) {
-            String query = String.format("insert into role (name) values ('%s')", name);
-            statement.execute(query);
+    public long saveRole(String name) {
+        long id = 0;
+
+        String query = String.format("insert into role (name) values ('%s')", name);
+
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                while(rs.next()) {
+                    id=rs.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return id;
     }
 
     @Override
@@ -118,21 +124,21 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public Set<Role> getAllRolesByUserId(long userId) {
 
-       return executor.execQuery(String.format(
-                        "SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))",
-                        userId),
-                        result_role -> {
-                            Set<Role> roles = new HashSet<>();
-                            while(result_role.next()){
-                                roles.add(
-                                        new Role(
-                                                result_role.getLong(1),
-                                                result_role.getString(2)
-                                        )
-                                );
-                            }
-                            return roles;
-                        });
+        return executor.execQuery(String.format(
+                "SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))",
+                userId),
+                result_role -> {
+                    Set<Role> roles = new HashSet<>();
+                    while (result_role.next()) {
+                        roles.add(
+                                new Role(
+                                        result_role.getLong(1),
+                                        result_role.getString(2)
+                                )
+                        );
+                    }
+                    return roles;
+                });
 
     }
 

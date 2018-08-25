@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface RoleService {
 
-    void saveRole(String name);
+    long saveRole(String name);
 
     Role getRoleById(long id);
 

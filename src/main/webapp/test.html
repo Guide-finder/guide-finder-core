@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Пример добавления метки на карту вариант 2 - JavaScript API Яндекс.Карт 2.0</title>
+    <!-- Подключаем API  карт 2.x  -->
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+
+    <script>
+
+        ymaps.ready(init);
+
+        function init() {
+
+
+
+            // Создание экземпляра карты и его привязка к контейнеру с
+            // заданным id ("map")
+            var myMap = new ymaps.Map('map', {
+                // При инициализации карты, обязательно нужно указать
+                // ее центр и коэффициент масштабирования
+                center: [x, y], // Нижний Новгород
+                zoom: 13
+            });
+
+            // Создание метки
+            var myGeoObject = new ymaps.GeoObject({
+                // Геометрия.
+                geometry: {
+                    // Тип геометрии - точка
+                    type: "Point",
+                    // Координаты точки.
+                    coordinates: [x, y]
+                }
+            });
+
+            // Добавление метки на карту
+            myMap.geoObjects.add(myGeoObject);
+
+        }
+
+    </script>
+
+
+</head>
+
+<body>
+
+
+<div id="map" style="width:600px; height:400px"></div>
+</body>
+</html>
