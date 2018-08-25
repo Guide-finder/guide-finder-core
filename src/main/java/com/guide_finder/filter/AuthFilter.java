@@ -1,13 +1,14 @@
 package com.guide_finder.filter;
 
 import javax.servlet.*;
+import javax.servlet.Filter;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 @WebFilter ("/*")
-public class AuthorizationFilter implements Filter {
+public class AuthFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("auth filter");
@@ -22,10 +23,14 @@ public class AuthorizationFilter implements Filter {
         HttpSession session = request.getSession();
         String loginURI = request.getContextPath() + "/login";
         String loginRegister = request.getContextPath() + "/register";
+        String loginAdmin = request.getContextPath() + "/admin";
+        String loginUser = request.getContextPath() + "/user";
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
         boolean regRequest = request.getRequestURI().equals(loginRegister);
+        boolean adminRequest = request.getRequestURI().equals(loginAdmin);
+        boolean userRequest = request.getRequestURI().equals(loginUser);
 
         //if ()
 
@@ -35,8 +40,12 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(request, response);
         } else if (regRequest) {
             chain.doFilter(request, response);
+        } else if (adminRequest){
+            chain.doFilter(request, response);
+        } else if (userRequest) {
+            chain.doFilter(request, response);
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect("login.jsp");
         }
 
 
