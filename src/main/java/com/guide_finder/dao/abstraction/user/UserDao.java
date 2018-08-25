@@ -3,11 +3,13 @@ package com.guide_finder.dao.abstraction.user;
 import com.guide_finder.model.user.*;
 
 import javax.jws.soap.SOAPBinding;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDao {
 
-    void saveUser(User user);
+    long saveUser(User user);
 
     User getUserById(long id);
 
@@ -20,6 +22,10 @@ public interface UserDao {
     void deleteUser(long id);
 
     List<User> getAllUsers();
+
+    void getUser(ResultSet result, List<User> urList) throws SQLException;
+
+    List<User> getUsersByRole(int role_id);
 
     List<User> getAllUsers(String city);
 

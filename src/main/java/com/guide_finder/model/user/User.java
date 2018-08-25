@@ -51,6 +51,16 @@ public class User {
         this.sex = sex;
     }
 
+    public User(String firstName, String lastName, String email, String password, String phone, int age, Sex sex) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.age = age;
+        this.sex = sex;
+    }
+
 
     public long getId() {
         return id;

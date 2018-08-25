@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-         userDao.saveUser(user);
+    public long saveUser(User user) {
+         return userDao.saveUser(user);
     }
 
     @Override
@@ -67,5 +67,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers(String city) {
         return userDao.getAllUsers(city);
+    }
+
+    @Override
+    public List<User> getUsersByRole(int role_id) {
+        return userDao.getUsersByRole(role_id);
     }
 }

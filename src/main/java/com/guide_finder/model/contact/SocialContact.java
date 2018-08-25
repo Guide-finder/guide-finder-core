@@ -70,4 +70,9 @@ public class SocialContact {
 
         return Objects.hash(vk, ok, fb, tg);
     }
+
+    @Override
+    public String toString() {
+        return "VK: " + vk + ", " + "OK: " + ok + "FB: " + fb + "TG: " + tg;
+    }
 }
