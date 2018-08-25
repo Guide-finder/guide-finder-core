@@ -100,8 +100,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void editUser(User user) {
-        executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s', phone='%s', age='%s', sex='%s' WHERE id='%s'",
-                    user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId()));
+        executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s'," +
+                                            " phone='%s', age='%s', sex='%s' WHERE id='%s'",
+                                            user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+                                            user.getPhone(), user.getAge(), user.getSex(), user.getId()));
     }
 
     @Override

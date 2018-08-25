@@ -47,7 +47,7 @@
     <form align="center" role="form" class="form-inline" action="/admin" method="POST">
 
         <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Input email">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Input email">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Input password">
         <label for="firstname">First name</label>
@@ -56,7 +56,7 @@
         <label for="lastname">Last name</label>
         <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone">
+        <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
         <input type="submit" value="Save user" class="btn btn-success"></input>
         <%--Login: <input type="text" name="login"/>--%>
         <%--Password: <input type="password" name="pass"/>--%>
@@ -85,7 +85,7 @@
             <%--<input type="submit" class="btn btn-primary btn-block" value="Stuff">--%>
             <a href="/admin?role=admin"><button type="button" class="btn btn-primary btn-block">Stuff</button></a>
             <br>
-            <a href="/editRole"><button type="button" class="btn btn-primary btn-block">Edit ROLE</button></a>
+            <a href="/admin/roles"><button type="button" class="btn btn-primary btn-block">Edit ROLE</button></a>
         </div>
 
 
@@ -115,7 +115,7 @@
                             <td>${user.email}</td>
                             <td align="center">
                                 <div class="btn-group">
-                                    <a href="/admin/edit?id=${user.id}"><button type="button" class="btn btn-primary">Edit</button></a>
+                                    <a href="/editUser?userId=${user.id}"><button type="button" class="btn btn-primary">Edit</button></a>
                                     <a href="/admin/delete?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>
                                 </div>
                             </td>
