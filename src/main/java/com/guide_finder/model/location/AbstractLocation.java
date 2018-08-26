@@ -6,7 +6,8 @@ public abstract class AbstractLocation {
 
     private String name;
 
-    protected AbstractLocation(String name) {
+    protected AbstractLocation(long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

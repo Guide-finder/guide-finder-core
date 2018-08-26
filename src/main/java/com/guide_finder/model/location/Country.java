@@ -11,9 +11,13 @@ public class Country extends AbstractLocation {
 
     private Region region;
 
-    public Country(String name, Region region) {
-        super(name);
+    public Country(long id, String name, Region region) {
+        super(id, name);
         this.region = region;
+    }
+
+    public Country(long id, String name) {
+        super(id, name);
     }
 
     public Region getRegion() {

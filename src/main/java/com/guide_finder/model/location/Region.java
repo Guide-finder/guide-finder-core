@@ -13,8 +13,8 @@ public class Region extends AbstractLocation {
 
     private final City city;
 
-    public Region(String name, Country country, City city) {
-        super(name);
+    public Region(long id, String name, Country country, City city) {
+        super(id, name);
         this.country = country;
         this.city = city;
     }

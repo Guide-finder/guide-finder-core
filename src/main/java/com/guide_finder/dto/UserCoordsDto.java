@@ -4,11 +4,15 @@ import java.util.Objects;
 
 public class UserCoordsDto {
     private long id;
+    private String firstname;
+    private String lastname;
     private double latitude;
     private double longitude;
 
-    public UserCoordsDto(long id, double latitude, double longitude) {
+    public UserCoordsDto(long id, String firstname, String lastname, double latitude, double longitude) {
         this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -47,6 +51,22 @@ public class UserCoordsDto {
                 '}';
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        UserCoordsDto that = (UserCoordsDto) o;
+//        return id == that.id &&
+//                Double.compare(that.latitude, latitude) == 0 &&
+//                Double.compare(that.longitude, longitude) == 0;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, latitude, longitude);
+//    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,11 +74,14 @@ public class UserCoordsDto {
         UserCoordsDto that = (UserCoordsDto) o;
         return id == that.id &&
                 Double.compare(that.latitude, latitude) == 0 &&
-                Double.compare(that.longitude, longitude) == 0;
+                Double.compare(that.longitude, longitude) == 0 &&
+                Objects.equals(firstname, that.firstname) &&
+                Objects.equals(lastname, that.lastname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, latitude, longitude);
+
+        return Objects.hash(id, firstname, lastname, latitude, longitude);
     }
 }

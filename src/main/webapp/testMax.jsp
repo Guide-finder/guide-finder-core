@@ -44,8 +44,7 @@
             zoom: 13
         });
 
-        // Создаем коллекцию, в которую будем добавлять метки
-        myCollection = new ymaps.GeoObjectCollection();
+
 
         for (var i = 0; i < coords.length; i++) {
             console.log(coords[i].latitude);
@@ -53,20 +52,21 @@
             var myPlacemark = new ymaps.Placemark(
                 // Координаты метки
                 [coords[i].latitude, coords[i].longitude],{
-                    name: (coords[i].firstname + " " + coords[i].lastname),
-                    link: ('editUser?userId=' + coords[i].id)
+                    name: 'Нижегородский театр «Комедія»',
+                    address: 'ул. Грузинская, д. 23',
+                    websayt: 'comedia.nnov.ru'
+
                 }
             );
 
-            myCollection.add(myPlacemark);
-            // myMap.geoObjects.add(myPlacemark);
+            myMap.geoObjects.add(myPlacemark);
         }
 
         // Создаем шаблон для отображения контента балуна
         var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
-            // '<h3>$[properties.name]</h3>' +
-            // '<p><strong>Адрес:</strong> $[properties.address]</p>' +
-            '<div align="center"><p align="center"><strong></strong><h3> <a rel="nofollow" href="$[properties.link]" align="center" target="_blank">$[properties.name]</a></h3></p></div>'
+            '<h3>$[properties.name]</h3>' +
+            '<p><strong>Адрес:</strong> $[properties.address]</p>' +
+            '<p><strong>Веб-сайт:</strong> <a rel="nofollow" href="http://$[properties.websayt]" target="_blank">перейти</a></p>'
         );
 
         // Помещаем созданный шаблон в хранилище шаблонов. Теперь наш шаблон доступен по ключу 'my#theaterlayout'.
@@ -79,7 +79,6 @@
             balloonMaxWidth: 300
         });
         // Добавление метки на карту
-        myMap.geoObjects.add(myCollection);
     }
 
 </script>
