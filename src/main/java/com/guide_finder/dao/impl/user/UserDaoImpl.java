@@ -141,13 +141,14 @@ public class UserDaoImpl implements UserDao {
                                                 }))                                            // role
                         ));
             }
-            if (!flag){
-                executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s)", user_id, role_id));
-                return true;
-            }
-            else {
-                return false;
-            }
+//            if (!flag){
+//                executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s)", user_id, role_id));
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+            return urList;
         });
     }
 

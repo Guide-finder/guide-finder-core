@@ -10,4 +10,5 @@ public interface LocationDao {
     List<City> getAllCities();
     List<City> getCitiesByCountry(Country country);
     List<City> getCitiesByCountryId(Long id);
+    int getCoordsCount();
 }

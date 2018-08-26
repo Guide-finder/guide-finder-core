@@ -77,4 +77,11 @@ public class LocationDaoImpl implements LocationDao {
                     return listCouries;
                 });
     }
+
+    public int getCoordsCount(){
+        return executor.execQuery("select count(*) from coord", result -> {
+            result.next();
+            return result.getInt(1);
+        });
+    }
 }

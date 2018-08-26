@@ -45,5 +45,11 @@ public class LocationServiceImpl implements LocationService {
     public List<City> getCitiesByCountryId(Long id) {
         return locationDao.getCitiesByCountryId(id);
     }
+
+    @Override
+    public int getCoordsCount() {
+        return locationDao.getCoordsCount();
+    }
+
 }
 

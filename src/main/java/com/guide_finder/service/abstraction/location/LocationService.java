@@ -9,4 +9,5 @@ public interface LocationService {
     List<Country> getAllCountries();
     List<City> getCitiesByCountry(Country country);
     List<City> getCitiesByCountryId(Long id);
+    public int getCoordsCount();
 }

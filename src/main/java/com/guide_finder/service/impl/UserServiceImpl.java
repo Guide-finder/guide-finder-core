@@ -77,18 +77,18 @@ public class UserServiceImpl implements UserService {
         return userDao.getGuidesAround(longitude, latitude);
     }
 
-    @Override
-    public List<User> getAllUsers(String city) {
-        return userDao.getAllUsers(city);
-    }
-
-    @Override
-    public List<User> getUsersByRole(int role_id) {
-        return userDao.getUsersByRole(role_id);
-    }
-
-    @Override
-    public Boolean setRoleToUser(long user_id, long role_id) {
-        return userDao.setRoleToUser(user_id, role_id);
-    }
+//    @Override
+//    public List<User> getAllUsers(String city) {
+//        return userDao.getAllUsers(city);
+//    }
+//
+//    @Override
+//    public List<User> getUsersByRole(int role_id) {
+//        return userDao.getUsersByRole(role_id);
+//    }
+//
+//    @Override
+//    public Boolean setRoleToUser(long user_id, long role_id) {
+//        return userDao.setRoleToUser(user_id, role_id);
+//    }
 }

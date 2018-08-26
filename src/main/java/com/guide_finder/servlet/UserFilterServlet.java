@@ -29,16 +29,16 @@ public class UserFilterServlet extends HttpServlet {
 
     }
 
-    @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<User> userList = usi.getAllUsers(req.getParameter("city"));
-
-        req.setAttribute("users", userList);
-
-        resp.setContentType("text/html");
-        req.getRequestDispatcher("/userList.jsp").forward(req, resp);
-
-    }
+//    @Override
+//    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//
+//        List<User> userList = usi.getAllUsers(req.getParameter("city"));
+//
+//        req.setAttribute("users", userList);
+//
+//        resp.setContentType("text/html");
+//        req.getRequestDispatcher("/userList.jsp").forward(req, resp);
+//
+//    }
 
 }
