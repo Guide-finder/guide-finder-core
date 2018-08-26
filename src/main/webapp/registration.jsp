@@ -6,7 +6,7 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<form class="form-horizontal" action='/register' method="POST">
+<form class="form-horizontal" action='/registration' method="POST">
     <fieldset>
         <div id="legend">
             <legend class="">Register</legend>
@@ -33,7 +33,7 @@
 
         <div class="control-group">
             <!-- Name-->
-            <label class="control-label"  for="name">firstname</label>
+            <label class="control-label"  for="firstname">firstname</label>
             <div class="controls">
                 <input type="text" id="firstname" name="firstname" placeholder="" class="input-xlarge">
                 <p class="help-block">Your name</p>
