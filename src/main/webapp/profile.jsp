@@ -121,7 +121,7 @@
                         method: "POST",
                         data: {senderId: senderId, recipientId: recipientId, comment: comment},
                         success: function(data) {
-                            $('#comment_container').append('<div style="background-color: silver">' + data.authorName + ':  ' + data.message + '</div>');
+                            $('#comment_container').append('<div>' + data.authorName + ':  ' + data.message + '</div>');
                         },
                         error: function(error) {
                             console.log(error.message);
