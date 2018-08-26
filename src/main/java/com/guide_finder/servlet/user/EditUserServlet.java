@@ -55,11 +55,11 @@ public class EditUserServlet extends HttpServlet {
         Integer age = Integer.valueOf(req.getParameter("age"));
         Sex sex = Sex.valueOf(req.getParameter("sex"));
 
-        User user = new User(userId, password, email, firstName, lastName, phone, age, sex);
+        User user = new User(userId, firstName, lastName, email, password,  phone, age, sex);
 
         userService.editUser(user);
 
-        resp.sendRedirect("/editUser?userId="+userId);
+        resp.sendRedirect("/admin");
 
     }
 }

@@ -15,25 +15,24 @@ import java.util.List;
 import java.util.Set;
 
 public class UserServiceImpl implements UserService {
-    private UserDaoImpl userDao;
 
-    public UserServiceImpl(){
+    private final UserDao userDao;
+
+    public UserServiceImpl() {
+        Connection connection = null;
+
         try {
-            userDao = new UserDaoImpl(DBHelper.getConnection());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+            connection = DBHelper.getConnection();
+        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
+
+        this.userDao = new UserDaoImpl(connection);
     }
 
     @Override
-    public void saveUser(User user) {
-    userDao.saveUser(user);
+    public long saveUser(User user) {
+    return userDao.saveUser(user);
     }
 
     @Override
@@ -74,5 +73,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public SocialContact getSocialContactsById(long id) {
         return userDao.getSocialContactsById(id);
+    }
+
+    @Override
+    public List<User> getUsersByRole(int role_id) {
+        return userDao.getUsersByRole(role_id);
+    }
+
+    @Override
+    public Boolean setRoleToUser(long user_id, long role_id) {
+        return userDao.setRoleToUser(user_id, role_id);
     }
 }

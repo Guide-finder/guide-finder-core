@@ -10,7 +10,7 @@ import java.util.Set;
 
 public interface UserService {
 
-    void saveUser(User user);
+    long saveUser(User user);
 
     User getUserById(long id);
 
@@ -28,4 +28,7 @@ public interface UserService {
 
     public SocialContact getSocialContactsById(long id);
 
+    List<User> getUsersByRole(int role_id);
+
+    Boolean setRoleToUser(long user_id, long role_id);
 }

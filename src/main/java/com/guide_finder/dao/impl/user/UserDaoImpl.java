@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void saveUser(User user) {
+    public long saveUser(User user) {
 
         //todo не сохраняются роли в базу
 
@@ -37,6 +37,7 @@ public class UserDaoImpl implements UserDao {
         if (user_id > 0) {
             executor.execUpdate(String.format("insert into user_role (user_id, role_id) values ('%s', '%s')", user_id, 2));
         }
+        return user_id;
     }
 
     @Override
@@ -100,8 +101,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void editUser(User user) {
-        executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s', phone='%s', age='%s', sex='%s' WHERE id='%s'",
-                    user.getFirstName(), user.getLastName(), user.getPassword(), user.getPhone(), user.getEmail(), user.getAge(), user.getSex(), user.getId()));
+        executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s'," +
+                                            " phone='%s', age='%s', sex='%s' WHERE id='%s'",
+                                            user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+                                            user.getPhone(), user.getAge(), user.getSex(), user.getId()));
     }
 
     @Override
@@ -132,8 +135,8 @@ public class UserDaoImpl implements UserDao {
             });
         }
     }
-
-    private void getUser(ResultSet result, List<User> urList) throws SQLException {
+@Override
+public void getUser(ResultSet result, List<User> urList) throws SQLException {
         while (result.next()) {
             urList.add(
                     new User(
@@ -144,23 +147,19 @@ public class UserDaoImpl implements UserDao {
                             result.getString(5),                              //password
                             result.getString(6),                              //phone
                             result.getInt(7),                                 //age
-                            Sex.valueOf(result.getString(8).toUpperCase()),   //sex
-                            new HashSet<>(
-                                    executor.execQuery(String.format("SELECT * FROM role WHERE id IN (SELECT role_id FROM user_role WHERE user_id IN (SELECT id FROM user WHERE id = '%s'))", result.getLong(1)),
-                                            result_role ->{
-                                                Set<Role> roles = new HashSet<>();
-                                                while(result_role.next()){
-                                                    roles.add(
-                                                            new Role(
-                                                                    result_role.getLong(1),
-                                                                    result_role.getString(2)
-                                                            )
-                                                    );
-                                                }
-                                                return roles;
-                                            }))                                            // role
+                            Sex.valueOf(result.getString(8).toUpperCase())  //sex
                     ));
         }
+    }
+@Override
+    public List<User> getUsersByRole(int role_id) {
+
+            String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
+            return executor.execQuery(getUserIdFromRoles, res -> {
+                List<User> list = new ArrayList<>();
+                getUser(res, list);
+               return list;
+            });
     }
 
     public SocialContact getSocialContactsById(long id){
@@ -191,4 +190,26 @@ public class UserDaoImpl implements UserDao {
 //    }
     }
 
+
+    /**
+     * Author Dikobob
+     * add role to user, if user has that role already - throw FALSE
+     */
+    public Boolean setRoleToUser(long user_id, long role_id) {
+        return executor.execQuery("SELECT * FROM user_role WHERE user_id = " + user_id, res -> {
+            boolean flag = false;
+            while (res.next()) {
+                if (res.getLong(2) == role_id) {
+                    flag = true;
+                }
+            }
+            if (!flag){
+                executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s)", user_id, role_id));
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    }
 }

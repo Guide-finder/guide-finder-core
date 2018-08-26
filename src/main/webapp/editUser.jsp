@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
                     </div>
                     <div class="form-group">
                         <label for="age">Sex</label>
