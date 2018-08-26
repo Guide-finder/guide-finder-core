@@ -34,4 +34,6 @@ public interface UserDao {
 
     SocialContact getSocialContactsById(long id);
 
+    void costilToDescription(long user_id);
+
 }

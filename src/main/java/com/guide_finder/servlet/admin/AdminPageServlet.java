@@ -56,6 +56,7 @@ public class AdminPageServlet extends HttpServlet {
                                                     req.getParameter("password"),
                                                     req.getParameter("phone"),-1, Sex.MAN));
             boolean dontGotIt = service.setRoleToUser(newUser, 1);
+            service.costilToDescription(newUser);
         }
 
         else {
@@ -64,7 +65,7 @@ public class AdminPageServlet extends HttpServlet {
                                                     req.getParameter("email"),
                                                     req.getParameter("password"),
                                                     req.getParameter("phone"),-1, Sex.MAN));
-
+            service.costilToDescription(newUser);
         }
 
         //resp.getWriter().println("User " + req.getParameter("firstname") + " " + req.getParameter("lastname") + " is added!");

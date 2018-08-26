@@ -84,4 +84,9 @@ public class UserServiceImpl implements UserService {
     public Boolean setRoleToUser(long user_id, long role_id) {
         return userDao.setRoleToUser(user_id, role_id);
     }
+
+    @Override
+    public void costilToDescription(long user_id) {
+        userDao.costilToDescription(user_id);
+    }
 }
