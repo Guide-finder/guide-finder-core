@@ -50,9 +50,9 @@
         <form role="form" class="form-inline">
 
             <label for="message">New role</label>
-            <input type="text" class="form-control" id="message" placeholder="Input new role" name = "newRole1">
+            <input type="text" class="form-control" id="message" placeholder="Input new role" name = "newRole">
 
-            <input  value = "Save role" class="btn btn-success" id="send_date"></input>
+            <input type="button" value = "Save role" class="btn btn-success" id="send_date"></input>
         </form>
 
     </div>
