@@ -21,11 +21,11 @@ category
 /*
 commentary
  */
-INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (2,3,'cool', 1);
-INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (2,1,'sucks', 0);
-INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (1,3,'very cool', 1);
-INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (4,1,'sucks', 0);
-INSERT INTO commentary (author_id, recipient_id, message, rate) VALUES (2,5,'very cool', 1);
+INSERT INTO commentary (author_id, recipient_id, message) VALUES (2,3,'cool');
+INSERT INTO commentary (author_id, recipient_id, message) VALUES (2,1,'sucks');
+INSERT INTO commentary (author_id, recipient_id, message) VALUES (1,3,'very cool');
+INSERT INTO commentary (author_id, recipient_id, message) VALUES (4,1,'sucks');
+INSERT INTO commentary (author_id, recipient_id, message) VALUES (2,5,'very cool');
 
 /*
 language

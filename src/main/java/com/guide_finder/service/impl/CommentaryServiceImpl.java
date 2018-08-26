@@ -26,35 +26,35 @@ public class CommentaryServiceImpl implements CommentaryService {
         }
     }
 
+//    @Override
+//    public Commentary getCommentaryById(long id) throws SQLException {
+//        return commentariesDao.getCommentaryById(id);
+//    }
+//
+//    @Override
+//    public Commentary getCommentaryByAuthorId(long authorId) throws SQLException {
+//        return commentariesDao.getCommentaryById(authorId);
+//    }
+//
+//    @Override
+//    public Commentary getCommentaryByRecipientIdId(long recipientId) throws SQLException {
+//        return commentariesDao.getCommentaryByRecipientIdId(recipientId);
+//    }
+//
     @Override
-    public Commentary getCommentaryById(long id) throws SQLException {
-        return commentariesDao.getCommentaryById(id);
-    }
-
-    @Override
-    public Commentary getCommentaryByAuthorId(long authorId) throws SQLException {
-        return commentariesDao.getCommentaryById(authorId);
-    }
-
-    @Override
-    public Commentary getCommentaryByRecipientIdId(long recipientId) throws SQLException {
-        return commentariesDao.getCommentaryByRecipientIdId(recipientId);
-    }
-
-    @Override
-    public void saveCommentary(Commentary commentary) throws SQLException {
+    public void saveCommentary(Commentary commentary) {
         commentariesDao.saveCommentary(commentary);
     }
+//
+//    @Override
+//    public void editCommentary(long id) throws SQLException {
+//        commentariesDao.editCommentary(id);
+//    }
 
-    @Override
-    public void editCommentary(long id) throws SQLException {
-        commentariesDao.editCommentary(id);
-    }
-
-    @Override
-    public void deleteCommentary(long id) throws SQLException {
-
-    }
+//    @Override
+//    public void deleteCommentary(long id) throws SQLException {
+//
+//    }
 
     @Override
     public List<Commentary> getAllCommentariesByRecipientId(long id) {

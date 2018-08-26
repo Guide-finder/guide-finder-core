@@ -106,7 +106,6 @@ create table commentary
 	author_id bigint not null,
 	recipient_id bigint not null,
 	message text not null,
-	rate bit null,
 	constraint commentary_ibfk_1
 		foreign key (author_id) references user (id),
 	constraint commentary_ibfk_2
