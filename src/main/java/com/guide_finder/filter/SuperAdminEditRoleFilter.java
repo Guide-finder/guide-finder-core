@@ -31,7 +31,7 @@ public class SuperAdminEditRoleFilter implements Filter {
         User user = (User) session.getAttribute("user");
         RoleService roleService = new RoleServiceImpl();
         Role roleSuperAdmin = roleService.getRoleById(3);
-        Set s = user.getRoles(); //todo generic
+        Set<Role> s = user.getRoles(); //todo generic
         boolean hasSuperAdmin = s.contains(roleSuperAdmin);
 
         if (roleSuperAdmin != null && hasSuperAdmin) {
