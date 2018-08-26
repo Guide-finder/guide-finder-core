@@ -49,10 +49,12 @@ INSERT INTO guide_finder.user_role (user_id, role_id) VALUES (41, 1);
 
 INSERT INTO guide_finder.commentary (id, author_id, recipient_id, message, rate) VALUES (5, 1, 3, 'very cool', true);
 
-
 INSERT INTO guide_finder.socialcontact (user_id, vk, ok, fb, tg) VALUES (1, 'vk_prof_1', 'ok_prof_1', 'fb_prof_1', 'fg_prof_1');
 INSERT INTO guide_finder.socialcontact (user_id, vk, ok, fb, tg) VALUES (3, 'vk_prof_3', 'ok_prof_3', 'fb_prof_3', 'fg_prof_3');
 
-
 INSERT INTO guide_finder.staff (id, user_id, salary) VALUES (1, 1, 150);
 INSERT INTO guide_finder.staff (id, user_id, salary) VALUES (3, 3, 125);
+
+INSERT INTO guide_finder.guide (user_id, city_id, description) VALUES (1, 1, 'Прогулки по Москве');
+INSERT INTO guide_finder.guide (user_id, city_id, description) VALUES (6, 173, 'Прогулки по Санкт-Петербургу');
+INSERT INTO guide_finder.guide (user_id, city_id, description) VALUES (3, 70, 'Прогулки по Красногорск');

@@ -151,7 +151,8 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                     ));
         }
     }
-@Override
+
+    @Override
     public List<User> getUsersByRole(int role_id) {
 
             String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
@@ -162,6 +163,7 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
             });
     }
 
+    @Override
     public SocialContact getSocialContactsById(long id){
         SocialContact contact = null;
 
