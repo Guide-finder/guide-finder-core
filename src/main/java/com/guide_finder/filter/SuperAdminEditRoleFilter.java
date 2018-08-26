@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Set;
 
 @WebFilter("/admin/roles")
 public class SuperAdminEditRoleFilter implements Filter {
@@ -31,12 +32,14 @@ public class SuperAdminEditRoleFilter implements Filter {
         User user = (User) session.getAttribute("user");
         RoleService roleService = new RoleServiceImpl();
         Role roleSuperAdmin = roleService.getRoleById(3);
+        Set s = user.getRoles();
+        boolean hasSuperAdmin = s.contains(roleSuperAdmin);
 
-        if (roleSuperAdmin != null || user.getRoles().contains(roleSuperAdmin)) {
+        if (roleSuperAdmin != null && hasSuperAdmin) {
             filterChain.doFilter(request, response);
             return;
         } else {
-            ((HttpServletResponse) response).sendRedirect("/error");
+            ((HttpServletResponse) response).sendRedirect("/accessDenied");
         }
 
     }
