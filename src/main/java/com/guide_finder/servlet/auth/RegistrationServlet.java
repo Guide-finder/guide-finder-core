@@ -57,6 +57,7 @@ public class RegistrationServlet extends HttpServlet {
         user.setRoles(roles);
 
         userService.saveUser(user);
+        userService.costilToDescription(user.getId());
 
         req.setAttribute("firstName", user.getFirstName());
         req.setAttribute("isRegister", true);

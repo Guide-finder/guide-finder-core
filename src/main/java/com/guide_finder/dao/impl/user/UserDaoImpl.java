@@ -182,4 +182,8 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
             }
         });
     }
+
+    public void costilToDescription(long user_id){
+        executor.execUpdate(String.format("INSERT INTO guide (user_id, city_id, description) VALUE (%s, NULL, NULL )", user_id));
+    }
 }

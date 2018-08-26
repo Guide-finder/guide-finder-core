@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//
-//
 @WebServlet("/admin/roles")
 public class AdminRolesServlet extends HttpServlet {
 

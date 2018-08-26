@@ -31,4 +31,6 @@ public interface UserDao {
 
     Boolean setRoleToUser(long user_id, long role_id);
 
+    void costilToDescription(long user_id);
+
 }
