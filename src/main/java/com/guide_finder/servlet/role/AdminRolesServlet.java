@@ -23,7 +23,7 @@ public class AdminRolesServlet extends HttpServlet {
 
             List<Role> roles = roleService.getAllRoles();
             resp.setCharacterEncoding("UTF-8");
-            req.setAttribute("roles",roles);
+            req.setAttribute("roles", roles);
             req.getRequestDispatcher("/adminRoles.jsp").forward(req, resp);
     }
 

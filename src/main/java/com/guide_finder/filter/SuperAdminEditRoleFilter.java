@@ -26,18 +26,16 @@ public class SuperAdminEditRoleFilter implements Filter {
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
 
         HttpSession session = ((HttpServletRequest)request).getSession();
         User user = (User) session.getAttribute("user");
         RoleService roleService = new RoleServiceImpl();
         Role roleSuperAdmin = roleService.getRoleById(3);
-        Set s = user.getRoles();
+        Set s = user.getRoles(); //todo generic
         boolean hasSuperAdmin = s.contains(roleSuperAdmin);
 
         if (roleSuperAdmin != null && hasSuperAdmin) {
             filterChain.doFilter(request, response);
-            return;
         } else {
             ((HttpServletResponse) response).sendRedirect("/accessDenied");
         }
