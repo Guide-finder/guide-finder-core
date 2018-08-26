@@ -1,5 +1,6 @@
 package com.guide_finder.dao.abstraction.user;
 
+import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.*;
 
 import javax.jws.soap.SOAPBinding;
@@ -23,12 +24,10 @@ public interface UserDao {
 
     List<User> getAllUsers();
 
-    void getUser(ResultSet result, List<User> urList) throws SQLException;
+    void setCoord(long userId, double latitude,double longitude);
 
-    List<User> getUsersByRole(int role_id);
+    List<Double> getCoord(long id);
 
-    List<User> getAllUsers(String city);
-
-    Boolean setRoleToUser(long user_id, long role_id);
+    List<UserCoordsDto> getGuidesAround(Double longitude, Double latitude);
 
 }

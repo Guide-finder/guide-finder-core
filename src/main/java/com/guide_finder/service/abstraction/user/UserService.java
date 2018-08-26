@@ -1,11 +1,9 @@
 package com.guide_finder.service.abstraction.user;
 
-import com.guide_finder.model.user.Role;
-import com.guide_finder.model.user.Sex;
+import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
 
@@ -23,9 +21,10 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    public List<User> getAllUsers(String city);
+    void setCoord(long userId, double latitude, double longitude);
 
-    List<User> getUsersByRole(int role_id);
+    List<Double> getCoord(long id);
 
-    Boolean setRoleToUser(long user_id, long role_id);
+    List<UserCoordsDto> getGuidesAround(Double longitude, Double latitude);
+
 }

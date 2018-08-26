@@ -28,8 +28,8 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public void saveRole(String name) {
-        roleDao.saveRole(name);
+    public long saveRole(String name) {
+        return roleDao.saveRole(name);
     }
 
     @Override
