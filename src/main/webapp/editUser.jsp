@@ -30,6 +30,8 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <script src="js/script.js"></script>
+
     <style>
         body {
             padding: 30px;
@@ -102,7 +104,7 @@
                     </div>
                     <div class="form-check">
                         <input onchange="isChecked()" type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        <label class="form-check-label" for="exampleCheck1">Активировать</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -115,70 +117,5 @@
 </div>
 
 </body>
-
-
-<script>
-
-
-    function isChecked() {
-            getLocation();
-            showPosition();
-    }
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    function showPosition(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var isActive = document.getElementById("exampleCheck1").checked;
-        var userId = document.getElementById("userId").value;
-        var url = "/setUserActive";
-
-        if (isActive) {
-
-            var userObj = {
-                "userId": userId,
-                "latitude": latitude,
-                "longitude": longitude,
-                "isActive": true
-            };
-
-
-            $.ajax({
-                url: url,
-                method: "post",
-                data: userObj,
-                error: function (message) {
-                    console.log(message);
-                },
-                success: function (data) {
-                    console.log("success");
-                }
-            });
-        } else {
-            var userObj = {
-                "userId": userId,
-                "isActive": false
-            };
-            $.ajax({
-                url: url,
-                method: "post",
-                data: userObj,
-                error: function (message) {
-                    console.log(message);
-                },
-                success: function (data) {
-                    console.log("success");
-                }
-            });
-        }
-    }
-</script>
 
 </html>

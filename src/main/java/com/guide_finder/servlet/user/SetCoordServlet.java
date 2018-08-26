@@ -1,4 +1,3 @@
-/*
 package com.guide_finder.servlet.user;
 
 import com.guide_finder.service.abstraction.user.UserService;
@@ -20,11 +19,9 @@ public class SetCoordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        List<Double> list;
         long userId = Long.valueOf(req.getParameter("userId"));
-        double latitude= Double.valueOf(req.getParameter("latitude"));
-        double longitude= Double.valueOf(req.getParameter("longitude"));
-        userService.setCoord(userId, latitude, longitude);
+        list = userService.getCoord(userId);
 
         req.setAttribute("latitude", list.get(0));
         req.setAttribute("longitude", list.get(1));
@@ -32,4 +29,3 @@ public class SetCoordServlet extends HttpServlet {
         req.getRequestDispatcher("/test.jsp").forward(req, resp);
     }
 }
-*/
