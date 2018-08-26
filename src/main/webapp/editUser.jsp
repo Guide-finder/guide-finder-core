@@ -8,7 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>guideFinder</title>
@@ -23,7 +24,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
@@ -57,30 +58,38 @@
             <!-- Форма с кнопкой и чекбоксом -->
             <div class="container">
                 <form action="/editUser" method="post">
-                    <input type="hidden" name="userId" value="${user.id}">
+                    <input type="hidden" id="userId" name="userId" value="${user.id}">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="${user.email}">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                               value="${user.email}">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="${user.password}">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                               value="${user.password}">
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name" value="${user.firstName}">
+                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name"
+                               value="${user.firstName}">
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="${user.lastName}">
+                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname"
+                               value="${user.lastName}">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" name="age" class="form-control" id="age" placeholder="Age" value="${user.age}">
+                        <input type="number" name="age" class="form-control" id="age" placeholder="Age"
+                               value="${user.age}">
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
+                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone"
+                               value="${user.phone}">
                     </div>
                     <div class="form-group">
                         <label for="age">Sex</label>
@@ -91,10 +100,10 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <%--<div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <div class="form-check">
+                        <input onchange="isChecked()" type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>--%>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -106,4 +115,70 @@
 </div>
 
 </body>
+
+
+<script>
+
+
+    function isChecked() {
+            getLocation();
+            showPosition();
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var isActive = document.getElementById("exampleCheck1").checked;
+        var userId = document.getElementById("userId").value;
+        var url = "/setUserActive";
+
+        if (isActive) {
+
+            var userObj = {
+                "userId": userId,
+                "latitude": latitude,
+                "longitude": longitude,
+                "isActive": true
+            };
+
+
+            $.ajax({
+                url: url,
+                method: "post",
+                data: userObj,
+                error: function (message) {
+                    console.log(message);
+                },
+                success: function (data) {
+                    console.log("success");
+                }
+            });
+        } else {
+            var userObj = {
+                "userId": userId,
+                "isActive": false
+            };
+            $.ajax({
+                url: url,
+                method: "post",
+                data: userObj,
+                error: function (message) {
+                    console.log(message);
+                },
+                success: function (data) {
+                    console.log("success");
+                }
+            });
+        }
+    }
+</script>
+
 </html>

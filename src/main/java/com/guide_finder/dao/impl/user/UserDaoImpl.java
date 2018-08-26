@@ -15,15 +15,15 @@ import java.sql.Statement;
 import java.util.*;
 
 /**
-* Author - Vitaliy Polyvyanov
-* */
+ * Author - Vitaliy Polyvyanov
+ */
 
 public class UserDaoImpl implements UserDao {
 
     private final Executor executor;
     private final RoleService roleService = new RoleServiceImpl();
 
-    public UserDaoImpl(Connection connection){
+    public UserDaoImpl(Connection connection) {
         this.executor = new Executor(connection);
     }
 
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(long userId) {
-        User user =  executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
+        User user = executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
             result.next();
 
             return new User(
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        User user =  executor.execQuery(String.format("SELECT * FROM user where email='%s'", email), result -> {
+        User user = executor.execQuery(String.format("SELECT * FROM user where email='%s'", email), result -> {
             result.next();
 
             return new User(
@@ -101,9 +101,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void editUser(User user) {
         executor.execUpdate(String.format("UPDATE user SET firstname='%s', lastname='%s', email='%s', password='%s'," +
-                                            " phone='%s', age='%s', sex='%s' WHERE id='%s'",
-                                            user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
-                                            user.getPhone(), user.getAge(), user.getSex(), user.getId()));
+                        " phone='%s', age='%s', sex='%s' WHERE id='%s'",
+                user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+                user.getPhone(), user.getAge(), user.getSex(), user.getId()));
     }
 
     @Override
@@ -122,9 +122,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers(String city) {
-        if (city.equals("")){
+        if (city.equals("")) {
             return getAllUsers();
-        }else {
+        } else {
             return executor.execQuery(String.format("select * from user where id IN " +
                     " (select user_id from guide where city_id IN " +
                     " (select id from city where name = '%s'))", city), result -> {
@@ -134,8 +134,9 @@ public class UserDaoImpl implements UserDao {
             });
         }
     }
-@Override
-public void getUser(ResultSet result, List<User> urList) throws SQLException {
+
+    @Override
+    public void getUser(ResultSet result, List<User> urList) throws SQLException {
         while (result.next()) {
             urList.add(
                     new User(
@@ -150,15 +151,16 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                     ));
         }
     }
-@Override
+
+    @Override
     public List<User> getUsersByRole(int role_id) {
 
-            String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
-            return executor.execQuery(getUserIdFromRoles, res -> {
-                List<User> list = new ArrayList<>();
-                getUser(res, list);
-               return list;
-            });
+        String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
+        return executor.execQuery(getUserIdFromRoles, res -> {
+            List<User> list = new ArrayList<>();
+            getUser(res, list);
+            return list;
+        });
     }
 
     /**
@@ -173,13 +175,27 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                     flag = true;
                 }
             }
-            if (!flag){
+            if (!flag) {
                 executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s)", user_id, role_id));
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void setCoord(long userId, double latitude, double longitude) {
+        executor.execUpdate(String.format("insert into coord (user_id, longCoord, latCoord) values ('%s', '%s', '%s')", userId, latitude, longitude));
+    }
+
+    @Override
+    public void setUserActive(int active, long user_id) {
+        executor.execUpdate(String.format("UPDATE user SET isActive=%s where id = %s", active, user_id));
+    }
+
+    @Override
+    public void deleteUserCoord(long user_id) {
+        executor.execUpdate(String.format("delete from coord where user_id = '%s'", user_id));
     }
 }

@@ -28,4 +28,11 @@ public interface UserService {
     List<User> getUsersByRole(int role_id);
 
     Boolean setRoleToUser(long user_id, long role_id);
+
+    void setCoord(long userId, double latitude, double longitude);
+
+    void setUserActive(int active, long user_id);
+
+    void deleteUserCoord(long user_id);
+
 }
