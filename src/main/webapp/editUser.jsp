@@ -56,7 +56,7 @@
 
             <!-- Форма с кнопкой и чекбоксом -->
             <div class="container">
-                <form action="/editUser" method="post">
+                <form action="/admin" method="post">
                     <input type="hidden" name="userId" value="${user.id}">
                     <div class="form-group">
                         <label for="email">Email address</label>
