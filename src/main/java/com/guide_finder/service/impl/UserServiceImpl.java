@@ -75,6 +75,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getPartOfUsers(long lastId, int role_id) {
+        return userDao.getPartOfUsers(lastId, role_id);
+    }
+
+    @Override
+    public List<User> getPartOfUsers(long lastId) {
+        return userDao.getPartOfUsers(lastId);
+    }
+
+    @Override
     public Boolean setRoleToUser(long user_id, long role_id) {
         return userDao.setRoleToUser(user_id, role_id);
     }

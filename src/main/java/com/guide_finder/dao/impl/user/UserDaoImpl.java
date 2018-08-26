@@ -42,24 +42,29 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserById(long userId) {
         User user =  executor.execQuery(String.format("SELECT * FROM user where id='%s'", userId), result -> {
-            result.next();
+            if (result.next()) {
 
-            return new User(
-                    result.getLong(1),                  //id
-                    result.getString(2),                //firstName
-                    result.getString(3),                //lastName
-                    result.getString(4),                //email
-                    result.getString(5),                //password
-                    result.getString(6),                //phone
-                    result.getInt(7),                   //age
-                    Sex.valueOf(result.getString(8))
-            );  //sex)
+                return new User(
+                        result.getLong(1),                  //id
+                        result.getString(2),                //firstName
+                        result.getString(3),                //lastName
+                        result.getString(4),                //email
+                        result.getString(5),                //password
+                        result.getString(6),                //phone
+                        result.getInt(7),                   //age
+                        Sex.valueOf(result.getString(8))
+                ); //sex)
+            }  else {
+                return null;
+            }
 
         });
 
-        Set<Role> roles = roleService.getAllRolesByUserId(userId);
+        if (user != null) {
+            Set<Role> roles = roleService.getAllRolesByUserId(userId);
 
-        user.setRoles(roles);
+            user.setRoles(roles);
+        }
 
         return user;
     }
@@ -113,7 +118,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        return executor.execQuery("select * from user", result -> {
+        //todo переделать ограничение в отдельный метод
+        return executor.execQuery("select * from user LIMIT 5", result -> {
             List<User> urList = new ArrayList<>();
             getUser(result, urList);
             return urList;
@@ -150,15 +156,34 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                     ));
         }
     }
-@Override
+    @Override
     public List<User> getUsersByRole(int role_id) {
-
             String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
             return executor.execQuery(getUserIdFromRoles, res -> {
                 List<User> list = new ArrayList<>();
                 getUser(res, list);
                return list;
             });
+    }
+
+    @Override
+    public List<User> getPartOfUsers(long lastId, int role_id) {
+        String reqGetPartOfUsers = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s AND user_id > %s) ORDER BY id LIMIT 5", role_id, lastId);
+        return executor.execQuery(reqGetPartOfUsers, res -> {
+            List<User> list = new ArrayList<>();
+            getUser(res, list);
+            return list;
+        });
+    }
+
+    @Override
+    public List<User> getPartOfUsers(long lastId) {
+        String reqGetPartOfUsers = String.format("SELECT * FROM user WHERE id > %s ORDER BY id LIMIT 5", lastId);
+        return executor.execQuery(reqGetPartOfUsers, res -> {
+            List<User> list = new ArrayList<>();
+            getUser(res, list);
+            return list;
+        });
     }
 
     /**

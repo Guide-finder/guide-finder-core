@@ -18,9 +18,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+    <%String roleFromReq = request.getParameter("userRole");%>
 
     <style>
         body {
@@ -44,6 +47,9 @@
 <div class="container"><h1>Admin page</h1>
     <br><br><br><br>
 
+    <input type="hidden" id="userRole" value=${userRole}>
+
+
     <c:if test="${userRole == 'all'}">
         <form align="center" role="form" class="form-inline" action="/admin" method="POST">
 
@@ -58,7 +64,7 @@
             <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
             <label for="phone">Phone</label>
             <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
-            <input type="submit" value="Save user" class="btn btn-success"></input>
+            <input type="submit" value="Save user" class="btn btn-success">
             <br><br>
             <p align="center">All Users</p>
         </form>
@@ -164,27 +170,157 @@
                             <th>Options</th>
                         </tr>
                     </thread>
-                    <tbody>
-                    <c:forEach items="${users}" var="user">
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.firstName}</td>
-                            <td>${user.lastName}</td>
-                            <td>${user.password}</td>
-                            <td>${user.phone}</td>
-                            <td>${user.email}</td>
-                            <td align="center">
-                                <div class="btn-group">
-                                    <a href="/editUser?userId=${user.id}"><button type="button" class="btn btn-primary">Edit</button></a>
-                                    <a href="/admin/delete?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tbody id = "list_users">
+                    <%--<c:forEach items="${users}" var="user">--%>
+                        <%--<tr>--%>
+                            <%--<td>${user.id}</td>--%>
+                            <%--<td>${user.firstName}</td>--%>
+                            <%--<td>${user.lastName}</td>--%>
+                            <%--<td>${user.password}</td>--%>
+                            <%--<td>${user.phone}</td>--%>
+                            <%--<td>${user.email}</td>--%>
+                            <%--<td align="center">--%>
+                                <%--<div class="btn-group">--%>
+                                    <%--<a href="/editUser?userId=${user.id}"><button type="button" class="btn btn-primary">Edit</button></a>--%>
+                                    <%--<a href="/admin/delete?id=${user.id}"><button type="button" class="btn btn-primary">Delete</button></a>--%>
+                                <%--</div>--%>
+                            <%--</td>--%>
+                        <%--</tr>--%>
+                    <%--</c:forEach>--%>
                     </tbody>
                 </table>
             </div>
+
+            <%--кнопка пагинации--%>
+            <div align="center">
+                <%--<br>--%>
+                <button type="button" id="readmore" class="btn btn-primary">read more...</button>
+            </div>
+
         </div>
     </div>
 </div>
+
+
+<script>
+
+    // loadCountry();
+    // loadCity(0);
+
+    <%--var usrole = <%= roleFromReq%>;--%>
+    // var usrole = "user";
+    var usrole = $('#userRole').val();
+    var lastId = 0;
+
+    $(document).ready(function() {
+        loadPartOfUsers();
+    });
+
+    // $('#readmore').on('click', function () {  //когда пользователь кликнет на кнопку с ид somebutton
+    //     loadPartOfUsers();
+    // });
+
+    $('#readmore').on('click', function () {  //когда пользователь кликнет на кнопку с ид somebutton
+        loadPartOfUsers();
+        console.log("role=" + usrole);
+        console.log("id=" + lastId);
+    });
+
+    // $('#readmore').click(function () {  //когда пользователь кликнет на кнопку с ид somebutton
+    //     loadPartOfUsers();
+    // });
+
+    function deluser(id) {
+        $.ajax({
+            type: "GET",
+            url: "/admin/deleteUser",
+            data: "userId="+id
+        }).done(function (data) {
+            if (data == "ok") {
+                $('#tr'+id).remove();
+            } else {
+                alert("Операция не выполнена. Повторите попытку позднее...");
+            }
+        });
+
+        // $('#tr'+id).remove();
+    }
+
+    function loadPartOfUsers() {
+        $.ajax({
+            type: "GET",
+            url: "/admin/partUser",
+            data: "lastId="+lastId+"&role="+ usrole
+        }).done(function (data) {
+
+            for (var key in data) {               //цикл, который проходится по массиву data
+
+                $('#list_users').append(
+                    '<tr id="tr'+data[key]['id']+'">' +
+                    '<td>' + data[key]['id'] + '</td>' +
+                    '<td>' + data[key]['firstname'] + '</td>' +
+                    '<td>' + data[key]['lastname'] + '</td>' +
+                    '<td>' + data[key]['password'] + '</td>' +
+                    '<td>' + data[key]['phone'] + '</td>' +
+                    '<td>' + data[key]['email'] + '</td>' +
+                    '<td align="center">' +
+                    '<div class="btn-group">' +
+                    '<button  type="button" id="btnedit'+data[key]['id']+'" class="btn btn-primary">Edit</button></a>' +
+                    '<button onclick="deluser('+data[key]['id']+')" type="button" id="btndel'+data[key]['id']+'" class="btn btn-primary">Delete</button></a>' +
+                    // '<a href="/editUser?userId=' + data[key]['id'] + '"><button type="button" id="btnedit'+id+'" class="btn btn-primary">Edit</button></a>' +
+                    // '<a href="/admin/delete?id=' + data[key]['id'] + '"><button type="button" id="btndel'+id+'" class="btn btn-primary">Delete</button></a>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                );   //добавляем в список новые элементы
+                lastId = data[key]['id'];
+                console.log(lastId);
+            }
+
+        });
+    }
+
+    // //скрипт располагается специально в самом конце страницы, что бы во время его загрузки - все остальные элементы уже были созданы
+    // $('#somebutton').on('click', function () {  //когда пользователь кликнет на кнопку с ид somebutton
+    //
+    //     $.get("/rest", function(data){   //аякс отправит гет запрос на адрес /someservlet
+    //         for(var key in data){               //цикл, который проходится по массиву data
+    //
+    //             $('#data_list').append('<li>id: ' + data[key]['id'] + '; name: ' + data[key]['name'] + '</li>');   //добавляем в список новые элементы
+    //
+    //         }
+    //     });
+    // });
+    //
+    //
+    // $('#send_date').on('click', function () {  //когда пользователь кликнет на кнопку с ид somebutton
+    //
+    //     var message = $('#message').val();
+    //
+    //     console.log(message);
+    //
+    //     var userObj = {
+    //         "userName": message
+    //     };
+    //
+    //     var url = "/rest";
+    //
+    //     $.ajax({
+    //         url: url,
+    //         method: "post",
+    //         data: userObj,
+    //         error: function(message) {
+    //             console.log(message);
+    //         },
+    //         success: function(data) {
+    //             console.log("succes");
+    //             $('#somediv').append(data.name);
+    //         }
+    //     });
+    // });
+
+
+
+</script>
+
 </body>

@@ -27,5 +27,9 @@ public interface UserService {
 
     List<User> getUsersByRole(int role_id);
 
+    List<User> getPartOfUsers(long lastId, int role_id);
+
+    List<User> getPartOfUsers(long lastId);
+
     Boolean setRoleToUser(long user_id, long role_id);
 }
