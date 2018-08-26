@@ -26,12 +26,11 @@ public class LoginServlet extends HttpServlet {
                          HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("isInvalid", false);
         req.setAttribute("isRegister", false);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
         dispatcher.forward(req, resp);
     }
 
-    //добавить метод dopost, котторый принимает логин и прааольь, делаетт сравение по базе и в зависимости от роли делает
-    //редирект на нужную страницу (либо юзер, либо админ)
 
     @Override
     public void doPost(HttpServletRequest req,
@@ -75,9 +74,7 @@ public class LoginServlet extends HttpServlet {
                 req.getRequestDispatcher("login.jsp").forward(req, res);
             }
 
-        } catch  (IOException e) {
-            e.printStackTrace();
-        } catch (ServletException e) {
+        } catch  (IOException | ServletException e) {
             e.printStackTrace();
         }
     }
