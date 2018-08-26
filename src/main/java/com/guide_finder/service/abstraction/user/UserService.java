@@ -28,4 +28,6 @@ public interface UserService {
     List<User> getUsersByRole(int role_id);
 
     Boolean setRoleToUser(long user_id, long role_id);
+
+    List<User> usersBySearch(long city_id, List<String> language_id, String category);
 }

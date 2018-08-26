@@ -31,4 +31,6 @@ public interface UserDao {
 
     Boolean setRoleToUser(long user_id, long role_id);
 
+    List<User> usersBySearch(long city_id, List<String> language_id, String category);
+
 }

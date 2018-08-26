@@ -78,4 +78,9 @@ public class UserServiceImpl implements UserService {
     public Boolean setRoleToUser(long user_id, long role_id) {
         return userDao.setRoleToUser(user_id, role_id);
     }
+
+    @Override
+    public List<User> usersBySearch(long city_id, List<String> language_id, String category) {
+        return userDao.usersBySearch(city_id, language_id, category);
+    }
 }
