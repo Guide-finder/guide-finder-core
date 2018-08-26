@@ -56,7 +56,7 @@
 
             <!-- Форма с кнопкой и чекбоксом -->
             <div class="container">
-                <form action="/admin" method="post">
+                <form action="/editUser" method="post">
                     <input type="hidden" name="userId" value="${user.id}">
                     <div class="form-group">
                         <label for="email">Email address</label>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
                     </div>
                     <div class="form-group">
                         <label for="age">Sex</label>

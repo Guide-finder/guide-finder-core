@@ -59,7 +59,7 @@ public class EditUserServlet extends HttpServlet {
 
         userService.editUser(user);
 
-        resp.sendRedirect("/editUser?userId="+userId);
+        resp.sendRedirect("/admin");
 
     }
 }

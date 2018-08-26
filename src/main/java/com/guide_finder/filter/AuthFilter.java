@@ -19,7 +19,6 @@ public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("auth filter");
     }
 
     @Override
