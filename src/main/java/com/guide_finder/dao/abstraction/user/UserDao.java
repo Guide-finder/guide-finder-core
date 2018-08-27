@@ -1,5 +1,6 @@
 package com.guide_finder.dao.abstraction.user;
 
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.*;
 
@@ -29,5 +30,11 @@ public interface UserDao {
     List<Double> getCoord(long id);
 
     List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude);
+
+    List<User> usersBySearch(String city_id, List<String> language_id, String category);
+
+    SocialContact getSocialContactsById(long id);
+
+    void costilToDescription(long user_id);
 
 }

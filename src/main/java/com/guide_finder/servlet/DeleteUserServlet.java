@@ -19,12 +19,13 @@ import java.sql.SQLException;
 
 @WebServlet("/admin/delete")
 public class DeleteUserServlet extends HttpServlet {
+
+    private final UserService userService = new UserServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserService service = new UserServiceImpl();
-
-            long id = Long.parseLong(req.getParameter("id"));
-            service.deleteUser(id);
+        long id = Long.parseLong(req.getParameter("id"));
+        userService.deleteUser(id);
 
         resp.sendRedirect("/admin");
 

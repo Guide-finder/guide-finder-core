@@ -7,20 +7,31 @@ import java.util.Objects;
 @TableAnnotation(name = "commentary")
 public class Commentary {
 
-    private final long authorId;
+    private long authorId;
 
-    private final long recipientId;
+    private String authorName;
 
-    private boolean rate;
+    private long recipientId;
 
     private String message;
 
-    public Commentary(long authorId, long recipientId, String message, boolean rate) {
+    public Commentary(long authorId, long recipientId, String message) {
         this.authorId = authorId;
         this.recipientId = recipientId;
-        this.rate = rate;
         this.message = message;
+    }
 
+    public Commentary(String authorName, String message) {
+        this.authorName = authorName;
+        this.message = message;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public long getAuthorId() {
@@ -35,9 +46,6 @@ public class Commentary {
         return message;
     }
 
-    public boolean isRate() {
-        return rate;
-    }
 
     @Override
     public boolean equals(Object o) {

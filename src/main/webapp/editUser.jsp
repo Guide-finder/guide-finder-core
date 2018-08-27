@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- jQuery -->
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>--%>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -79,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone"
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone"
                                value="${user.phone}">
                     </div>
                     <div class="form-group">
@@ -108,34 +110,5 @@
     </div>
 </div>
 
-<%--<div id="coord">
-    <form action="/setCoord" method="post">
-        <input type="hidden" id="latitude" name="latitude">
-        <input type="hidden" id="longitude" name="longitude">
-        <button type="submit" onclick="getLocation()">Активировать детонатор</button>
-    </form>
-</div>--%>
-
 </body>
-
-<script>
-
-    /*window.onload(getLocation());*/
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-
-    function showPosition(position) {
-        document.getElementById("latitude").value = position.coords.latitude;
-        document.getElementById("longitude").value = position.coords.longitude;
-    }
-</script>
-
-
 </html>

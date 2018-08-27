@@ -21,22 +21,29 @@ public class User {
 
     private String email;
 
-    private Sex sex;
-
     private int age;
 
+    private Sex sex;
+
+
+
     private Set<Role> roles;
+
+    public User(){
+
+    }
 
     public User(long id, String firstName, String lastName, String email, String password, String phone,
                 int age, Sex sex, Set<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.password = password;
         this.phone = phone;
-        this.email = email;
-        this.sex = sex;
         this.age = age;
+        this.sex = sex;
+
         this.roles = roles;
     }
 

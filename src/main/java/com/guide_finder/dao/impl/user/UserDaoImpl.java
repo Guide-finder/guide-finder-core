@@ -3,6 +3,7 @@ package com.guide_finder.dao.impl.user;
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.executor.Executor;
 import com.guide_finder.dto.UserCoordsDto;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -157,6 +158,9 @@ public class UserDaoImpl implements UserDao {
         executor.execUpdate(String.format("insert into coord (user_id, longCoord, latCoord) values ('%s', '%s', '%s')", userId, latitude, longitude));
     }
 
+    @Override
+    public List<User> getUsersByRole(int role_id) {
+
     public List<Double> getCoord(long id) {
 
         return executor.execQuery(String.format("select * from coord where user_id = '%s'", id), result -> {
@@ -168,6 +172,47 @@ public class UserDaoImpl implements UserDao {
         });
     }
 
+    @Override
+    public SocialContact getSocialContactsById(long id){
+        SocialContact contact = null;
+
+        return executor.execQuery(String.format("select * from socialcontact where user_id='%s'", id), result ->{
+            result.next();
+            return new SocialContact(result.getString(2),result.getString(3),
+                                    result.getString(4),result.getString(5));
+                }
+        );
+
+//        try(Statement statement = connection.createStatement()){
+//            String sql = String.format("select * from socialcontact where user_id='%s'", id);
+//            statement.executeQuery(sql);
+//
+//            ResultSet resultSet = statement.getResultSet();
+//            resultSet.next();
+//            String vk_profile = resultSet.getString(2);
+//            String ok_profile = resultSet.getString(3);
+//            String fb_profie = resultSet.getString(4);
+//            String tg_profile = resultSet.getString(5);
+//            contact = new SocialContact(vk_profile, ok_profile, fb_profie, tg_profile);
+//        }catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return contact;
+//    }
+    }
+
+
+    /**
+     * Author Dikobob
+     * add role to user, if user has that role already - throw FALSE
+     */
+    public Boolean setRoleToUser(long user_id, long role_id) {
+        return executor.execQuery("SELECT * FROM user_role WHERE user_id = " + user_id, res -> {
+            boolean flag = false;
+            while (res.next()) {
+                if (res.getLong(2) == role_id) {
+                    flag = true;
+                }
     @Override
     public List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude) {
         List<UserCoordsDto> list = new ArrayList<>();
@@ -189,7 +234,39 @@ public class UserDaoImpl implements UserDao {
         });
     }
 
+    public void costilToDescription(long user_id){
+        executor.execUpdate(String.format("INSERT INTO guide (user_id, city_id, description) VALUE (%s, NULL, NULL )", user_id));
+    }
+
+    public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
+        String lang = language_id.toString();
+        List<User> list = new ArrayList<>();
+
+        if (lang.isEmpty()){
+            return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = $d))\n" +
+                    "                        AND\n" +
+                    "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
+                    "                          SELECT id FROM category WHERE name = '%s'\n" +
+                    "                        )))", city_id, category), result -> {
+                getUser(result, list);
+                return list;
+        });
+        }
+        else {
+                String str = String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = %s))\n" +
+                        "                        AND\n" +
+                        "                        (id IN (SELECT user_id FROM user_language WHERE language_id IN (%s)))\n" +
+                        "                        AND\n" +
+                        "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
+                        "                          SELECT id FROM category WHERE name = \'%s\'\n" +
+                        "                        )))", city_id, lang, category);
+            str = str.replace("[", "");
+            str = str.replace("]", "");
+            System.out.println(str);
+                return executor.execQuery(str, result -> {
+                    getUser(result, list);
+                    return list;
+                });
+            }
+    }
 }
-
-
-

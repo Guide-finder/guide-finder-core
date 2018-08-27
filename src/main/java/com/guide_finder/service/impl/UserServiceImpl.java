@@ -2,6 +2,7 @@ package com.guide_finder.service.impl;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.impl.user.UserDaoImpl;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.User;
 import com.guide_finder.service.abstraction.user.UserService;
@@ -73,6 +74,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public SocialContact getSocialContactsById(long id) {
+        return userDao.getSocialContactsById(id);
+    }
+
+    @Override
     public List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude) {
         return userDao.getGuidesAround(latitude, longitude);
     }
@@ -91,4 +97,14 @@ public class UserServiceImpl implements UserService {
 //    public Boolean setRoleToUser(long user_id, long role_id) {
 //        return userDao.setRoleToUser(user_id, role_id);
 //    }
+
+    @Override
+    public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
+        return userDao.usersBySearch(city_id, language_id, category);
+    }
+
+    @Override
+    public void costilToDescription(long user_id) {
+        userDao.costilToDescription(user_id);
+    }
 }
