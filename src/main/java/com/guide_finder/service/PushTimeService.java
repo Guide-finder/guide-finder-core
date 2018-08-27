@@ -35,9 +35,9 @@ public class PushTimeService implements Runnable {
         final UserService userService = new UserServiceImpl();
 
         //Double longitude = Double.valueOf(req.getParameter("longitude"));
-        Double longitude = 60.67429839472416;
+        //Double longitude = 60.67429839472416;
         //Double latitude = Double.valueOf(req.getParameter("latitude"));
-        Double latitude = 28.51392690887258;
+        //Double latitude = 28.51392690887258;
 
 
 
@@ -51,11 +51,14 @@ public class PushTimeService implements Runnable {
 
                     Session s = sMap.get(key);
 
+                    Double latitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("latitude").get(0));
+                    Double longitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("longitude").get(0));
+
                     if (s.isOpen()) {
 
                         if (x != lsi.getCoordsCount()){
                             x = lsi.getCoordsCount();
-                            List<UserCoordsDto> list = userService.getGuidesAround(longitude, latitude);
+                            List<UserCoordsDto> list = userService.getGuidesAround(latitude, longitude);
                             String json = new Gson().toJson(list);
                             s.getBasicRemote().sendText(json);}
                             //s.getBasicRemote().sendText("Hello User! I have -> " + x + " records!");}

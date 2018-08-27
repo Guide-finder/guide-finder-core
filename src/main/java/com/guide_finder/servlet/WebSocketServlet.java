@@ -22,11 +22,11 @@ public class WebSocketServlet {
         Map<String, List<String>> params = session.getRequestParameterMap();
         LocationServiceImpl lsi = new LocationServiceImpl();
 
-        if (params.get("push") != null && (params.get("push").get(0).equals("TIME"))) {
+        //if (params.get("push") != null && (params.get("push").get(0).equals("TIME"))) {
 
             PushTimeService.initialize();
             PushTimeService.add(session);
-        }
+        //}
     }
 
     @OnClose

@@ -72,7 +72,7 @@
 
     function xt(latitude, longitude) {
         alert("x init " + latitude + " " + longitude);
-        var socket = new WebSocket("ws://localhost:8080/echo?push=TIME");
+        var socket = new WebSocket("ws://localhost:8080/echo?latitude=" + latitude + "&longitude=" + longitude);
 
         socket.onopen = function() {
             alert("Соединение установлено.");
@@ -104,6 +104,7 @@
         console.log(data[0]['id']);
 
         var obj = JSON.parse(data);
+        alert(obj[0].latitude);
 
         ymaps.ready(init);
 
@@ -112,21 +113,11 @@
             //alert("init");
 
             var myMap = new ymaps.Map('map', {
-                center: [obj[0].latitude, obj[0].longitude], // Нижний Новгород
+                center: [obj[0].latitude, obj[0].longitude],
+
                 zoom: 13,
                 controls: ['zoomControl']
             });
-
-            for (var i = 0; i < data.length; i++) {
-                //console.log(coords[i].latitude);
-
-                var myPlacemark = new ymaps.Placemark(
-                    // Координаты метки
-                    [obj[i].latitude, obj[i].longitude]
-                );
-
-                myMap.geoObjects.add(myPlacemark);
-            }
 
             var myLocation = new ymaps.Placemark(
                 // Координаты метки
@@ -140,6 +131,17 @@
                 });
 
             myMap.geoObjects.add(myLocation);
+
+
+            for (var i = 0; i < data.length; i++) {
+
+                var myPlacemark = new ymaps.Placemark(
+                    // Координаты метки гида
+                    [obj[i].latitude, obj[i].longitude]
+                );
+
+                myMap.geoObjects.add(myPlacemark);
+            }
 
         }
     }
