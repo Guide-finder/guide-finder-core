@@ -37,6 +37,7 @@ public class GuideProfileServlet extends HttpServlet {
         List<Commentary> commentaryList = commentaryService.getAllCommentariesByRecipientId(id);
         SocialContact socialContacts = userService.getSocialContactsById(id);
 
+        req.setAttribute("userId", user.getId());
         req.setAttribute("userFirstName", user.getFirstName());
         req.setAttribute("userLastName", user.getLastName());
         req.setAttribute("description", guide.getDescription());
@@ -54,7 +55,6 @@ public class GuideProfileServlet extends HttpServlet {
         long senderId = Long.valueOf(req.getParameter("senderId"));
         long recipientId = Long.valueOf(req.getParameter("recipientId"));
         String comment = req.getParameter("comment");
-
 
         String authorName = userService.getUserById(senderId).getFirstName();   //todo refactor
 

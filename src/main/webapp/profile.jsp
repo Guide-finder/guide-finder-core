@@ -85,6 +85,9 @@
                     <li style="padding-right: 40px"> <a href="${socialcontacts.fb}">Facebook</a></li>
                     <li style="padding-right: 40px"> <a href="${socialcontacts.tg}">Telegram</a></li>
                 </ul>
+                    <div>
+                        <a href="/chat?user_id=${userId}"><button type="button" class="btn btn-primary">Start chat ...</button></a>
+                    </div>
                 </div>
                 <div class="col-sm-6 name-font" align="left">
                     <br>
