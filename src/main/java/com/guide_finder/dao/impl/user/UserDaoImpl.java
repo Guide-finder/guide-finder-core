@@ -185,7 +185,7 @@ public class UserDaoImpl implements UserDao {
         return executor.execQuery(String.format("select * from socialcontact where user_id='%s'", id), result ->{
             result.next();
             return new SocialContact(result.getString(2),result.getString(3),
-                                    result.getString(4),result.getString(5));
+                                    result.getString(4),"https://t.me/"+result.getString(5));
                 }
         );
 
