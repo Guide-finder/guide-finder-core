@@ -14,7 +14,7 @@ import javax.websocket.Session;
 public class PushTimeService implements Runnable {
 
     private static PushTimeService instance;
-    private static Map<String, Session> sMap = new HashMap<String, Session>();
+    private static Map<String, Session> sMap = new HashMap<>();
     private PushTimeService() {}
 
     public static void add(Session s) {
@@ -46,7 +46,7 @@ public class PushTimeService implements Runnable {
 
         while (true) {
             try {
-                Thread.sleep(10*1000);
+                Thread.sleep(5*1000);
                 for (String key : sMap.keySet()) {
 
                     Session s = sMap.get(key);

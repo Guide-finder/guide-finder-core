@@ -22,14 +22,56 @@
 
 <div id="map" style="width:600px; height:400px"></div>
 
-<button type="button" onclick="x()">Button</button>
+<button type="button" id="active_geo_button">Button</button>
+
+<p id="demo"></p>
 
 </body>
 
 <script>
 
-    function x() {
-        //alert("x init");
+
+    $( document ).ready(function() {
+
+        $('#active_geo_button').on('click', function () {
+            alert("test")
+
+            var x = document.getElementById("demo");
+
+            getLocation();
+            showPosition();
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+            }
+
+            function showPosition(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+
+                x.innerHTML = "Latitude: " + position.coords.latitude +
+                    "<br>Longitude: " + position.coords.longitude;
+
+
+                xt(lat, lon)
+            }
+
+
+
+
+        });
+
+    });
+
+
+
+
+    function xt(latitude, longitude) {
+        alert("x init " + latitude + " " + longitude);
         var socket = new WebSocket("ws://localhost:8080/echo?push=TIME");
 
         socket.onopen = function() {
@@ -47,7 +89,7 @@
 
         socket.onmessage = function(event) {
             document.getElementById("map").innerHTML = "";
-            y(event.data);
+            y(event.data, latitude, longitude);
             //alert(event.data);
         };
 
@@ -56,62 +98,51 @@
         };
 
     }
-</script>
 
-<script>
+    function y(data, latitude, longitude) {
+        alert("y init " + latitude + " " + longitude);
+        console.log(data[0]['id']);
 
-function y(data) {
-    alert("y init");
-    console.log(data[0]['id']);
+        var obj = JSON.parse(data);
 
-    <%--var coords = <%= coords%>--%>
-        <%--console.log(JSON.stringify(coords));--%>
+        ymaps.ready(init);
 
+        function init() {
 
-    var obj = JSON.parse(data);
+            //alert("init");
 
-    // console.log(obj);
-    // console.log(obj["UserCoordsDto"]["latitude"]);
-    // console.log(obj["UserCoordsDto"]["longitude"]);
-
-    ymaps.ready(init);
-
-    function init() {
-
-        //alert("init");
-
-        var myMap = new ymaps.Map('map', {
-            center: [obj[0].latitude, obj[0].longitude], // Нижний Новгород
-            zoom: 13,
-            controls: ['zoomControl']
-        });
-
-        for (var i = 0; i < data.length; i++) {
-            //console.log(coords[i].latitude);
-
-            var myPlacemark = new ymaps.Placemark(
-                // Координаты метки
-                [obj[i].latitude, obj[i].longitude]
-            );
-
-            myMap.geoObjects.add(myPlacemark);
-        }
-
-        var myLocation = new ymaps.Placemark(
-            // Координаты метки
-            [60.67429839472416, 28.51392690887258],
-            {
-                // Свойства
-                // Текст метки
-                iconContent: 'Я'
-            }, {
-                preset: 'islands#redIcon'
+            var myMap = new ymaps.Map('map', {
+                center: [obj[0].latitude, obj[0].longitude], // Нижний Новгород
+                zoom: 13,
+                controls: ['zoomControl']
             });
 
-        myMap.geoObjects.add(myLocation);
+            for (var i = 0; i < data.length; i++) {
+                //console.log(coords[i].latitude);
 
+                var myPlacemark = new ymaps.Placemark(
+                    // Координаты метки
+                    [obj[i].latitude, obj[i].longitude]
+                );
+
+                myMap.geoObjects.add(myPlacemark);
+            }
+
+            var myLocation = new ymaps.Placemark(
+                // Координаты метки
+                [latitude, longitude],
+                {
+                    // Свойства
+                    // Текст метки
+                    iconContent: 'Я'
+                }, {
+                    preset: 'islands#redIcon'
+                });
+
+            myMap.geoObjects.add(myLocation);
+
+        }
     }
-}
 </script>
 
 </html>
