@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -41,13 +41,18 @@
         </div>
     </div>
 
+
     <div>
-        <input type="text" id="user_id" size="20"/>
-        <input type="text" id="user_name" size="50"/>
+        <label>from_id:</label><input type="text" id="from_id" size="20"/>
+        <label>to_id:</label><input type="text" id="to_id" size="20"/>
     </div>
     <div>
-        <input type="text" id="user_to_id" size="20"/>
+        <label>name_from:</label><input type="text" id="user_from_name" size="50"/>
     </div>
+    <div align="center">
+        <input type="button" class="btn btn-primary" value="connect" onclick="init()">
+    </div>
+
     <div class="form-group">
         <label for="exampleFormControlTextarea1">your messages</label>
         <textarea class="form-control" id="message_box" rows="20"></textarea>
@@ -62,24 +67,41 @@
     <script type="text/javascript">
         var ws;
 
-        $(document).ready(function() {
-            init();
+        // $(document).ready(function() {
+        //     init();
+        // });
+
+        $("#message").keyup(function(event){
+            if(event.keyCode == 13){
+                sendMessage();
+            }
         });
 
+        // $(document).ready(function() {
+        //     $('message').keydown(function(e) {
+        //         if(e.keyCode === 13) {
+        //             sendMessage();
+        //         }
+        //     });
+        // });
+
         function init() {
-            ws = new WebSocket("ws://localhost:8080/chat?user_id=23");
+            var from_id = document.getElementById("from_id").value;
+            var to_id = document.getElementById("to_id").value;
+
+            ws = new WebSocket("ws://localhost:8080/chat?from_id="  +from_id+ "&to_id=" +to_id);
 
             // ws.on('connect', function () {
             //     ws.send(document.getElementById("user_to_name"));
             // });
 
             ws.onopen = function (event) {
-                alert("Connection is on");
+                // alert("Connection is on");
             }
             ws.onmessage = function (event) {
                 var $mes_box = document.getElementById("message_box");
                 $mes_box.value = $mes_box.value + event.data + "\n";
-                alert("Message is recieved");
+                // alert("Message is recieved");
             }
             ws.onclose = function (event) {
                 if (event.wasClean) {
@@ -92,96 +114,20 @@
         };
 
         function sendMessage() {
-            alert("sending message...");
+            // alert("sending message...");
             var messageField = document.getElementById("message");
-            var userNameField = document.getElementById("user_name");
+            var userNameField = document.getElementById("user_from_name");
             var message = userNameField.value + ": " + messageField.value;
-            ws.send(message);
+
+            var from_id = document.getElementById("from_id").value;
+            var to_id = document.getElementById("to_id").value;
+
+            var jsonMess = '{ "from_id": "'+from_id+'", "to_id": "'+to_id+'", "message": "'+message+'" }';
+
+            ws.send(jsonMess);
             messageField.value = '';
-            alert("Message is sended");
+            // alert("Message is sended");
         }
-
-        <%--function initSocket() {--%>
-            <%--//alert("x init");--%>
-            <%--var socket = new WebSocket("ws://localhost:8080/echo?push=TIME");--%>
-
-            <%--socket.onopen = function() {--%>
-                <%--alert("Соединение установлено.");--%>
-            <%--};--%>
-
-            <%--socket.onclose = function(event) {--%>
-                <%--if (event.wasClean) {--%>
-                    <%--alert('Соединение закрыто чисто');--%>
-                <%--} else {--%>
-                    <%--alert('Обрыв соединения'); // например, "убит" процесс сервера--%>
-                <%--}--%>
-                <%--alert('Код: ' + event.code + ' причина: ' + event.reason);--%>
-            <%--};--%>
-
-            <%--socket.onmessage = function(event) {--%>
-                <%--document.getElementById("map").innerHTML = "";--%>
-                <%--y(event.data);--%>
-                <%--//alert(event.data);--%>
-            <%--};--%>
-
-            <%--socket.onerror = function(error) {--%>
-                <%--alert("Ошибка " + error.message);--%>
-            <%--};--%>
-
-        <%--}--%>
-
-        <%--function y(data) {--%>
-            <%--alert("y init");--%>
-            <%--console.log(data[0]['id']);--%>
-
-            <%--&lt;%&ndash;var coords = <%= coords%>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;console.log(JSON.stringify(coords));&ndash;%&gt;--%>
-
-
-            <%--var obj = JSON.parse(data);--%>
-
-            <%--// console.log(obj);--%>
-            <%--// console.log(obj["UserCoordsDto"]["latitude"]);--%>
-            <%--// console.log(obj["UserCoordsDto"]["longitude"]);--%>
-
-            <%--ymaps.ready(init);--%>
-
-            <%--function init() {--%>
-
-                <%--//alert("init");--%>
-
-                <%--var myMap = new ymaps.Map('map', {--%>
-                    <%--center: [obj[0].latitude, obj[0].longitude], // Нижний Новгород--%>
-                    <%--zoom: 13,--%>
-                    <%--controls: ['zoomControl']--%>
-                <%--});--%>
-
-                <%--for (var i = 0; i < data.length; i++) {--%>
-                    <%--//console.log(coords[i].latitude);--%>
-
-                    <%--var myPlacemark = new ymaps.Placemark(--%>
-                        <%--// Координаты метки--%>
-                        <%--[obj[i].latitude, obj[i].longitude]--%>
-                    <%--);--%>
-
-                    <%--myMap.geoObjects.add(myPlacemark);--%>
-                <%--}--%>
-
-                <%--var myLocation = new ymaps.Placemark(--%>
-                    <%--// Координаты метки--%>
-                    <%--[60.67429839472416, 28.51392690887258],--%>
-                    <%--{--%>
-                        <%--// Свойства--%>
-                        <%--// Текст метки--%>
-                        <%--iconContent: 'Я'--%>
-                    <%--}, {--%>
-                        <%--preset: 'islands#redIcon'--%>
-                    <%--});--%>
-
-                <%--myMap.geoObjects.add(myLocation);--%>
-
-            <%--}--%>
-        <%--}--%>
 
     </script>
 
