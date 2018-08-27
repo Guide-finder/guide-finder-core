@@ -86,6 +86,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
+        return userDao.usersBySearch(city_id, language_id, category);
+    }
+
+    @Override
     public void costilToDescription(long user_id) {
         userDao.costilToDescription(user_id);
     }

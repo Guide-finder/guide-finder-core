@@ -56,12 +56,12 @@
                         class="caret"></b></a>
                 <ul class="dropdown-menu" id="language">
                     <li>
-                        <input type="checkbox" class="checkbox" value="Russian">Russian
+                        <input type="checkbox" class="checkbox" value="1">Russian
                     </li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="English">English</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="Spanish">Spanish</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="Tarabarskiy">Tarabarskiy</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="Java">Java</li>
+                    <li><input type="checkbox" class="checkbox" name="language" value="2">English</li>
+                    <li><input type="checkbox" class="checkbox" name="language" value="3">Spanish</li>
+                    <li><input type="checkbox" class="checkbox" name="language" value="4">Tarabarskiy</li>
+                    <li><input type="checkbox" class="checkbox" name="language" value="5">Java</li>
                 </ul>
             </div>
             <div class="col-md-2">
@@ -94,15 +94,14 @@
                             <th>Options</th>
                         </tr>
                     </thread>
-                    <tbody>
+                    <tbody id="user2">
                     <c:forEach items="${users}" var="user">
                         <tr>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
-                            <td>${user.password}</td>
                             <td align="center">
                                 <div class="btn-group">
-                                    <a href="/userPage?userId=${user.id}">
+                                    <a href="/user/profile?id=${user.id}">
                                         <button type="button" class="btn btn-primary">Guide page</button>
                                     </a>
                                 </div>
@@ -166,7 +165,9 @@
 //        {
 //            alert($(this).val());
 //        }
-        currentLanguage = $('input:checkbox:checked.checkbox').map(function () { return this.value;}).get();
+        currentLanguage = $('input:checkbox:checked.checkbox').map(function () {
+            return this.value;
+        }).get();
         currentCity = $('#city').find(':selected').val();
         currentCategory = document.querySelector(".catBtn").textContent;
 
@@ -174,23 +175,36 @@
         sendArray.push(currentCity, currentCategory, currentLanguage);
 
 
-        alert(JSON.stringify(sendArray));
+        var json = JSON.stringify(sendArray);
+
+
+        $("#user2").children().remove();
 
         $.ajax({
-            type: "GET",
-            url: "/location"
+            type: 'POST',
+            dataType: 'json',
+//            data: {json:json},
+
+            data: {currentCity: currentCity, currentCategory: currentCategory, currentLanguage: currentLanguage},
+//            data: "json=" + JSON.stringify(sendArray),
+            url: '/guideSearch'
+
         }).done(function (result) {
             $(result).each(function () {
-                $("#country").append($('<option>', {
-                    value: this.id,
-                    text: this.name
-                }));
+                $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
+                    + '<div class="btn-group">'
+                    + '<a href="/user/profile?id='
+                +this.id
+                +'">'
+                    + '<button type="button" class="btn btn-primary">Guide page</button>'
+                + '</a>'
+                + '</div>'
+                + '</td></tr>')
             })
         });
 
 
     });
-
 
 
     $("#myBtn").click(function () {
@@ -238,6 +252,7 @@
             })
         });
     }
+
 
     function loadCity(country) {
         $("#city").children().remove();

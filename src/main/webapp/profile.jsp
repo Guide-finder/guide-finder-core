@@ -36,8 +36,17 @@
                     padding: 0px;
                 }
                 .name-font{
-                    font-family: "Agency FB";
+                    font-family: Rockwell;
                     font-size: 20px;
+                }
+                .comments-style{
+                    font-family: Rockwell;
+                    border: 1px solid silver;
+                    border-radius: 0 10px;
+                    padding: 5px;
+                }
+                #Comment_field{
+                    width: 90%;
                 }
             </style>
 
@@ -77,32 +86,26 @@
                     <br>
                     <div class="col-sm-2" align="left">${userFirstName}</div>
                     <div class="col-sm-6" align="left">${userLastName}</div>
-                </div>
-                <div class="col-sm-6 name-font" align="left">
+                    <br>
                     <hr>
-                    ${description}
+                    <div class="col-sm-12" align="left">${description}</div>
+                    <br>
                     <hr>
                 </div>
 
-                <div id="comment_container" class="col-sm-6" align="left"  style="background-color: #ff3fff">
-
-                </div>
-                <div>
-
-                </div>
-                <div class="col-sm-6" style="margin-top: 50px" align="right">
-                    <input id="hidden_input" type="hidden" >
-                    <input id="Comment_field" type="text" size="60">
+            <div class="col-sm-6">
+                <div id="comment_container" class="col-sm-12" align="left">Comments</div>
+                <div class="col-sm-12" style="margin-top: 10px" align="right">
+                    <%--<input id="hidden_input" type="hidden" >--%>
+                    <hr>
+                    <input id="Comment_field" type="text">
                     <input id="Add_button" type="submit" class="btn btn-primary" value="Add">
-                    <input type="submit" class="btn btn-primary" value="Previous">
-                    <input type="submit" class="btn btn-primary" value="Next">
-
                 </div>
+            </div>
+
             </div>
             <hr>
         </div>
-        </div>
-
         <script>
                 $('#Add_button').on('click', function () {
                     let comment = (document).getElementById("Comment_field").value;
@@ -110,13 +113,14 @@
                     let recipientId = window.location.search.split('id=')[1];
 
                     let url = "/user/profile";
-
                     $.ajax({
                         url: url,
                         method: "POST",
                         data: {senderId: senderId, recipientId: recipientId, comment: comment},
                         success: function(data) {
-                            $('#comment_container').append('<div>' + data.authorName + ':  ' + data.message + '</div>');
+                            $('#comment_container').append('<div class="form-group comments-style"><label>' + data.authorName + '</label>'+':  ' + '<br>' + data.message + '</div>');
+
+                            // $('#comment_container').append('<div>' + data.authorName + ':  ' + data.message + '</div>');
                         },
                         error: function(error) {
                             console.log(error.message);
@@ -135,7 +139,7 @@
                         data: {recipientId: recipientId},
                     success: function(data) {
                             for(let key in data){
-                                $('#comment_container').append('<div class="">' + data[key]['authorName'] + '   ' + data[key]['message'] + '</div>');
+                                $('#comment_container').append('<div class="form-group comments-style"><label>' + data[key]['authorName'] + '</label>' + ':' + '<br>' + data[key]['message'] + '</div>');
                             };
                     },
                     error: function(error) {
