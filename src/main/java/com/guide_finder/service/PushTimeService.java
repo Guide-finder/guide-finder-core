@@ -9,12 +9,13 @@ import com.guide_finder.service.impl.UserServiceImpl;
 import com.guide_finder.service.impl.location.LocationServiceImpl;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
 
 public class PushTimeService implements Runnable {
 
     private static PushTimeService instance;
-    private static Map<String, Session> sMap = new HashMap<>();
+    private static Map<String, Session> sMap = new ConcurrentHashMap<>();
     private PushTimeService() {}
 
     public static void add(Session s) {
@@ -42,32 +43,38 @@ public class PushTimeService implements Runnable {
 
 
 
-        int x = 0;
+        int size = 0;
+        int trigg = 0;
 
         while (true) {
-            try {
-                Thread.sleep(5*1000);
-                for (String key : sMap.keySet()) {
+            if(size!=sMap.size() | trigg!=lsi.getCoordsCount()) {
+                size = sMap.size();
+                trigg = lsi.getCoordsCount();
+                try {
+                    Thread.sleep(5 * 1000);
+                    for (String key : sMap.keySet()) {
 
-                    Session s = sMap.get(key);
+                        Session s = sMap.get(key);
 
-                    Double latitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("latitude").get(0));
-                    Double longitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("longitude").get(0));
+                        Double latitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("latitude").get(0));
+                        Double longitude = Double.parseDouble(sMap.get(key).getRequestParameterMap().get("longitude").get(0));
+                        int x = 0;
+                        if (s.isOpen()) {
 
-                    if (s.isOpen()) {
-
-                        if (x != lsi.getCoordsCount()){
-                            x = lsi.getCoordsCount();
-                            List<UserCoordsDto> list = userService.getGuidesAround(latitude, longitude);
-                            String json = new Gson().toJson(list);
-                            s.getBasicRemote().sendText(json);}
+                            if (x != lsi.getCoordsCount()) {
+                                x = lsi.getCoordsCount();
+                                List<UserCoordsDto> list = userService.getGuidesAround(latitude, longitude);
+                                String json = new Gson().toJson(list);
+                                s.getBasicRemote().sendText(json);
+                            }
                             //s.getBasicRemote().sendText("Hello User! I have -> " + x + " records!");}
-                    } else {
-                        sMap.remove(key);
+                        } else {
+                            sMap.remove(key);
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
