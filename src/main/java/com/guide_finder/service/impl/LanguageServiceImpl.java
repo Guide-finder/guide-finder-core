@@ -11,12 +11,22 @@ import java.util.List;
 
 public class LanguageServiceImpl implements LanguageService {
 
-    private final LanguageDao languageDao;
+    private LanguageDao languageDao;
 
     private static volatile LanguageServiceImpl instance;
 
-    private LanguageServiceImpl() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        languageDao = new LanguageDaoImpl(DBHelper.getConnection());
+    public LanguageServiceImpl(){
+        try {
+            languageDao = new LanguageDaoImpl(DBHelper.getConnection());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     public static LanguageServiceImpl getInstance() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

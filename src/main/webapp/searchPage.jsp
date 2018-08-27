@@ -179,30 +179,32 @@
         var json = JSON.stringify(sendArray);
 
 
-        $("#user2").children().remove();
 
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
+        if (currentCategory != 'Interests') {
+            $("#user2").children().remove();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
 //            data: {json:json},
 
-            data: {currentCity: currentCity, currentCategory: currentCategory, currentLanguage: currentLanguage},
+                data: {currentCity: currentCity, currentCategory: currentCategory, currentLanguage: currentLanguage},
 //            data: "json=" + JSON.stringify(sendArray),
-            url: '/guideSearch'
+                url: '/guideSearch'
 
-        }).done(function (result) {
-            $(result).each(function () {
-                $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
-                    + '<div class="btn-group">'
-                    + '<a href="/user/profile?id='
-                    + this.id
-                    + '">'
-                    + '<button type="button" class="btn btn-primary">Guide page</button>'
-                    + '</a>'
-                    + '</div>'
-                    + '</td></tr>')
-            })
-        });
+            }).done(function (result) {
+                $(result).each(function () {
+                    $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
+                        + '<div class="btn-group">'
+                        + '<a href="/user/profile?id='
+                        + this.id
+                        + '">'
+                        + '<button type="button" class="btn btn-primary">Guide page</button>'
+                        + '</a>'
+                        + '</div>'
+                        + '</td></tr>')
+                })
+            });
+        } else alert("Выберите категорию")
 
 
     });

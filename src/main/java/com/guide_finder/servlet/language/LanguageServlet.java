@@ -18,14 +18,10 @@ import java.util.List;
  */
 @WebServlet("/language")
 public class LanguageServlet extends HttpServlet {
+    private LanguageService languageService = new LanguageServiceImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LanguageService languageService = null;
-        try {
-             languageService = LanguageServiceImpl.getInstance();
-        }catch (Exception e) {
-
-        }
         try {
             List<Language> languages = languageService.getAllLanguages();
 
