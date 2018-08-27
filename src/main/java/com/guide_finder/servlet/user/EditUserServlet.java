@@ -61,16 +61,19 @@ public class EditUserServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         Integer age = Integer.valueOf(req.getParameter("age"));
         Sex sex = Sex.valueOf(req.getParameter("sex"));
-        double latitude= Double.valueOf(req.getParameter("latitude"));
-        double longitude= Double.valueOf(req.getParameter("longitude"));
+/*        double latitude= Double.valueOf(req.getParameter("latitude"));
+        double longitude= Double.valueOf(req.getParameter("longitude"));*/
 
         User newUser = new User(userId, firstName, lastName, email, password,  phone, age, sex);
 
         userService.editUser(newUser);
 
-        userService.setCoord(userId, latitude, longitude);
+/*
 
-        resp.sendRedirect("/editUser?userId="+userId);
+        userService.setCoord(userId, latitude, longitude);
+*/
+
+
         if (user.getRoles().contains(roleAdmin)) {
             resp.sendRedirect("/admin");
         } else {

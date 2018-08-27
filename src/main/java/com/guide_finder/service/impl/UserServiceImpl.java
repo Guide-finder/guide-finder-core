@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long saveUser(User user) {
-         return userDao.saveUser(user);
+        return userDao.saveUser(user);
     }
 
     @Override
@@ -64,6 +64,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsers(String city) {
+        return userDao.getAllUsers(city);
+    }
+
+    @Override
     public void setCoord(long userId, double latitude, double longitude) {
         userDao.setCoord(userId, latitude, longitude);
     }
@@ -83,20 +88,10 @@ public class UserServiceImpl implements UserService {
         return userDao.getGuidesAround(latitude, longitude);
     }
 
-//    @Override
-//    public List<User> getAllUsers(String city) {
-//        return userDao.getAllUsers(city);
-//    }
-//
-//    @Override
-//    public List<User> getUsersByRole(int role_id) {
-//        return userDao.getUsersByRole(role_id);
-//    }
-//
-//    @Override
-//    public Boolean setRoleToUser(long user_id, long role_id) {
-//        return userDao.setRoleToUser(user_id, role_id);
-//    }
+    @Override
+    public Boolean setRoleToUser(long user_id, long role_id) {
+        return userDao.setRoleToUser(user_id, role_id);
+    }
 
     @Override
     public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
@@ -106,5 +101,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public void costilToDescription(long user_id) {
         userDao.costilToDescription(user_id);
+    }
+
+    @Override
+    public List<User> getUsersByRole(int role_id) {
+        return userDao.getUsersByRole(role_id);
+    }
+
+    @Override
+    public void setUserActive(int active, long user_id) {
+        userDao.setUserActive(active,user_id);
+    }
+
+    @Override
+    public void deleteUserCoord(long user_id) {
+        userDao.deleteUserCoord(user_id);
     }
 }

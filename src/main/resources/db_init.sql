@@ -70,8 +70,7 @@ create table role
 
 create table user
 (
-	id bigint auto_increment
-		primary key,
+	id bigint auto_increment,
 	firstname varchar(255) not null,
 	lastname varchar(255) not null,
 	email varchar(255) not null,
@@ -79,15 +78,20 @@ create table user
 	phone varchar(255) null,
 	age int null,
 	sex varchar(15) not null,
+	isActive int default '0' null,
+	constraint user_email_uindex
+		unique (email),
 	constraint user_id_uindex
 		unique (id),
 	constraint user_id_uindex1
 		unique (id),
-	constraint user_email_uindex
-		unique (email),
 	constraint user_phone_uindex
 		unique (phone)
 )
+;
+
+alter table user
+	add primary key (id)
 ;
 
 create table commentary
@@ -231,3 +235,16 @@ create index user_role_user
 	on user_role (user_id)
 ;
 
+create table coord
+(
+	user_id bigint null,
+	latCoord decimal(18,14) null,
+	longCoord decimal(18,14) null,
+	constraint coord_user_fk_upd
+		foreign key (user_id) references user (id)
+			on update cascade,
+	constraint coord_user_fk_del
+		foreign key (user_id) references user (id)
+			on delete cascade
+)
+;

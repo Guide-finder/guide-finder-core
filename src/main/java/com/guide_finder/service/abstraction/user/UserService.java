@@ -5,6 +5,7 @@ import com.guide_finder.dto.UserCoordsDto;
 import com.guide_finder.model.user.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
@@ -20,11 +21,15 @@ public interface UserService {
 
     void deleteUser(long id);
 
+    List<User> getAllUsers(String city);
+
     List<User> getAllUsers();
 
     void setCoord(long userId, double latitude, double longitude);
 
-    public SocialContact getSocialContactsById(long id);
+    SocialContact getSocialContactsById(long id);
+
+    List<User> getUsersByRole(int role_id);
 
     List<Double> getCoord(long id);
 
@@ -35,4 +40,8 @@ public interface UserService {
     List<User> usersBySearch(String city_id, List<String> language_id, String category);
 
     void costilToDescription(long user_id);
+
+    void setUserActive(int active, long user_id);
+
+    void deleteUserCoord(long user_id);
 }

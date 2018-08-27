@@ -23,9 +23,9 @@ public interface UserDao {
 
     void deleteUser(long id);
 
-    List<User> getAllUsers();
+    List<User> getAllUsers(String city);
 
-    void setCoord(long userId, double latitude,double longitude);
+    void setCoord(long userId, double latitude, double longitude);
 
     List<Double> getCoord(long id);
 
@@ -36,5 +36,17 @@ public interface UserDao {
     SocialContact getSocialContactsById(long id);
 
     void costilToDescription(long user_id);
+
+    List<User> getUsersByRole(int role_id);
+
+    void getUser(ResultSet result, List<User> urList) throws SQLException;
+
+    Boolean setRoleToUser(long user_id, long role_id);
+
+    List<User> getAllUsers();
+
+    void setUserActive(int active, long user_id);
+
+    void deleteUserCoord(long user_id);
 
 }

@@ -18,8 +18,11 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- jQuery -->
     <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>--%>
+    <script src="script/script.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
     <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -51,7 +54,7 @@
             <!-- Форма с кнопкой и чекбоксом -->
             <div class="container">
                 <form action="/editUser" method="post">
-                    <input type="hidden" name="userId" value="${user.id}">
+                    <input type="hidden" id="userId" name="userId" value="${user.id}">
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude">
                     <div class="form-group">
@@ -94,12 +97,14 @@
                         </select>
                     </div>
 
+<%--
                     <button type="button" class="form-control" onclick="getLocation()">Active</button>
+--%>
 
-                    <%--<div class="form-check">
+                    <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" onchange="getLocation()">
                         <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>--%>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

@@ -14,13 +14,13 @@ import java.util.List;
 @WebServlet("/userFilter")
 public class UserFilterServlet extends HttpServlet {
 
-    private UserServiceImpl usi = new UserServiceImpl();
+    private UserServiceImpl userService = new UserServiceImpl();
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<User> userList= usi.getAllUsers();
+        List<User> userList= userService.getAllUsers();
 
         req.setAttribute("users", userList);
 
@@ -29,16 +29,16 @@ public class UserFilterServlet extends HttpServlet {
 
     }
 
-//    @Override
-//    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//        List<User> userList = usi.getAllUsers(req.getParameter("city"));
-//
-//        req.setAttribute("users", userList);
-//
-//        resp.setContentType("text/html");
-//        req.getRequestDispatcher("/userList.jsp").forward(req, resp);
-//
-//    }
+    @Override
+    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        List<User> userList = userService.getAllUsers(req.getParameter("city"));
+
+        req.setAttribute("users", userList);
+
+        resp.setContentType("text/html");
+        req.getRequestDispatcher("/userList.jsp").forward(req, resp);
+
+    }
 
 }
