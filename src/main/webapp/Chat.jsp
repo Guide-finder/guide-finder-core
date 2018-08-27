@@ -66,6 +66,7 @@
         <input class="form-control form-control-sm" id="message" type="text" placeholder="enter message...">
     </div>
     <div align="center">
+        <br>
         <input type="button" class="btn btn-primary" value="send" onclick="sendMessage()">
     </div>
 

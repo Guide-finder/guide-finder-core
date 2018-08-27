@@ -16,6 +16,7 @@ public class WebSocketChatServlet {
     private long from_id;
     private long to_id;
 
+    @OnOpen
     public void onOpen(Session session) {
         System.out.println("onOpen::" + session.getId());
 

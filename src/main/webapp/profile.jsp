@@ -127,6 +127,7 @@
                         data: {senderId: senderId, recipientId: recipientId, comment: comment},
                         success: function(data) {
                             $('#comment_container').append('<div class="form-group comments-style"><label>' + data.authorName + '</label>'+':  ' + '<br>' + data.message + '</div>');
+                            (document).getElementById("Comment_field").value = '';
 
                             // $('#comment_container').append('<div>' + data.authorName + ':  ' + data.message + '</div>');
                         },
