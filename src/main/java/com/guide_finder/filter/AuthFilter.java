@@ -32,6 +32,7 @@ public class AuthFilter implements Filter {
         String loginUri = request.getContextPath() + "/login";
         String regUri = request.getContextPath() + "/registration";
         String adminUri = request.getContextPath() + "/admin";
+        String editUri = request.getContextPath() + "/editUser";
 
         User user = (User) session.getAttribute("user");
 
@@ -42,6 +43,7 @@ public class AuthFilter implements Filter {
         boolean loginRequest = request.getRequestURI().equals(loginUri);
         boolean regRequest = request.getRequestURI().equals(regUri);
         boolean adminRequest = request.getRequestURI().equals(adminUri);
+        boolean editRequest = request.getRequestURI().equals(editUri);
 
         if (loggedIn) {
             if (user.getRoles().contains(roleAdmin)) {
@@ -49,6 +51,8 @@ public class AuthFilter implements Filter {
             } else if (user.getRoles().contains(roleUser)) {
                 if (adminRequest) {
                     response.sendRedirect("/user");
+                } else if (editRequest) {
+                    request.getRequestDispatcher("/editUser?userId=" + user.getId()).forward(request, response);
                 } else {
                     chain.doFilter(request, response);
                 }
