@@ -35,4 +35,6 @@ public interface UserService {
     List<User> usersBySearch(String city_id, List<String> language_id, String category);
 
     void costilToDescription(long user_id);
+
+    void editCustomUserOptions(long user_id, String city_id, List<String> languages, List<String> categories, List<String> roles);
 }

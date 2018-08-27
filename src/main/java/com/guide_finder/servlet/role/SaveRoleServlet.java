@@ -1,9 +1,10 @@
-package com.guide_finder.servlet.language;
+package com.guide_finder.servlet.role;
+
 
 import com.google.gson.Gson;
-import com.guide_finder.model.user.Language;
-import com.guide_finder.service.abstraction.language.LanguageService;
-import com.guide_finder.service.impl.LanguageServiceImpl;
+import com.guide_finder.model.user.Role;
+import com.guide_finder.service.abstraction.role.RoleService;
+import com.guide_finder.service.impl.RoleServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,22 +14,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
+
 /**
- * Created by stepanegorov on 27.08.18.
+ * Created by Dikobob on 27.08.18.
  */
-@WebServlet("/language")
-public class LanguageServlet extends HttpServlet {
-    private LanguageService languageService = new LanguageServiceImpl();
+@WebServlet("/saveCategories")
+public class SaveRoleServlet extends HttpServlet {
+    private final RoleService roleService = new RoleServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<Language> languages = languageService.getAllLanguages();
+            List<Role> roles = roleService.getAllRoles();
 
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            System.out.println(new Gson().toJson(languages));
-            resp.getWriter().write(new Gson().toJson(languages));
+            System.out.println(new Gson().toJson(roles));
+            resp.getWriter().write(new Gson().toJson(roles));
 
         } catch (Exception e) {
             e.printStackTrace();

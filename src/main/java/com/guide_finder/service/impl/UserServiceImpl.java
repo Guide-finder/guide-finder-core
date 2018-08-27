@@ -94,4 +94,9 @@ public class UserServiceImpl implements UserService {
     public void costilToDescription(long user_id) {
         userDao.costilToDescription(user_id);
     }
+
+    @Override
+    public void editCustomUserOptions(long user_id, String city_id, List<String> languages, List<String> categories, List<String> roles) {
+        userDao.editCustomUserOptions(user_id, city_id, languages, categories, roles);
+    }
 }

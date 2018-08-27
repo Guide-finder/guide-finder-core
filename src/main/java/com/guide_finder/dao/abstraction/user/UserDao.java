@@ -38,4 +38,6 @@ public interface UserDao {
 
     void costilToDescription(long user_id);
 
+    void editCustomUserOptions(long user_id, String city_id, List<String> languages, List<String> categories, List<String> roles);
+
 }

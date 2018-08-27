@@ -92,10 +92,29 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <%--<div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>--%>
+                    <div class="form-group">
+                        <select name="country" class="form-control" id="country">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="city" class="form-control" id="city">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Language <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu" id="language"></ul>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Categories <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu" id="categories"></ul>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Roles <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu" id="roles"></ul>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -105,6 +124,131 @@
 
     </div>
 </div>
+
+<%--категории модальное окно****************************************************************************************************--%>
+<div id="gridSystemModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridModalLabel">Categories</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid bd-example-row">
+                    <div class="row" id="data_list">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<%--********************************************************************************************************************************************************--%>
+<script>
+    var currentCategory = [];
+    var currentCity;
+    var currentLanguage = [];
+    var currentRole = [];
+    var sendArray = [];
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/language'
+    }).done(function (result) {
+        $(result).each(function () {
+            $('#language').append('<li><input type="checkbox" class="checkbox" name="language" value="' + this.id + '">' + this.name + '</li>');
+        })
+    });
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/saveCategories'
+    }).done(function (result) {
+        $(result).each(function () {
+            $('#categories').append('<li><input type="checkbox" class="checkbox" name="categories" value="' + this.id + '">' + this.name + '</li>');
+        })
+    });
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/saveRoles'
+    }).done(function (result) {
+        $(result).each(function () {
+            $('#categories').append('<li><input type="checkbox" class="checkbox" name="roles" value="' + this.id + '">' + this.name + '</li>');
+        })
+    });
+
+    $('#search').on('click', function () {
+        currentLanguage = $('input:checkbox:checked.checkbox').map(function () {
+            return this.value;
+        }).get();
+
+        currentCategory = $('input:checkbox:checked.checkbox').map(function () {
+            return this.value;
+        }).get();
+
+        currentRole = $('input:checkbox:checked.checkbox').map(function () {
+            return this.value;
+        }).get();
+
+        currentCity = $('#city').find(':selected').val();
+        currentCategory = document.querySelector(".catBtn").textContent;
+
+        sendArray = [];
+        sendArray.push(currentCity, currentCategory, currentLanguage);
+    });
+
+
+
+    loadCountry();
+    loadCity(0);
+    $('#country').change(function () {
+        loadCity($(this).find(':selected').val())
+    });
+
+    function loadCountry() {
+        $.ajax({
+            type: "GET",
+            url: "/location"
+        }).done(function (result) {
+            $(result).each(function () {
+                $("#country").append($('<option>', {
+                    value: this.id,
+                    text: this.name
+                }));
+            })
+        });
+    }
+
+
+    function loadCity(country) {
+        $("#city").children().remove();
+        $.ajax({
+            type: "GET",
+            url: "/location",
+            data: "country=" + country
+        }).done(function (result) {
+            $(result).each(function () {
+                $("#city").append($('<option>', {
+                    value: this.id,
+                    text: this.name
+                }));
+            })
+        });
+    }
+
+
+</script>
 
 </body>
 </html>
