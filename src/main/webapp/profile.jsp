@@ -83,7 +83,7 @@
                     <li style="padding-right: 40px"> <a href="${socialcontacts.vk}">Vkontakte</li>
                     <li style="padding-right: 40px"> <a href="${socialcontacts.ok}">Odnoklassniki</a></li>
                     <li style="padding-right: 40px"> <a href="${socialcontacts.fb}">Facebook</a></li>
-                    <li style="padding-right: 40px"> <a href="${socialcontacts.tg}">Telegram</a></li>
+                    <li style="padding-right: 40px"> <a href=${socialcontacts.tg}>Telegram</a></li>
                 </ul>
                 </div>
                 <div class="col-sm-6 name-font" align="left">
