@@ -19,12 +19,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@WebServlet("/register")
+@WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
     private final UserService userService = new UserServiceImpl();
 
     private final RoleService roleService = new RoleServiceImpl();
+
+    @Override
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/registration.jsp");
+        dispatcher.forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req,
@@ -57,6 +64,7 @@ public class RegistrationServlet extends HttpServlet {
         user.setRoles(roles);
 
         userService.saveUser(user);
+        userService.costilToDescription(user.getId());
 
         req.setAttribute("firstName", user.getFirstName());
         req.setAttribute("isRegister", true);

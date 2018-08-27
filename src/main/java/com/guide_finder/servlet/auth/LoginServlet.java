@@ -26,12 +26,11 @@ public class LoginServlet extends HttpServlet {
                          HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("isInvalid", false);
         req.setAttribute("isRegister", false);
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
         dispatcher.forward(req, resp);
     }
 
-    //добавить метод dopost, котторый принимает логин и прааольь, делаетт сравение по базе и в зависимости от роли делает
-    //редирект на нужную страницу (либо юзер, либо админ)
 
     @Override
     public void doPost(HttpServletRequest req,
@@ -64,27 +63,20 @@ public class LoginServlet extends HttpServlet {
                 req.setAttribute("firstName", user.getFirstName());
                 if (user.getRoles().contains(roleAdmin)) {
                     res.sendRedirect("/admin");
-//                    req.getRequestDispatcher("/adminPage.jsp").forward(req, res);
                 } else if (user.getRoles().contains(roleUser)) {
-                    res.sendRedirect("/userFilter");
-//                    req.getRequestDispatcher("/userList.jsp").forward(req, res);
+                    res.sendRedirect("/user/profile?id="+user.getId());
                 } else {
                     req.setAttribute("isInvalidRole", true);
-//                    req.getRequestDispatcher("/login.jsp").forward(req, res);
-                    res.sendRedirect("/userFilter");
+                    req.getRequestDispatcher("login.jsp").forward(req, res);
                 }
             } else {
                 req.setAttribute("isInvalid", true);
-//                req.getRequestDispatcher("/login.jsp").forward(req, res);
-                res.sendRedirect("/userFilter");
+                req.getRequestDispatcher("login.jsp").forward(req, res);
             }
 
-        } catch  (IOException e) {
+        } catch  (IOException | ServletException e) {
             e.printStackTrace();
         }
-// catch (ServletException e) {
-//            e.printStackTrace();
-//        }
     }
 
 }

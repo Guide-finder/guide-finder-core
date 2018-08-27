@@ -2,6 +2,7 @@ package com.guide_finder.dao.impl.user;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.executor.Executor;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -150,7 +151,8 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                     ));
         }
     }
-@Override
+
+    @Override
     public List<User> getUsersByRole(int role_id) {
 
             String getUserIdFromRoles = String.format("SELECT * FROM user WHERE id IN (SELECT user_id FROM user_role WHERE role_id= %s)", role_id);
@@ -160,6 +162,36 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                return list;
             });
     }
+
+    @Override
+    public SocialContact getSocialContactsById(long id){
+        SocialContact contact = null;
+
+        return executor.execQuery(String.format("select * from socialcontact where user_id='%s'", id), result ->{
+            result.next();
+            return new SocialContact(result.getString(2),result.getString(3),
+                                    result.getString(4),result.getString(5));
+                }
+        );
+
+//        try(Statement statement = connection.createStatement()){
+//            String sql = String.format("select * from socialcontact where user_id='%s'", id);
+//            statement.executeQuery(sql);
+//
+//            ResultSet resultSet = statement.getResultSet();
+//            resultSet.next();
+//            String vk_profile = resultSet.getString(2);
+//            String ok_profile = resultSet.getString(3);
+//            String fb_profie = resultSet.getString(4);
+//            String tg_profile = resultSet.getString(5);
+//            contact = new SocialContact(vk_profile, ok_profile, fb_profie, tg_profile);
+//        }catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return contact;
+//    }
+    }
+
 
     /**
      * Author Dikobob
@@ -181,5 +213,9 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                 return false;
             }
         });
+    }
+
+    public void costilToDescription(long user_id){
+        executor.execUpdate(String.format("INSERT INTO guide (user_id, city_id, description) VALUE (%s, NULL, NULL )", user_id));
     }
 }

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User menu</title>
-    <link rel="stylesheet" href="css/styleAdmin.css">
+    <%--<link rel="stylesheet" href="css/styleAdmin.css">--%>
 </head>
 <div class="form-box">
     <%--<p>Welcome, <%=firstname%></p>--%>
