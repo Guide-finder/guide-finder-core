@@ -49,7 +49,7 @@
             <title>Title</title>
         </head>
 <body>
-
+<jsp:include page="fragment/header.jsp"/>
 
 <form action="/userFilter" method="post">
     <input type="text" name="city">

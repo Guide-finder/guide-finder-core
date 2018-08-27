@@ -8,11 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
     <title>Ошибка</title>
 </head>
 <body>
+<jsp:include page="fragment/header.jsp"/>
+<div>
 <h1>Ошибка</h1>
 <p>Код: ${statusCode}</p>
-
+</div>>
 </body>
 </html>

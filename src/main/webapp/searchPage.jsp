@@ -29,19 +29,13 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <style>
         body {
-            padding: 30px;
+            padding: 0px;
         }
     </style>
 </head>
 <body id="test">
 <!-- Наша шапка -->
-<div class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Guide finder</a>
-        </div>
-    </div>
-</div>
+<jsp:include page="fragment/header.jsp"/>
 <div class="container"><h1>Search guide</h1></div>
 <br><br><br><br>
 <%--******************************************************************************************************************--%>

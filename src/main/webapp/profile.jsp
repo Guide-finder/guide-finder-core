@@ -45,13 +45,8 @@
         <body>
 
         <!-- Наша шапка -->
-        <div class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Guide finder</a>
-                </div>
-            </div>
-        </div>
+
+        <jsp:include page="fragment/header.jsp"/>
 
         <div class="container-fluid">
 
