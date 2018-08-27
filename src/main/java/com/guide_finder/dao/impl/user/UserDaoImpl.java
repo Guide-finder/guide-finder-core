@@ -253,21 +253,26 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
 
     @Override
     public void editCustomUserOptions(long user_id, String city_id, List<String> languages, List<String> categories, List<String> roles) {
-        StringBuilder quest = new StringBuilder(String.format("INSERT INTO guide (user_id, city_id) VALUE (%s, %s);\n", user_id, city_id));
-        for (String list : languages) {
-            quest.append(String.format("INSERT INTO user_language (user_id, language_id) VALUE (%s, %s);\n", user_id, list));
-        }
-        for (String list : categories) {
-            quest.append(String.format("INSERT INTO user_category (user_id, category_id) VALUE (%s, %s);\n", user_id, list));
-        }
-        for (String list : roles) {
-            quest.append(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s);\n", user_id, list));
-        }
+        executor.execUpdate("DELETE FROM user_category WHERE user_id = " + user_id + ";");
+        executor.execUpdate("DELETE FROM user_language WHERE user_id = " + user_id + ";");
+        executor.execUpdate("DELETE FROM user_role WHERE user_id = " + user_id + ";");
+        executor.execUpdate("DELETE FROM guide WHERE user_id = " + user_id + ";");
 
-        executor.execUpdate("DELETE user_category, user_language, user_role FROM user_category INNER JOIN user_language INNER JOIN user_role INNER JOIN guide WHERE\n" +
-                "  user_category.user_id = user_language.user_id AND user_language.user_id = user_role.user_id AND user_role.user_id = guide.user_id\n" +
-                "AND guide.user_id = " +user_id);
-
-        executor.execUpdate(quest.toString());
+        executor.execUpdate(String.format("INSERT INTO guide (user_id, city_id) VALUE (%s, %s);", user_id, city_id));
+        if (languages != null) {
+            for (String list : languages) {
+                executor.execUpdate(String.format("INSERT INTO user_language (user_id, language_id) VALUE (%s, %s);\n", user_id, list).replace("[", "").replace("]", ""));
+            }
+        }
+        if (categories != null) {
+            for (String list : categories) {
+                executor.execUpdate(String.format("INSERT INTO user_category (user_id, category_id) VALUE (%s, %s);\n", user_id, list).replace("[", "").replace("]", ""));
+            }
+        }
+        if (roles != null) {
+            for (String list : roles) {
+                executor.execUpdate(String.format("INSERT INTO user_role (user_id, role_id) VALUE (%s, %s);\n", user_id, list).replace("[", "").replace("]", ""));
+            }
+        }
     }
 }

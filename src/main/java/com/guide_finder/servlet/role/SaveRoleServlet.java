@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Dikobob on 27.08.18.
  */
-@WebServlet("/saveCategories")
+@WebServlet("/saveRoles")
 public class SaveRoleServlet extends HttpServlet {
     private final RoleService roleService = new RoleServiceImpl();
 

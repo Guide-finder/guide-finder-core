@@ -8,7 +8,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <title>guideFinder</title>
@@ -61,27 +62,33 @@
                     <input type="hidden" name="userId" value="${user.id}">
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="${user.email}">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                               value="${user.email}">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="${user.password}">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                               value="${user.password}">
                     </div>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name" value="${user.firstName}">
+                        <input type="text" name="firstname" class="form-control" id="name" placeholder="Enter name"
+                               value="${user.firstName}">
                     </div>
                     <div class="form-group">
                         <label for="lastname">Lastname</label>
-                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname" value="${user.lastName}">
+                        <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Lastname"
+                               value="${user.lastName}">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" name="age" class="form-control" id="age" placeholder="Age" value="${user.age}">
+                        <input type="number" name="age" class="form-control" id="age" placeholder="Age"
+                               value="${user.age}">
                     </div>
                     <div class="form-group">
                         <label for="age">Phone</label>
-                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" value="${user.phone}">
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone"
+                               value="${user.phone}">
                     </div>
                     <div class="form-group">
                         <label for="age">Sex</label>
@@ -115,7 +122,7 @@
                                 class="caret"></b></a>
                         <ul class="dropdown-menu" id="roles"></ul>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="sendBtn">Submit</button>
                 </form>
             </div>
 
@@ -148,23 +155,15 @@
 </div>
 
 
-
-
 <%--********************************************************************************************************************************************************--%>
 <script>
-    var currentCategory = [];
-    var currentCity;
-    var currentLanguage = [];
-    var currentRole = [];
-    var sendArray = [];
-
     $.ajax({
         type: 'POST',
         dataType: 'json',
         url: '/language'
     }).done(function (result) {
         $(result).each(function () {
-            $('#language').append('<li><input type="checkbox" class="checkbox" name="language" value="' + this.id + '">' + this.name + '</li>');
+            $('#language').append('<li><input type="checkbox" class="checkboxLang" name="language" value="' + this.id + '">' + this.name + '</li>');
         })
     });
 
@@ -174,7 +173,7 @@
         url: '/saveCategories'
     }).done(function (result) {
         $(result).each(function () {
-            $('#categories').append('<li><input type="checkbox" class="checkbox" name="categories" value="' + this.id + '">' + this.name + '</li>');
+            $('#categories').append('<li><input type="checkbox" class="checkboxCat" name="categories" value="' + this.id + '">' + this.name +'</li>');
         })
     });
 
@@ -184,32 +183,9 @@
         url: '/saveRoles'
     }).done(function (result) {
         $(result).each(function () {
-            $('#categories').append('<li><input type="checkbox" class="checkbox" name="roles" value="' + this.id + '">' + this.name + '</li>');
+            $('#roles').append('<li><input type="checkbox" class="checkboxRol" name="roles" value="' + this.id + '">' + this.name + '</li>');
         })
     });
-
-    $('#search').on('click', function () {
-        currentLanguage = $('input:checkbox:checked.checkbox').map(function () {
-            return this.value;
-        }).get();
-
-        currentCategory = $('input:checkbox:checked.checkbox').map(function () {
-            return this.value;
-        }).get();
-
-        currentRole = $('input:checkbox:checked.checkbox').map(function () {
-            return this.value;
-        }).get();
-
-        currentCity = $('#city').find(':selected').val();
-        currentCategory = document.querySelector(".catBtn").textContent;
-
-        sendArray = [];
-        sendArray.push(currentCity, currentCategory, currentLanguage);
-    });
-
-
-
     loadCountry();
     loadCity(0);
     $('#country').change(function () {
@@ -246,6 +222,31 @@
             })
         });
     }
+
+    $('#sendBtn').on('click', function () {
+        var userId = ${user.id};
+        var currentCity;
+        var currentLanguage = [];
+        var currentRole = [];
+        var currentCategory = [];
+
+        currentLanguage = $('input:checkbox:checked.checkboxLang').map(function () {
+            return this.value;
+        }).get();
+        currentCategory = $('input:checkbox:checked.checkboxCat').map(function () {
+            return this.value;
+        }).get();
+        currentRole = $('input:checkbox:checked.checkboxRol').map(function () {
+            return this.value;
+        }).get();
+        currentCity = $('#city').find(':selected').val();
+        $.ajax({
+            type: "GET",
+            url: "/toolsEditUser",
+            dataType: 'json',
+            data: {id: userId, currentLanguage: currentLanguage, currentCity: currentCity, currentRole:currentRole, currentCategory:currentCategory}
+        })
+    })
 
 
 </script>
