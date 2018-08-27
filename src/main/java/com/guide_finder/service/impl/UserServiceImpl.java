@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> usersBySearch(long city_id, List<String> language_id, String category) {
+    public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
         return userDao.usersBySearch(city_id, language_id, category);
     }
 }

@@ -183,12 +183,12 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
         });
     }
 
-    public List<User> usersBySearch(long city_id, List<String> language_id, String category) {
+    public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
         String lang = language_id.toString();
         List<User> list = new ArrayList<>();
 
         if (lang.isEmpty()){
-            return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = $s))\n" +
+            return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = $d))\n" +
                     "                        AND\n" +
                     "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
                     "                          SELECT id FROM category WHERE name = '%s'\n" +
@@ -198,13 +198,17 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
         });
         }
         else {
-                return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = $s))\n" +
+                String str = String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = %s))\n" +
                         "                        AND\n" +
-                        "                        (id IN (SELECT user_id FROM user_language WHERE language_id IN (%s))\n" +
+                        "                        (id IN (SELECT user_id FROM user_language WHERE language_id IN (%s)))\n" +
                         "                        AND\n" +
                         "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
-                        "                          SELECT id FROM category WHERE name = '%s'\n" +
-                        "                        )))", city_id, lang, category), result -> {
+                        "                          SELECT id FROM category WHERE name = \'%s\'\n" +
+                        "                        )))", city_id, lang, category);
+            str = str.replace("[", "");
+            str = str.replace("]", "");
+            System.out.println(str);
+                return executor.execQuery(str, result -> {
                     getUser(result, list);
                     return list;
                 });

@@ -1,5 +1,6 @@
 package com.guide_finder.servlet.search;
 
+import com.google.gson.Gson;
 import com.guide_finder.model.user.User;
 import com.guide_finder.service.abstraction.user.UserService;
 import com.guide_finder.service.impl.UserServiceImpl;
@@ -35,22 +36,25 @@ public class GuideSearchServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> user;
-        long cityId = Long.parseLong(req.getParameter("currentCity"));
+
+        List<User> users;
+
+        String cityId = req.getParameter("currentCity");
         String categoryName = req.getParameter("currentCategory");
 
         List<String> languageList = new ArrayList<>();
 
 
-        if (req.getParameterValues("currentLanguage[]") != null) {
-            languageList = new ArrayList<>(Arrays.asList((String[]) req.getParameterValues("currentLanguage[]")));
-            user = service.usersBySearch(cityId, languageList, categoryName);
+        if (req.getParameterValues("currentLanguage[]") == null) {
+            users = service.usersBySearch(cityId, null, categoryName);
         }
 
         else {
-                languageList = new ArrayList<>(Arrays.asList((String[]) req.getParameterValues("currentLanguage[]")));
-                user = service.usersBySearch(cityId, null, categoryName);
+            languageList = new ArrayList<>(Arrays.asList((String[]) req.getParameterValues("currentLanguage[]")));
+            users = service.usersBySearch(cityId, languageList, categoryName);
+            System.out.println(users.get(0).getFirstName());
         }
-        resp.sendRedirect("/guideSearch");
+        System.out.println(new Gson().toJson(users));
+        resp.getWriter().write(new Gson().toJson(users));
     }
 }

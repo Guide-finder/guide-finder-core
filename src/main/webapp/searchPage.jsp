@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="submit" value="Найти" class="btn btn-success btn-block" id="search">
+                <input type="button" value="Найти" class="btn btn-success btn-block" id="search">
             </div>
         </form>
     </div>
@@ -99,18 +99,12 @@
                             <th>Last name</th>
                             <th>Options</th>
                         </tr>
-                        <tr class="">
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>Options</th>
-                        </tr>
                     </thread>
-                    <tbody>
+                    <tbody id="user2">
                     <c:forEach items="${users}" var="user">
                         <tr>
                             <td>${user.firstName}</td>
                             <td>${user.lastName}</td>
-                            <td>${user.password}</td>
                             <td align="center">
                                 <div class="btn-group">
                                     <a href="/userPage?userId=${user.id}">
@@ -177,7 +171,9 @@
 //        {
 //            alert($(this).val());
 //        }
-        currentLanguage = $('input:checkbox:checked.checkbox').map(function () { return this.value;}).get();
+        currentLanguage = $('input:checkbox:checked.checkbox').map(function () {
+            return this.value;
+        }).get();
         currentCity = $('#city').find(':selected').val();
         currentCategory = document.querySelector(".catBtn").textContent;
 
@@ -188,26 +184,39 @@
         var json = JSON.stringify(sendArray);
 
 
+        $("#user2").children().remove();
+
         $.ajax({
             type: 'POST',
-            dataType:'json',
+            dataType: 'json',
 //            data: {json:json},
 
             data: {currentCity: currentCity, currentCategory: currentCategory, currentLanguage: currentLanguage},
 //            data: "json=" + JSON.stringify(sendArray),
             url: '/guideSearch'
 
+        }).done(function (result) {
+            $(result).each(function () {
+                $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
+                    + '<div class="btn-group">'
+                    + '<a href="/userPage?userId='
+                +this.id
+                +'">'
+                    + '<button type="button" class="btn btn-primary">Guide page</button>'
+                + '</a>'
+                + '</div>'
+                + '</td></tr>')
+            })
         });
 
 
     });
 
 
-
     $("#myBtn").click(function () {
         $.get("/user/category", function (data) {
             for (var key in data) {               //цикл, который проходится по массиву data
-                //добавиьть отображение size
+                                                  //добавиьть отображение size
                 $('#data_list').append(
                     '<a class="myClass" href="#" style="display: block">'
                     + '<div class="col-md-4">'
@@ -249,6 +258,7 @@
             })
         });
     }
+
 
     function loadCity(country) {
         $("#city").children().remove();
