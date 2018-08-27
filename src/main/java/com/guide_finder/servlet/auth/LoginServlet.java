@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
                 if (user.getRoles().contains(roleAdmin)) {
                     res.sendRedirect("/admin");
                 } else if (user.getRoles().contains(roleUser)) {
-                    res.sendRedirect("/user/profile?id="+user.getId());
+                    res.sendRedirect("/guideSearch");
                 } else {
                     req.setAttribute("isInvalidRole", true);
                     req.getRequestDispatcher("login.jsp").forward(req, res);

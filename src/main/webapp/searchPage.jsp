@@ -107,7 +107,7 @@
                             <td>${user.lastName}</td>
                             <td align="center">
                                 <div class="btn-group">
-                                    <a href="/userPage?userId=${user.id}">
+                                    <a href="/user/profile?id=${user.id}">
                                         <button type="button" class="btn btn-primary">Guide page</button>
                                     </a>
                                 </div>
@@ -199,7 +199,7 @@
             $(result).each(function () {
                 $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
                     + '<div class="btn-group">'
-                    + '<a href="/userPage?userId='
+                    + '<a href="/user/profile?id='
                 +this.id
                 +'">'
                     + '<button type="button" class="btn btn-primary">Guide page</button>'
