@@ -69,7 +69,7 @@ public class EditUserServlet extends HttpServlet {
         if (user.getRoles().contains(roleAdmin)) {
             resp.sendRedirect("/admin");
         } else {
-            resp.sendRedirect("/user");
+            resp.sendRedirect("/guideSearch");
         }
 
     }

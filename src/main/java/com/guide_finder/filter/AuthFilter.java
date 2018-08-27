@@ -50,7 +50,7 @@ public class AuthFilter implements Filter {
                 chain.doFilter(request, response);
             } else if (user.getRoles().contains(roleUser)) {
                 if (adminRequest) {
-                    response.sendRedirect("/user");
+                    response.sendRedirect("/guideSearch");
                 } else if (editRequest) {
                     request.getRequestDispatcher("/editUser?userId=" + user.getId()).forward(request, response);
                 } else {
