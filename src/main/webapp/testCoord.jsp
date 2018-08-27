@@ -133,7 +133,55 @@
             myMap.geoObjects.add(myLocation);
 
 
-            for (var i = 0; i < data.length; i++) {
+
+
+
+
+
+            // Создаем коллекцию, в которую будем добавлять метки
+            myCollection = new ymaps.GeoObjectCollection();
+
+            for (var i = 0; i < obj.length; i++) {
+/*                console.log(coords[i].latitude);*/
+
+                var myPlacemark = new ymaps.Placemark(
+                    // Координаты метки
+                    [obj[i].latitude, obj[i].longitude], {
+                        balloonContentBody: '<a href=/user/profile?id=' + obj[i].id + '>' + obj[i].firstname + ' ' + obj[i].lastname + '</a>\n'
+                    }
+                );
+
+                myCollection.add(myPlacemark);
+                // myMap.geoObjects.add(myPlacemark);
+            }
+
+            // Создаем шаблон для отображения контента балуна
+            var myBalloonLayout = ymaps.templateLayoutFactory.createClass(
+                // '<h3>$[properties.name]</h3>' +
+                // '<p><strong>Адрес:</strong> $[properties.address]</p>' +
+                '<div align="center"><p align="center"><strong></strong><h3> <a rel="nofollow" href="$[properties.link]" align="center" target="_blank">$[properties.name]</a></h3></p></div>'
+            );
+
+            // Помещаем созданный шаблон в хранилище шаблонов. Теперь наш шаблон доступен по ключу 'my#theaterlayout'.
+            ymaps.layout.storage.add('my#theaterlayout', myBalloonLayout);
+
+            // Задаем наш шаблон для балунов геобъектов коллекции.
+            myCollection.options.set({
+                balloonContentBodyLayout:'my#theaterlayout',
+                // Максимальная ширина балуна в пикселах
+                balloonMaxWidth: 300
+            });
+            // Добавление метки на карту
+            myMap.geoObjects.add(myCollection);
+
+
+
+
+
+
+
+
+            /*for (var i = 0; i < data.length; i++) {
 
                 var myPlacemark = new ymaps.Placemark(
                     // Координаты метки гида
@@ -141,7 +189,7 @@
                 );
 
                 myMap.geoObjects.add(myPlacemark);
-            }
+            }*/
 
         }
     }

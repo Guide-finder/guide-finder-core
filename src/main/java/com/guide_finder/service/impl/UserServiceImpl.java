@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserCoordsDto> getGuidesAround(Double longitude, Double latitude) {
-        return userDao.getGuidesAround(longitude, latitude);
+    public List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude) {
+        return userDao.getGuidesAround(latitude, longitude);
     }
 
 //    @Override

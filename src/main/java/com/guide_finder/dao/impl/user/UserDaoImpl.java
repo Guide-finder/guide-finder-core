@@ -172,14 +172,16 @@ public class UserDaoImpl implements UserDao {
     public List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude) {
         List<UserCoordsDto> list = new ArrayList<>();
 
-        return executor.execQuery("select * from coord where" +
-                " (longCoord <= " + longitude + " + 0.03 AND latCoord <= " + latitude + " + 0.03)" +
-                " and (longCoord >= " + longitude + " - 0.03 AND latCoord >= " + latitude + " - 0.03)" ,result -> {
+        return executor.execQuery("SELECT user.id, user.firstname, user.lastname, crd.longCoord, crd.latCoord FROM (select * from coord where" +
+                " (longCoord <= " + longitude + " + 0.003 AND latCoord <= " + latitude + " + 0.003)" +
+                " and (longCoord >= " + longitude + " - 0.003 AND latCoord >= " + latitude + " - 0.003)) as crd LEFT JOIN user ON crd.user_id=user.id" ,result -> {
             while (result.next()) {
                 UserCoordsDto dto = new UserCoordsDto(
                         result.getLong(1),
-                        result.getDouble(2),
-                        result.getDouble(3)
+                        result.getString(2),
+                        result.getString(3),
+                        result.getDouble(5),
+                        result.getDouble(4)
                 );
                 list.add(dto);
             }

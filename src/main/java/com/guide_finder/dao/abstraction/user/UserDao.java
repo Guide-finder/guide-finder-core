@@ -28,6 +28,6 @@ public interface UserDao {
 
     List<Double> getCoord(long id);
 
-    List<UserCoordsDto> getGuidesAround(Double longitude, Double latitude);
+    List<UserCoordsDto> getGuidesAround(Double latitude, Double longitude);
 
 }
