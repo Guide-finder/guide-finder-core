@@ -32,8 +32,8 @@ public class PushTimeService implements Runnable {
     @Override
     public void run() {
 
-        final LocationServiceImpl lsi = new LocationServiceImpl();
-        final UserService userService = new UserServiceImpl();
+        LocationServiceImpl lsi = new LocationServiceImpl();
+        UserService userService = new UserServiceImpl();
 
         //Double longitude = Double.valueOf(req.getParameter("longitude"));
         //Double longitude = 60.67429839472416;
