@@ -56,7 +56,7 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<Language> getAllUsers() {
+    public List<Language> getAllLanguages() {
         return languageDao.getAllLanguages();
     }
 }

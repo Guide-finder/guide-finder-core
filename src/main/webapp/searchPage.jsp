@@ -61,13 +61,6 @@
                 <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Language <b
                         class="caret"></b></a>
                 <ul class="dropdown-menu" id="language">
-                    <li>
-                        <input type="checkbox" class="checkbox" value="1">Russian
-                    </li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="2">English</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="3">Spanish</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="4">Tarabarskiy</li>
-                    <li><input type="checkbox" class="checkbox" name="language" value="5">Java</li>
                 </ul>
             </div>
             <div class="col-md-2">
@@ -153,6 +146,16 @@
     var currentLanguage = [];
     var sendArray = [];
 
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/language'
+    }).done(function (result) {
+        $(result).each(function () {
+            $('#language').append('<li><input type="checkbox" class="checkbox" name="language" value="' + this.id + '">' + this.name + '</li>');
+        })
+    });
+
     $('#data_list').on('click', '.myClass', function () {
         $('#gridSystemModal').modal('hide');
         document.getElementById('nameBtn').innerHTML = '';
@@ -160,17 +163,9 @@
         currentCategory = this.querySelector(".nameCat").textContent;
         $('#nameBtn').append(currentCategory);
 
-//        alert(this.getElementsByClassName('nameCat'));
     });
 
     $('#search').on('click', function () {
-//        $("input:checkbox[name=language]:checked").each(function(){
-//            currentLangage.push($(this).val());
-//        });
-//        currentLanguage.forEach()
-//        {
-//            alert($(this).val());
-//        }
         currentLanguage = $('input:checkbox:checked.checkbox').map(function () {
             return this.value;
         }).get();
@@ -200,12 +195,12 @@
                 $("#user2").append('<tr>' + '<td>' + this.firstName + '</td>' + '<td>' + this.lastName + '</td>' + '<td align="center">'
                     + '<div class="btn-group">'
                     + '<a href="/user/profile?id='
-                +this.id
-                +'">'
+                    + this.id
+                    + '">'
                     + '<button type="button" class="btn btn-primary">Guide page</button>'
-                + '</a>'
-                + '</div>'
-                + '</td></tr>')
+                    + '</a>'
+                    + '</div>'
+                    + '</td></tr>')
             })
         });
 

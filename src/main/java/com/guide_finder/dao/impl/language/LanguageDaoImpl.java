@@ -61,7 +61,7 @@ public class LanguageDaoImpl implements LanguageDao {
 
     @Override
     public List<Language> getAllLanguages() {
-        return executor.execQuery("SELECT * FROM languages;",
+        return executor.execQuery("SELECT * FROM language;",
                 result -> {
                     List<Language> listCouries = new ArrayList<>();
                     while (result.next()) {

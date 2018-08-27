@@ -220,14 +220,14 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
     }
 
     public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
-        String lang = language_id.toString();
+//        String lang = language_id.toString();
         List<User> list = new ArrayList<>();
 
-        if (lang.isEmpty()){
-            return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = $d))\n" +
+        if (language_id == null){
+            return executor.execQuery(String.format("SELECT * FROM user WHERE (id IN (SELECT user_id FROM guide WHERE city_id = %s))\n" +
                     "                        AND\n" +
                     "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
-                    "                          SELECT id FROM category WHERE name = '%s'\n" +
+                    "                          SELECT id FROM category WHERE name = \'%s\'\n" +
                     "                        )))", city_id, category), result -> {
                 getUser(result, list);
                 return list;
@@ -240,7 +240,7 @@ public void getUser(ResultSet result, List<User> urList) throws SQLException {
                         "                        AND\n" +
                         "                        (id IN (SELECT user_id FROM user_category WHERE category_id IN (\n" +
                         "                          SELECT id FROM category WHERE name = \'%s\'\n" +
-                        "                        )))", city_id, lang, category);
+                        "                        )))", city_id, language_id.toString(), category);
             str = str.replace("[", "");
             str = str.replace("]", "");
             System.out.println(str);

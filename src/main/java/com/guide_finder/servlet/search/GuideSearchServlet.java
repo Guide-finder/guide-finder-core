@@ -52,7 +52,7 @@ public class GuideSearchServlet extends HttpServlet{
         else {
             languageList = new ArrayList<>(Arrays.asList((String[]) req.getParameterValues("currentLanguage[]")));
             users = service.usersBySearch(cityId, languageList, categoryName);
-            System.out.println(users.get(0).getFirstName());
+//            System.out.println(users.get(0).getFirstName());
         }
         System.out.println(new Gson().toJson(users));
         resp.getWriter().write(new Gson().toJson(users));

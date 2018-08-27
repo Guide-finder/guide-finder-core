@@ -15,6 +15,6 @@ public interface LanguageService {
 
     void remove(long id);
 
-    List<Language> getAllUsers();
+    List<Language> getAllLanguages();
 
 }
