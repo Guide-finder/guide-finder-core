@@ -6,6 +6,7 @@
             <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
             <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
+            <script src="script/script.js"></script>
 
             <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -53,14 +54,9 @@
         </head>
         <body>
 
+
         <!-- Наша шапка -->
-        <div class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Guide finder</a>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="fragment/header.jsp"/>
 
         <div class="container-fluid">
 

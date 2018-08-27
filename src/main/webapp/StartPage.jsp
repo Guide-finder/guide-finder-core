@@ -15,6 +15,7 @@
     <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
 </head>
 <body>
+<jsp:include page="fragment/header.jsp"/>
     <!-- Button trigger modal -->
 
     <div class="container">

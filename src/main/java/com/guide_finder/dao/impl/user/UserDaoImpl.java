@@ -30,6 +30,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public int getUserStateById(long id) {
+        return executor.execQuery(String.format("SELECT isActive FROM user where id='%s'", id), result -> {
+            result.next();
+            return result.getInt(1);
+        });
+    }
+
+    @Override
     public long saveUser(User user) {
 
         //todo не сохраняются роли в базу

@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface UserDao {
 
+    int getUserStateById(long id);
+
     long saveUser(User user);
 
     User getUserById(long id);

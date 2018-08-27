@@ -29,20 +29,13 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <style>
-        body {
-            padding: 30px;
-        }
-    </style>
+
 
 </head>
 <body>
-<div class="container">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#">Guide finder</a>
-    </div>
-</div>
-</div>
+
+<!-- Наша шапка -->
+<jsp:include page="fragment/header.jsp"/>
 
 
 <!-- Разбиение колонок -->

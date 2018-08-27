@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int getUserStateById(long id) {
+        return userDao.getUserStateById(id);
+    }
+
+    @Override
     public long saveUser(User user) {
         return userDao.saveUser(user);
     }

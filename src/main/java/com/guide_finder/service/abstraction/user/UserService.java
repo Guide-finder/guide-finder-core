@@ -9,6 +9,8 @@ import java.util.Set;
 
 public interface UserService {
 
+    int getUserStateById(long id);
+
     long saveUser(User user);
 
     User getUserById(long id);
