@@ -121,7 +121,7 @@ create table guide
 	city_id bigint null,
 	description text null,
 	constraint guide_ibfk_1
-		foreign key (user_id) references user (id),
+		foreign key (user_id) references user (id) on delete cascade,
 	constraint guide_ibfk_2
 		foreign key (city_id) references city (id)
 )

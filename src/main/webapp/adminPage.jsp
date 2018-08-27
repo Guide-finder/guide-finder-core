@@ -57,7 +57,7 @@
             <label for="lastname">Last name</label>
             <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Input Last name">
             <label for="phone">Phone</label>
-            <input type="number" class="form-control" id="phone" name="phone" placeholder="Input phone">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Input phone">
             <input type="submit" value="Save user" class="btn btn-success"></input>
             <br><br>
             <p align="center">All Users</p>

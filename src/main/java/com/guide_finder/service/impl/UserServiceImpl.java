@@ -2,6 +2,7 @@ package com.guide_finder.service.impl;
 
 import com.guide_finder.dao.abstraction.user.UserDao;
 import com.guide_finder.dao.impl.user.UserDaoImpl;
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.Role;
 import com.guide_finder.model.user.Sex;
 import com.guide_finder.model.user.User;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public long saveUser(User user) {
-         return userDao.saveUser(user);
+    return userDao.saveUser(user);
     }
 
     @Override
@@ -70,6 +71,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public SocialContact getSocialContactsById(long id) {
+        return userDao.getSocialContactsById(id);
+    }
+
+    @Override
     public List<User> getUsersByRole(int role_id) {
         return userDao.getUsersByRole(role_id);
     }
@@ -82,5 +88,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> usersBySearch(String city_id, List<String> language_id, String category) {
         return userDao.usersBySearch(city_id, language_id, category);
+    }
+
+    @Override
+    public void costilToDescription(long user_id) {
+        userDao.costilToDescription(user_id);
     }
 }

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login form</title>
-    <link rel="stylesheet" href="css/style.css">
+    <%--<link rel="stylesheet" href="css/style.css">--%>
 </head>
 <body>
 
@@ -82,7 +82,7 @@
                             <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a href="registration.jsp" class="btn btn-lg btn-primary btn-block">Register </a>
+                            <a href="/registration" class="btn btn-lg btn-primary btn-block">Register </a>
                         </div>
                     </div>
                 </fieldset>

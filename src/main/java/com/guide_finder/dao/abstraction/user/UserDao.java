@@ -1,5 +1,6 @@
 package com.guide_finder.dao.abstraction.user;
 
+import com.guide_finder.model.contact.SocialContact;
 import com.guide_finder.model.user.*;
 
 import javax.jws.soap.SOAPBinding;
@@ -32,5 +33,9 @@ public interface UserDao {
     Boolean setRoleToUser(long user_id, long role_id);
 
     List<User> usersBySearch(String city_id, List<String> language_id, String category);
+
+    SocialContact getSocialContactsById(long id);
+
+    void costilToDescription(long user_id);
 
 }
