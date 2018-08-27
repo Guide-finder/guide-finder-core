@@ -36,10 +36,11 @@
                     padding: 0px;
                 }
                 .name-font{
-                    font-family: "Agency FB";
+                    font-family: Rockwell;
                     font-size: 20px;
                 }
                 .comments-style{
+                    font-family: Rockwell;
                     border: 1px solid silver;
                     border-radius: 0 10px;
                     padding: 5px;
@@ -90,12 +91,13 @@
                     <br>
                     <div class="col-sm-2" align="left">${userFirstName}</div>
                     <div class="col-sm-6" align="left">${userLastName}</div>
-                </div>
-                <div class="col-sm-6 name-font" align="left">
+                    <br>
                     <hr>
-                    ${description}
+                    <div class="col-sm-12" align="left">${description}</div>
+                    <br>
                     <hr>
                 </div>
+
             <div class="col-sm-6">
                 <div id="comment_container" class="col-sm-12" align="left">Comments</div>
                 <div class="col-sm-12" style="margin-top: 10px" align="right">
