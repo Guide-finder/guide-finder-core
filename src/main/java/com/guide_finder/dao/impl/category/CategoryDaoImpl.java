@@ -24,14 +24,16 @@ public class CategoryDaoImpl implements CategoryDao {
         try (Statement stmt = connection.createStatement()) {
 
             List<Category> categories = new ArrayList<>();
-            String sql = "select name, description from guide_finder.category";
+            String sql = "select name, description, link from guide_finder.category";
             stmt.execute(sql);
 
             try (ResultSet result = stmt.getResultSet()) {
 
                 while (!result.isLast()) {
                     result.next();
-                    categories.add(new Category(result.getString("name"), result.getString("description")));
+                    categories.add(new Category(result.getString("name"),
+                                                result.getString("description"),
+                                                result.getString("link")));
                 }
 
             } catch (SQLException e) {

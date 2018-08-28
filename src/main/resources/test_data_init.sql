@@ -15,12 +15,12 @@ INSERT INTO guide_finder.role (id, name) VALUES (1, 'admin');
 INSERT INTO guide_finder.role (id, name) VALUES (2, 'user');
 
 INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (1, 'Nickolay', 'Bondarenko', 'kol@gmail.com', '123', '+72345678913', 38, 'MAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (3, 'Bill', 'Klinton', 'billy@gmail.com', 'dibil', '+72888678913', 58, 'MAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (6, 'Freddy', 'Klyuker', 'kill@gmail.com', 'killthemall', '+72345624313', 158, 'MAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (7, 'Alla', 'Pugacheva', 'alla@gmail.com', 'alla', '+72341238913', 88, 'WOMAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (8, 'Dmytro', 'K', 'dima@gmail.com', '098', '+72889878913', 32, 'MAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (9, 'Donald', 'Trump', 'don@gmail.com', 'alala', '+72345699913', 78, 'MAN');
-INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (41, 'Didenko', 'Kuza', 'dikobob@gmail.com', 'qwer', '9268715230', -1, 'MAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (3, 'Vasiliy', 'Petrov', 'vasiliy_p@gmail.com', 'passwd', '+72888678913', 58, 'MAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (6, 'Петр', 'Дорохов', 'petr_dorohkov@gmail.com', 'killthemall', '+72345624313', 34, 'MAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (7, 'Alla', 'Shitova', 'alla_sh@yandex.ru', 'alla', '+72341238913', 24, 'WOMAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (8, 'Konstantin', 'Voronov', 'kostya_v@hotbox.ru', '098', '+72889878913', 32, 'MAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (9, 'Donald', 'Trump', 'don@gmail.com', 'alala', '+72345699913', 43, 'MAN');
+INSERT INTO guide_finder.user (id, firstname, lastname, email, password, phone, age, sex) VALUES (41, 'Didenko', 'Kuza', 'dikobob@gmail.com', 'qwer', '9268715230', 29, 'MAN');
 
 INSERT INTO guide_finder.user_category (user_id, category_id) VALUES (1, 4);
 INSERT INTO guide_finder.user_category (user_id, category_id) VALUES (1, 5);

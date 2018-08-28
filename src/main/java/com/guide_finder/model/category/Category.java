@@ -11,11 +11,21 @@ public class Category {
     private long id;
     private String name;
     private String description;
+    private String link;
     private Set<Guide> guides;
 
-    public Category(String name, String description) {
+    public Category(String name, String description, String link) {
         this.name = name;
         this.description = description;
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public long getId() {
