@@ -37,6 +37,7 @@ public class GuideProfileServlet extends HttpServlet {
         List<Commentary> commentaryList = commentaryService.getAllCommentariesByRecipientId(id);
         SocialContact socialContacts = userService.getSocialContactsById(id);
 
+        req.setAttribute("userId", user.getId());
         req.setAttribute("userFirstName", user.getFirstName());
         req.setAttribute("userLastName", user.getLastName());
         req.setAttribute("description", guide.getDescription());
