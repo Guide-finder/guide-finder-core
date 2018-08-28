@@ -58,16 +58,22 @@
         <%--<input type="button" class="btn btn-primary" value="connect" onclick="init()">--%>
     <%--</div>--%>
 
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">your messages</label>
-        <textarea class="form-control" id="message_box" rows="20"></textarea>
+    <div class="form-group" align="center" style="margin-left: 30%; margin-right: 30%">
+        <label for="exampleFormControlTextarea1" style="font-size: x-large; color: #337AB7">MESSENGER</label>
+        <textarea class="form-control" id="message_box" rows="10" readonly style="font-size: x-large"></textarea>
     </div>
-    <div>
-        <input class="form-control form-control-sm" id="message" type="text" placeholder="enter message...">
+    <div align="center" style="margin-left: 30%; margin-right: 30%">
+        <div style="text-align: left; font-size: 40px">
+            <p>${sessionScope.user.firstName}</p>
+        </div>
+        <div style="height: 20px">
+            <input class="form-control form-control-sm" id="message" type="text" placeholder="enter message..." style="font-size: large">
+        </div>
+
     </div>
     <div align="center">
         <br>
-        <input type="button" class="btn btn-primary" value="send" onclick="sendMessage()">
+        <input type="button" class="btn btn-primary btn-lg" value="send" onclick="sendMessage()" style="width: 200pt; height: 50pt; font-size: x-large">
     </div>
 
     <script type="text/javascript">
