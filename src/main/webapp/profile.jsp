@@ -45,6 +45,20 @@
                     border-radius: 0 10px;
                     padding: 5px;
                 }
+
+                .img_wrap {
+                    width: 300px;
+                    height: 300px;
+                }
+                .img_wrap img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: 0 0;
+                    border-radius: 150px;
+                }
+
+
                 #Comment_field{
                     width: 90%;
                 }
@@ -69,8 +83,8 @@
             <div class="row" align="center">
                 <div class="col-sm-4" style="background-color: #ffffff" >
                     <br>
-                    <div>
-                        <img src="/photo/Default_image.jpg" class="img-circle" alt="Photo">
+                    <div class="img_wrap">
+                        <img src="${imgLink}" class="img-circle" alt="Photo">
                     </div>
                     <br>
                     <div class="name-font" >
@@ -79,12 +93,17 @@
 
                     </div>
 
-                <ul style="list-style: none">
-                    <li style="padding-right: 40px"> <a href="${socialcontacts.vk}">Vkontakte</li>
-                    <li style="padding-right: 40px"> <a href="${socialcontacts.ok}">Odnoklassniki</a></li>
-                    <li style="padding-right: 40px"> <a href="${socialcontacts.fb}">Facebook</a></li>
-                    <li style="padding-right: 40px"> <a href="${socialcontacts.tg}">Telegram</a></li>
-                </ul>
+                <%--<ul style="list-style: none">--%>
+                    <%--<li style="padding-right: 40px"> <a href="${socialcontacts.vk}">Vkontakte</li>--%>
+                    <%--<li style="padding-right: 40px"> <a href="${socialcontacts.ok}">Odnoklassniki</a></li>--%>
+                    <%--<li style="padding-right: 40px"> <a href="${socialcontacts.fb}">Facebook</a></li>--%>
+                    <%--<li style="padding-right: 40px"> <a href="${socialcontacts.tg}">Telegram</a></li>--%>
+                <%--</ul>--%>
+
+                    <div>
+                        <a href="/chat?user_id=${userId}"><button type="button" class="btn btn-primary">Start chat ...</button></a>
+                    </div>
+
                 </div>
                 <div class="col-sm-6 name-font" align="left">
                     <br>

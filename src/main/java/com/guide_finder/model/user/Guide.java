@@ -21,6 +21,8 @@ public class Guide extends User{
 
     private Set<SocialContact> socialContacts;
 
+    private String imgLink;
+
     public Guide(){};
 
     public Guide(long id, String firstName, String lastName, String email, String password,
@@ -58,6 +60,22 @@ public class Guide extends User{
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    public Set<SocialContact> getSocialContacts() {
+        return socialContacts;
+    }
+
+    public void setSocialContacts(Set<SocialContact> socialContacts) {
+        this.socialContacts = socialContacts;
+    }
+
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 
     @Override

@@ -41,6 +41,7 @@ public class GuideProfileServlet extends HttpServlet {
         req.setAttribute("userLastName", user.getLastName());
         req.setAttribute("description", guide.getDescription());
         req.setAttribute("comments", commentaryList);
+        req.setAttribute("imgLink", guide.getImgLink());
         req.setAttribute("socialcontacts", socialContacts);
         req.setAttribute("phone", user.getPhone());
         req.setAttribute("mail", user.getEmail());

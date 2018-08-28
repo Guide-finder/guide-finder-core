@@ -1,0 +1,5 @@
+INSERT INTO guide_finder.category (id, name, description, link) VALUES (1, 'ARCHITECTURE', '', 'http://rabihbitar.com/wp-content/uploads/2016/09/engineer.jpg');
+INSERT INTO guide_finder.category (id, name, description, link) VALUES (2, 'PUBS', '', 'http://www.blogs.hss.ed.ac.uk/pubs-and-publications/files/2015/09/IMG_3765_2048x1366.jpg');
+INSERT INTO guide_finder.category (id, name, description, link) VALUES (3, 'RESTAURANTS', '', 'http://static.asiawebdirect.com/m/bangkok/portals/pattaya-bangkok-com/homepage/pattaya-top10s/top10-restaurants-naklua-beach/pagePropertiesImage/top10-restaurants-naklua-beach-1200.jpg');
+INSERT INTO guide_finder.category (id, name, description, link) VALUES (4, 'CINEMA', '', 'https://media-cdn.tripadvisor.com/media/photo-s/0e/22/45/01/the-arc-cinema-screen.jpg');
+INSERT INTO guide_finder.category (id, name, description, link) VALUES (5, 'MUSIC', '', 'http://www.goodmedicinemusic.com/storage/2017/11/New-Project-12.png');

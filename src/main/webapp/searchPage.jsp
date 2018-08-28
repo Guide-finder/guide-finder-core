@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>guideFinder</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU" type="text/javascript"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -28,8 +29,12 @@
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <style>
-        body {
-            padding: 30px;
+        .inline-block {
+            display: inline-block;
+            padding: 0 7px;
+        }
+        #language {
+            padding: 10px 5px;
         }
     </style>
 </head>
@@ -43,24 +48,25 @@
     </div>
 </div>
 <div class="container"><h1>Search guide</h1></div>
-<br><br><br><br>
+<div id="map" style="width:100%; height:250px "></div>
+<br />
+<br />
 <%--******************************************************************************************************************--%>
 <div class="container">
     <div class="row">
         <form align="center" role="form" class="form-inline" method="POST">
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
+            <div class="inline-block">
                 <select name="country" class="form-control" id="country">
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block">
                 <select name="city" class="form-control" id="city">
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block" style="width: 110px; position: relative">
                 <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Language <b
                         class="caret"></b></a>
-                <ul class="dropdown-menu" id="language">
+                <ul class="dropdown-menu" id="language" style="left: 7px">
                     <li>
                         <input type="checkbox" class="checkbox" value="1">Russian
                     </li>
@@ -70,7 +76,7 @@
                     <li><input type="checkbox" class="checkbox" name="language" value="5">Java</li>
                 </ul>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block">
                 <div class="bd-example bd-example-padded-bottom">
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
                             data-target="#gridSystemModal" id="myBtn">
@@ -78,7 +84,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block" style="width: 110px">
                 <input type="button" value="Найти" class="btn btn-success btn-block" id="search">
             </div>
         </form>
@@ -86,6 +92,8 @@
 </div>
 <br><br>
 <%--******************************************************************************************************************--%>
+
+
 <br><br>
 <div class="container">
     <div class="row">
@@ -224,7 +232,8 @@
                     + '<img class="card-img-top" style="height: 225px; width: 100%; display: block;"'
                     + ' src="' + data[key]['link'] + '" data-holder-rendered="true">'
                     + '<div class="card-body">'
-                    + '<p class="card-text nameCat" style="text-align: center">' + data[key]['name'] + '</p>'
+                    + '<br />'
+                    + '<p class="card-text nameCat" style="text-align: center; color:#000000; font-weight:bold">' + data[key]['name'] + '</p>'
                     + '<p class="card-text" style="text-align: center">' + data[key]['description'] + '</p>'
                     + '<p><br /></p>'
                     + '</div> ' +
@@ -283,3 +292,100 @@
 <%--********************************************************************************--%>
 
 </body>
+<script>
+
+    window.onload(getCoord());
+
+    function getCoord() {
+
+        document.getElementById("map").innerHTML = "";
+        //var me = document.getElementById("me").value;
+        //var guide = document.getElementById("guide").value;
+
+        // var url = "/getCoords";
+        //
+        //
+        // var userObj = {
+        //     "me": me,
+        //     "guide": guide
+        // };
+        //
+        //
+        // $.ajax({
+        //     url: url,
+        //     method: "post",
+        //     data: userObj,
+        //     error: function (message) {
+        //         console.log(message);
+        //     },
+        //     success: function (data) {
+                ymaps.ready(init);
+
+                function init() {
+
+                    //alert("init");
+
+                    var myMap = new ymaps.Map('map', {
+                        center: [60.67033840000000, 28.51223280000000],
+
+                        zoom: 11,
+                        controls: ['zoomControl']
+                    });
+
+                    var myLocation = new ymaps.Placemark(
+                        // Координаты метки
+                        [60.67033840000000, 28.51223280000000],
+                        {
+                            // Свойства
+                            // Текст метки
+                            iconContent: 'Я'
+                        }, {
+                            preset: 'islands#redIcon'
+                        });
+
+                    var guideLocation = new ymaps.Placemark(
+                        // Координаты гида
+                        [60.63043840000000, 28.55323280000000],
+                        {
+                            // Свойства
+                            // Текст метки
+                            iconContent: 'Guide'
+                        }, {
+
+                            preset: 'islands#blueIcon'
+
+                        });
+                    var guideLocation1 = new ymaps.Placemark(
+                        // Координаты гида
+                        [60.64243840000000, 28.57323280000000],
+                        {
+                            // Свойства
+                            // Текст метки
+                            iconContent: 'Guide'
+                        }, {
+
+                            preset: 'islands#blueIcon'
+
+                        });
+                    var guideLocation2 = new ymaps.Placemark(
+                        // Координаты гида
+                        [60.63743840000000, 28.51323280000000],
+                        {
+                            // Свойства
+                            // Текст метки
+                            iconContent: 'Guide'
+                        }, {
+
+                            preset: 'islands#blueIcon'
+
+                        });
+
+                    myMap.geoObjects.add(myLocation);
+                    myMap.geoObjects.add(guideLocation);
+                    myMap.geoObjects.add(guideLocation1);
+                    myMap.geoObjects.add(guideLocation2);
+                }
+        //     }
+        // });
+    }
+</script>
