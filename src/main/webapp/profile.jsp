@@ -45,6 +45,20 @@
                     border-radius: 0 10px;
                     padding: 5px;
                 }
+
+                .img_wrap {
+                    width: 300px;
+                    height: 300px;
+                }
+
+                .img_wrap img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: 0 0;
+                    border-radius: 150px;
+                }
+
                 #Comment_field{
                     width: 90%;
                 }
@@ -69,8 +83,8 @@
             <div class="row" align="center">
                 <div class="col-sm-4" style="background-color: #ffffff" >
                     <br>
-                    <div>
-                        <img src="/photo/Default_image.jpg" class="img-circle" alt="Photo">
+                    <div class="img_wrap">
+                        <img src="${imgLink}" alt="Photo">
                     </div>
                     <br>
                     <div class="name-font" >

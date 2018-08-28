@@ -25,6 +25,7 @@ public class GuideDaoImpl  {
             result.next();
             Guide guide1 = new Guide();
             guide1.setDescription(result.getString(3));
+            guide1.setImgLink(result.getString(4));
             return guide1;
         });
 //        Guide guid = new Guide();
