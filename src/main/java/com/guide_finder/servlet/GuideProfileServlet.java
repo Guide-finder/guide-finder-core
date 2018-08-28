@@ -44,6 +44,7 @@ public class GuideProfileServlet extends HttpServlet {
         req.setAttribute("socialcontacts", socialContacts);
         req.setAttribute("phone", user.getPhone());
         req.setAttribute("mail", user.getEmail());
+        req.setAttribute("id", user.getId());
 
         req.getRequestDispatcher("/profile.jsp").forward(req,resp);
     }
