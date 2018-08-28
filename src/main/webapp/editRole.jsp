@@ -29,17 +29,11 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <style>
-        body {
-            padding: 30px;
-        }
-    </style>
-
 </head>
 <body>
 
 <!-- Наша шапка -->
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-inverse" style="border-radius: 0px">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Guide finder</a>

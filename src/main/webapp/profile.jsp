@@ -68,7 +68,7 @@
         <body>
 
         <!-- Наша шапка -->
-        <div class="navbar navbar-inverse">
+        <div class="navbar navbar-inverse" style="border-radius: 0px">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Guide finder</a>

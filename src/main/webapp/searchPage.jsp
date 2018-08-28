@@ -27,15 +27,22 @@
             crossorigin="anonymous"></script>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
     <style>
-        body {
-            padding: 30px;
+        .inline-block {
+            display: inline-block;
+            padding: 0 7px;
+        }
+
+        #language {
+            padding: 10px 5px;
         }
     </style>
+
 </head>
 <body id="test">
 <!-- Наша шапка -->
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-inverse" style="border-radius: 0px">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Guide finder</a>
@@ -48,19 +55,19 @@
 <div class="container">
     <div class="row">
         <form align="center" role="form" class="form-inline" method="POST">
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
+
+            <div class="inline-block">
                 <select name="country" class="form-control" id="country">
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block">
                 <select name="city" class="form-control" id="city">
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block" style="width: 110px; position: relative">
                 <a class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown">Language <b
                         class="caret"></b></a>
-                <ul class="dropdown-menu" id="language">
+                <ul class="dropdown-menu" id="language" style="left: 7px">
                     <li>
                         <input type="checkbox" class="checkbox" value="1">Russian
                     </li>
@@ -70,7 +77,7 @@
                     <li><input type="checkbox" class="checkbox" name="language" value="5">Java</li>
                 </ul>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block" style="width: 110px">
                 <div class="bd-example bd-example-padded-bottom">
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
                             data-target="#gridSystemModal" id="myBtn">
@@ -78,7 +85,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="inline-block" style="width: 110px">
                 <input type="button" value="Найти" class="btn btn-success btn-block" id="search">
             </div>
         </form>
