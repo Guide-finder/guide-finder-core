@@ -348,8 +348,8 @@
                         [60.63043840000000, 28.55323280000000],
                         {
                             // Свойства
-                            // Текст метки
-                            iconContent: 'Guide'
+                            iconContent: 'G',
+                            balloonContentBody : '<a href="/user/profile?id=2">Oksana Morozova</a>'
                         }, {
 
                             preset: 'islands#blueIcon'
@@ -361,7 +361,8 @@
                         {
                             // Свойства
                             // Текст метки
-                            iconContent: 'Guide'
+                            iconContent: 'G',
+                            balloonContentBody : '<a href="/user/profile?id=3">Georgiy Maksimov</a>'
                         }, {
 
                             preset: 'islands#blueIcon'
@@ -373,7 +374,8 @@
                         {
                             // Свойства
                             // Текст метки
-                            iconContent: 'Guide'
+                            iconContent: 'G',
+                            balloonContentBody : '<a href="/user/profile?id=4">Aleksandr Rahitov</a>'
                         }, {
 
                             preset: 'islands#blueIcon'
